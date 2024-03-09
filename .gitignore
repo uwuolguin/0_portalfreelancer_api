@@ -1,0 +1,4 @@
+__pycache__
+porfree_v2/
+.env
+GIT_IGNORE_sql_functions/
