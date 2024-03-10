@@ -104,7 +104,7 @@ def delete_category(category_input:str, login: str = Cookie(None)):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 @router.put("/category_put/{category_input}/{new_category_input}")
-def update_firm(category_input:str,new_category_input:str, login: str = Cookie(None)):
+def update_category(category_input:str,new_category_input:str, login: str = Cookie(None)):
 
     os.chdir(settings.normal_directory)
     
