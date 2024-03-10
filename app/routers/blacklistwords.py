@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Cookie
+from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Response
 from .. import schemas,oath2
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -7,6 +7,7 @@ import time
 from typing import Any
 import os
 from typing_extensions import Annotated
+
 
 router= APIRouter(
     
@@ -80,3 +81,63 @@ def post_blacklistwords(words:Annotated[str,Form()],login: str = Cookie(None)) -
 
 
 
+@router.delete("/blacklistword_delete/id/{word_input}",status_code=status.HTTP_204_NO_CONTENT)
+def delete_blacklistword(word_input:str, login: str = Cookie(None)):
+
+    os.chdir(settings.normal_directory)
+    
+    try:
+        conn_blacklistwords.rollback()
+    except:
+        pass
+
+    if login==None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") != "superadmin":
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
+    id_2=""" SELECT * FROM get_by_blacklistword_v2('%s');"""
+    cursor.execute(id_2 % (word_input))
+    blacklistword_psql=cursor.fetchone()
+    if blacklistword_psql ==None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with blacklistword_psql: {word_input} does not exist")
+
+    delete=""" SELECT * from delete_blacklistword_v2('%s');"""
+    cursor.execute(delete % (str(word_input)))
+    conn_blacklistwords.commit()
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+# @router.put("/blacklistemail_put/{email_input}/{new_email_input}")
+# def update_blacklistemail(email_input:EmailStr,new_email_input:str, login: str = Cookie(None)):
+
+#     os.chdir(settings.normal_directory)
+    
+#     try:
+#         conn_blacklistwords.rollback()
+#     except:
+#         pass
+
+#     if login==None:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
+    
+#     credentials=oath2.decode_access_token(login)
+
+#     if dict(credentials).get("role") != "superadmin":
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
+
+#     id_2=""" SELECT * FROM get_by_blacklistemail_v2('%s');"""
+#     cursor.execute(id_2 % (email_input))
+#     category=cursor.fetchone()
+#     if category ==None:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with category: {email_input} does not exist")
+    
+#     update=""" SELECT * FROM update_blacklistemail('%s','%s');"""
+#     cursor.execute(update % (email_input,new_email_input) )
+#     conn_blacklistwords.commit()
+    
+#     return Response(status_code=status.HTTP_201_CREATED,content='Data Updated') 
