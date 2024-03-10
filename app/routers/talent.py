@@ -365,7 +365,7 @@ def update_talent(
     if not (resultado_validacion_foto == 'fotoPng1Rostro'):
 
         try:
-            picture_name_user=str(id)+'.'+list(file.filename.split("."))[-1]    
+            picture_name_user=str(id)+'.'+(list(file.filename.split("."))[-1]).lower() 
             img_source_2=settings.picture_directory+'/'+picture_name_user
             os.remove(img_source_2)
 
