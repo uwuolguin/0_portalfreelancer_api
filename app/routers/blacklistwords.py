@@ -111,33 +111,36 @@ def delete_blacklistword(word_input:str, login: str = Cookie(None)):
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-# @router.put("/blacklistemail_put/{email_input}/{new_email_input}")
-# def update_blacklistemail(email_input:EmailStr,new_email_input:str, login: str = Cookie(None)):
+@router.put("/blacklistword_put/{word_input}/{new_word_input}")
+def update_blacklistword(word_input:str,new_word_input:str, login: str = Cookie(None)):
 
-#     os.chdir(settings.normal_directory)
+    os.chdir(settings.normal_directory)
     
-#     try:
-#         conn_blacklistwords.rollback()
-#     except:
-#         pass
+    try:
+        conn_blacklistwords.rollback()
+    except:
+        pass
 
-#     if login==None:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
+    if login==None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
-#     credentials=oath2.decode_access_token(login)
+    credentials=oath2.decode_access_token(login)
 
-#     if dict(credentials).get("role") != "superadmin":
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    if dict(credentials).get("role") != "superadmin":
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
+    word_input=word_input.replace(" ", "").lower()
+    new_word_input=new_word_input.replace(" ", "").lower()
 
-#     id_2=""" SELECT * FROM get_by_blacklistemail_v2('%s');"""
-#     cursor.execute(id_2 % (email_input))
-#     category=cursor.fetchone()
-#     if category ==None:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with category: {email_input} does not exist")
+
+    id_2=""" SELECT * FROM get_by_blacklistword_v2('%s');"""
+    cursor.execute(id_2 % (word_input))
+    category=cursor.fetchone()
+    if category ==None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with category: {word_input} does not exist")
     
-#     update=""" SELECT * FROM update_blacklistemail('%s','%s');"""
-#     cursor.execute(update % (email_input,new_email_input) )
-#     conn_blacklistwords.commit()
+    update=""" SELECT * FROM update_blacklistword('%s','%s');"""
+    cursor.execute(update % (word_input,new_word_input) )
+    conn_blacklistwords.commit()
     
-#     return Response(status_code=status.HTTP_201_CREATED,content='Data Updated') 
+    return Response(status_code=status.HTTP_201_CREATED,content='Data Updated') 
