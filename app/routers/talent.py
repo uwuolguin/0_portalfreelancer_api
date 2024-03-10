@@ -213,7 +213,7 @@ def post_talent(
     if not (resultado_validacion_foto == 'fotoPng1Rostro'):
 
         try:
-            picture_name_user=str(id_data)+'.'+list(file.filename.split("."))[-1]    
+            picture_name_user=str(id_data)+'.'+(list(file.filename.split("."))[-1]).lower()    
             img_source_2=settings.picture_directory+'/'+picture_name_user
             print(img_source_2)
             os.remove(img_source_2)
