@@ -35,7 +35,7 @@ def validate_Image(id_var,file_var,endpoint):
         os.chdir(settings.picture_directory)
         
 ######################### VALIDATE IMGAE PNG ##################################################################################
-        picture_name_user=str(id_var)+'.'+list(file_var.filename.split("."))[-1]
+        picture_name_user=str(id_var)+'.'+(list(file_var.filename.split("."))[-1]).lower()
 
         with open(picture_name_user,"wb") as buffer:
                 shutil.copyfileobj(file_var.file,buffer)
