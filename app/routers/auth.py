@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form
+from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Response
 from .. import schemas,utils,oath2
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -132,3 +132,8 @@ def login_function(
         response = JSONResponse(content=content)
         response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
         return response
+    
+@router.delete("/logout")
+async def logout(response: Response,):
+    response.delete_cookie("login")
+    return {"status":"success"}
