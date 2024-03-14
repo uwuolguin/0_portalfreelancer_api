@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Talent</title>
+    <link rel="stylesheet", href="https://apiportalfreelancer.lat/static/styles_index_no_log.css"/>
+</head>
+<body >
+    <!-- NAVIGATION BAR -->
+    <div class="div_nav_7">
+        <nav >
+            <a href="https://www.w3schools.com" class="logo">Portal Freelancer</a>
+        </nav>
+    </div>
+    <div class="big_box_sign_up_7">    
+        <div class="big_box_talent_2">
+                <h1 class="h1_mid_2_talent2">
+                    Sign up to find Work
+                </h1>
+        </div>
+        <div class="big_box_talent_3">
+
+            <form id="form7" >
+
+                    <input class="input" type="text" name="buscar_profesionales" placeholder="Enter your Email"  maxlength="80">
+                    <input type="password" class="input" placeholder="Enter your Password" name="buscar_profesionales" maxlength="100">
+                    <label class="custom-file-upload">
+                        <input type="file"/>
+                        Upload Profile Picture
+                    </label>
+                    <div class="talent_indication_img">
+                        The image cannot exceed 1 MB. in size and has to be a PNG.*
+                    </div>
+                    <input type="text" class="input" placeholder="Enter your Complete Name" name="buscar_profesionales" maxlength="80">
+                    <input type="text" class="input" placeholder="Enter your Profession's name" name="buscar_profesionales" maxlength="80">
+                    <input type="text" class="input" placeholder="Enter your hourly rate in US dollars, for example ''27'', it has to be a whole number" name="buscar_profesionales">
+                    <textarea id="f1000description2" placeholder="Enter a brief description about your professional background and capabilities. use a maximum of 860 characters" name="buscar_profesionales" form="form7" class="input" maxlength="860" ></textarea>
+                    <div class="talent_indication_url">
+                        Valid Url's have to contain at least the https scheme and a host: https://google.com/
+                    </div>
+                    <input type="text" class="input" placeholder="Enter your GitHub Url | Example: https://github.com/Rob--W" name="buscar_profesionales" maxlength="1000">
+                    <input type="text" class="input" placeholder="Enter your Linkedin Url | Example: https://linkedin.com/in/martin-paul-weiss-klemmer-9183671ba/" name="buscar_profesionales" maxlength="1000">
+                    <input type="text" class="input" placeholder="Enter your Instagram Url (Optional) | Example: https://instagram.com/iliatopuria/" name="buscar_profesionales" maxlength="1000">
+                    <input type="text" class="input" placeholder="Enter your Facebook Url (Optional) | Example: https://facebook.com/zarina.zabala.5" name="buscar_profesionales" maxlength="1000">
+
+                    <div class="checkbox_container">
+                        <h1 >Select your Skills:</h1> 
+                        <div class="talent_checkbox_box">
+                            {% for skill in skills %}
+                            <div class="input-checkbox-2">
+                                <input
+                                
+                                type="checkbox"
+                                name={{skill.skill}}
+                                value={{skill.skill}}
+                                id={{skill.skill}}
+                                />
+                                <label for={{skill.skill}}>{{skill.skill}}</label>
+                            
+                            </div>
+                            {% endfor %}
+                        </div>    
+                        <h1 >Select your Categories:</h1>
+                        <div class="talent_checkbox_box">
+                            <div class="input-checkbox-2">
+                                <input
+                                
+                                type="checkbox"
+                                name="Categories"
+                                value="Development and IT"
+                                id="Development and IT"
+                                />
+                                <label for="Development and IT">Development and IT</label>
+                            </div>
+                        </div> 
+                    </div>
+            
+                <button onclick= "" class="custom-file-upload-2" >
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="big_box_sign_up_999">
+                Already have an account? <a href="https://www.w3schools.com" class="a_tag_sign_up2">Log In</a>
+            </div>
+        </div>
+    </div>
+    <!-- MID SECTION -->
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException, APIRouter, Response,File, UploadFile,Form,Cookie
+from fastapi import  status, HTTPException, APIRouter, Response,File, UploadFile,Form,Cookie,Request
 from .. import schemas,utils,oath2
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -11,6 +11,9 @@ from pydantic.networks import EmailStr,Url
 from pydantic import UrlConstraints
 from pydantic.functional_validators import BeforeValidator
 from shutil import copy
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
 
 
 router= APIRouter(
@@ -382,6 +385,31 @@ def update_talent(
     
     return Response(status_code=status.HTTP_201_CREATED,content='Data and Profile Picture Updated') 
 
-
+################################################# TEMPLATES ####################################################################
     
+templates= Jinja2Templates(directory="./templates")
 
+
+@router.get('/signUpTalent/',response_class=HTMLResponse)
+def index(request: Request):
+
+    try:
+        conn_talent.rollback()
+    except:
+        pass
+
+    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
+    skills=cursor.fetchall()
+
+    if not skills :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    
+    Skills_List=[]
+
+    for  skill in skills:
+        skill_dict={'skill':skill.get("skill")}
+        Skills_List.append(skill_dict)
+
+    context={'request': request, 'skills':Skills_List}
+    return templates.TemplateResponse("5_sign_up_talent.html",context)
