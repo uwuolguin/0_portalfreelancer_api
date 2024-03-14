@@ -19,8 +19,6 @@ from .config import settings
 #
 #En el front end, solo por si acaso, le voy a meter un html injection, aca por defecto ya se genera
 
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
