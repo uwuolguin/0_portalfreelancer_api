@@ -411,5 +411,18 @@ def index(request: Request):
         skill_dict={'skill':skill.get("skill")}
         Skills_List.append(skill_dict)
 
-    context={'request': request, 'skills':Skills_List}
+
+    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+    categories=cursor.fetchall()
+    if not categories :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    
+    Categories_List=[]
+
+    for  category in categories:
+        category_dict={'category':category.get("category")}
+        Categories_List.append(category_dict)
+
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List}
     return templates.TemplateResponse("5_sign_up_talent.html",context)

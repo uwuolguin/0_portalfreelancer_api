@@ -63,16 +63,19 @@
                         </div>    
                         <h1 >Select your Categories:</h1>
                         <div class="talent_checkbox_box">
+                            {% for category in categories %}
                             <div class="input-checkbox-2">
                                 <input
                                 
                                 type="checkbox"
-                                name="Categories"
-                                value="Development and IT"
-                                id="Development and IT"
+                                name={{category.category}}
+                                value={{category.category}}
+                                id={{category.category}}
                                 />
-                                <label for="Development and IT">Development and IT</label>
+                                <label for={{category.category}}>{{category.category}}</label>
+                            
                             </div>
+                            {% endfor %}
                         </div> 
                     </div>
             
