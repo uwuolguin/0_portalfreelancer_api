@@ -42,12 +42,6 @@ def login_function(
     except:
         pass
 
-    email=email.replace('&','')
-    email=email.replace('<','')
-    email=email.replace('>','')
-    email=email.replace('"','')
-    email=email.replace("'",'')
-    email=email.replace("/",'')
 #######################YOU CAN LOG IN EVERY TWO SECONDS #########################
     email_2="""  SELECT * from log_in_attemp_2_seconds('%s');"""
     cursor.execute(email_2 % (email))

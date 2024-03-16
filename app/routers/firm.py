@@ -140,19 +140,8 @@ def post_firm(
     linkedin=str(linkedin)
     instagram=str(instagram)
 
-    email=email.replace('&','')
-    email=email.replace('<','')
-    email=email.replace('>','')
-    email=email.replace('"','')
-    email=email.replace("'",'')
-    email=email.replace("/",'')
 
-    contact_email=contact_email.replace('&','')
-    contact_email=contact_email.replace('<','')
-    contact_email=contact_email.replace('>','')
-    contact_email=contact_email.replace('"','')
-    contact_email=contact_email.replace("'",'')
-    contact_email=contact_email.replace("/",'')
+
 
     cursor.execute(""" SELECT * FROM number_of_user_today();""")
     users_today=cursor.fetchone()
@@ -282,12 +271,7 @@ def update_firm(
     linkedin=str(linkedin)
     instagram=str(instagram)
 
-    contact_email=contact_email.replace('&','')
-    contact_email=contact_email.replace('<','')
-    contact_email=contact_email.replace('>','')
-    contact_email=contact_email.replace('"','')
-    contact_email=contact_email.replace("'",'')
-    contact_email=contact_email.replace("/",'')
+
 
 
     cursor.execute(""" SELECT * FROM number_of_user_today();""")
