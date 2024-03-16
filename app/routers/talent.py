@@ -147,12 +147,7 @@ def post_talent(
     linkedin=str(linkedin)
     instagram=str(instagram)
     facebook=str(facebook)
-    email=email.replace('&','')
-    email=email.replace('<','')
-    email=email.replace('>','')
-    email=email.replace('"','')
-    email=email.replace("'",'')
-    email=email.replace("/",'')
+
 
     cursor.execute(""" SELECT * FROM number_of_user_today();""")
     users_today=cursor.fetchone()

@@ -8,18 +8,7 @@ from pydantic.functional_validators import BeforeValidator
 
 ####################  Before / After Validation ##############################
 
-def check_html_email(email: str) -> str:
-
-    email=email.replace('&','')
-    email=email.replace('<','')
-    email=email.replace('>','')
-    email=email.replace('"','')
-    email=email.replace("'",'')
-    email=email.replace("/",'')
-
-    return email
-
-email_html=Annotated[EmailStr,BeforeValidator(check_html_email),Form()]
+email_html=Annotated[EmailStr,Form()]
 
 def check_facebook(fb: str) -> str:
     assert str(fb).startswith('https://facebook.com') or str(fb) == 'None', f'{fb} is not a facebook url'
@@ -47,7 +36,7 @@ def check_long_int_10000(rate: str) -> str:
 
 
 class talentResponse(BaseModel):
-    email: Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    email: Annotated[EmailStr, Field(min_length=5,max_length=80)]
     full_name:Annotated[str, Field(min_length=1,max_length=80)]
     profession:Annotated[str, Field(min_length=1,max_length=80)]
     rate:Annotated[int, Field(ge=1,lt=10000)]
@@ -66,7 +55,7 @@ class talentResponse3(BaseModel):
     talent_id: Annotated[int, Field(ge=1)]
 
 class talentResponse4(BaseModel):
-    talent_email: Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    talent_email: Annotated[EmailStr, Field(min_length=5,max_length=80)]
     talent_full_name:Annotated[str, Field(min_length=1,max_length=80)]
     talent_profession:Annotated[str, Field(min_length=1,max_length=80)]
     talent_rate:Annotated[int, Field(ge=1,lt=10000)]
@@ -82,16 +71,16 @@ class talentResponse4(BaseModel):
     talent_last_logged_at:datetime
 
 class blacklistemailResponse(BaseModel):
-        email: Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+        email: Annotated[EmailStr, Field(min_length=5,max_length=80)]
 
 class blacklistwordsResponse(BaseModel):
         words: Annotated[str, Field(min_length=1,max_length=1000)]
 
 class firmResponse(BaseModel):
 
-    email: Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    email: Annotated[EmailStr, Field(min_length=5,max_length=80)]
     full_name:Annotated[str, Field(min_length=1,max_length=80)]
-    contact_email:  Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    contact_email:  Annotated[EmailStr, Field(min_length=5,max_length=80)]
     contact_phone: Annotated[int, Field(ge=1)]
     email_template_to_send:Annotated[str, Field(min_length=1,max_length=860)]
     linkedin:Annotated[Url,UrlConstraints(max_length=1000, allowed_schemes=["https"]),]
@@ -104,9 +93,9 @@ class firmResponse3(BaseModel):
     firm_id: Annotated[int, Field(ge=1)]
 
 class firmResponse4(BaseModel):
-    firm_email: Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    firm_email: Annotated[EmailStr, Field(min_length=5,max_length=80)]
     firm_full_name:Annotated[str, Field(min_length=1,max_length=80)]
-    firm_contact_email:  Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    firm_contact_email:  Annotated[EmailStr, Field(min_length=5,max_length=80)]
     firm_contact_phone: Annotated[int, Field(ge=1)]
     firm_email_template_to_send:Annotated[str, Field(min_length=1,max_length=860)]
     firm_linkedin:Annotated[Url,UrlConstraints(max_length=1000, allowed_schemes=["https"]),]
@@ -169,7 +158,7 @@ class responseTokenInputSuperAdmin(BaseModel):
 
 class complaintResponse(BaseModel):
 
-    email: Annotated[EmailStr, Field(min_length=5,max_length=80),BeforeValidator(check_html_email)]
+    email: Annotated[EmailStr, Field(min_length=5,max_length=80)]
     email_sent:Annotated[str, Field(min_length=1,max_length=1000)]
     created_at:datetime
 
