@@ -403,7 +403,7 @@ def index(request: Request):
     Skills_List=[]
 
     for  skill in skills:
-        skill_dict={'skill':skill.get("skill")}
+        skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
         Skills_List.append(skill_dict)
 
 
@@ -416,7 +416,7 @@ def index(request: Request):
     Categories_List=[]
 
     for  category in categories:
-        category_dict={'category':category.get("category")}
+        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
         Categories_List.append(category_dict)
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List}

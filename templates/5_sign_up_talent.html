@@ -53,11 +53,11 @@
                                 <input
                                 
                                 type="checkbox"
-                                name={{skill.skill|e}}
-                                value={{skill.skill|e}}
-                                id={{skill.skill|e}}
+                                name={{skill.skill_key|e ~ "-skill"}}
+                                value={{skill.skill_key|e ~ "-skill"}}
+                                id={{skill.skill_key|e ~ "-skill"}}
                                 />
-                                <label for={{skill.skill}}>{{skill.skill|e}}</label>
+                                <label for={{skill.skill_key|e ~ "-skill"}}>{{ skill.skill|e }}</label>
                             
                             </div>
                             {% endfor %}
@@ -69,11 +69,11 @@
                                 <input
                                 
                                 type="checkbox"
-                                name={{category.category|e}}
-                                value={{category.category|e}}
-                                id={{category.category|e}}
+                                name={{category.category_key|e ~ "-category"}}
+                                value={{category.category_key|e ~ "-category"}}
+                                id={{category.category_key|e ~ "-category"}}
                                 />
-                                <label for={{category.category}}>{{category.category|e }}</label>
+                                <label for={{category.category_key|e ~ "-category"}}>{{ category.category|e }}</label>
                             
                             </div>
                             {% endfor %}
