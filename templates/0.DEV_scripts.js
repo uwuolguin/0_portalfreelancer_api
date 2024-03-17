@@ -1,5 +1,19 @@
 async function postTalent() {
 
+  const responseCategories = await fetch("https://apiportalfreelancer.lat/categories/categories_get_all", {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+  const categories = await responseCategories.json();
+  
+  const responseSkills = await   fetch("https://apiportalfreelancer.lat/skills/skills_get_all", {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+  const skills = await responseSkills.json();
+
   oFormObject = document.forms['form7'];
 
   email=oFormObject.elements["email"].value
@@ -20,19 +34,7 @@ async function postTalent() {
   instagram=oFormObject.elements["instagram"].value
   facebook=oFormObject.elements["facebook"].value
 
-  const responseCategories = await fetch("https://apiportalfreelancer.lat/categories/categories_get_all", {
-    headers: {
-      Accept: "application/json"
-    }
-  });
-  const categories = await responseCategories.json();
-  
-  const responseSkills = await   fetch("https://apiportalfreelancer.lat/skills/skills_get_all", {
-    headers: {
-      Accept: "application/json"
-    }
-  });
-  const skills = await responseSkills.json();
+
 
 
   console.log(categories);
