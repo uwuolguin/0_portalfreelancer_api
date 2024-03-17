@@ -140,7 +140,8 @@ def post_firm(
     linkedin=str(linkedin)
     instagram=str(instagram)
 
-
+    email=email.replace(" ", "").lower()
+    contact_email=email.replace(" ", "").lower()
 
 
     cursor.execute(""" SELECT * FROM number_of_user_today();""")
@@ -152,13 +153,13 @@ def post_firm(
 
 #################Validate Email is not a company###############
     validate_email=""" SELECT * FROM remove_firm_by_being_in_talent('%s');"""
-    cursor.execute(validate_email % ((email.replace(" ", "").lower())))
+    cursor.execute(validate_email % ((email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
 #################Validate Email is not a company###############
     validate_email=""" SELECT * FROM remove_firm_by_being_in_talent('%s');"""
-    cursor.execute(validate_email % ((contact_email.replace(" ", "").lower())))
+    cursor.execute(validate_email % ((contact_email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
@@ -167,13 +168,13 @@ def post_firm(
 
 #################Validate Blacklist Email ###############
     validate_email=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email % ((email.replace(" ", "").lower())))
+    cursor.execute(validate_email % ((email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
     
     validate_email_2=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email_2 % ((contact_email.replace(" ", "").lower())))
+    cursor.execute(validate_email_2 % ((contact_email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
@@ -270,6 +271,7 @@ def update_firm(
     password=hashed_password
     linkedin=str(linkedin)
     instagram=str(instagram)
+    contact_email=contact_email.replace(" ", "").lower()
 
 
 
@@ -283,14 +285,14 @@ def update_firm(
 
 #################Validate Email is not a company###############
     validate_email=""" SELECT * FROM remove_firm_by_being_in_talent('%s');"""
-    cursor.execute(validate_email % ((contact_email.replace(" ", "").lower())))
+    cursor.execute(validate_email % ((contact_email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
 #################Validate Blacklist Email ###############
     
     validate_email_2=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email_2 % ((contact_email.replace(" ", "").lower())))
+    cursor.execute(validate_email_2 % ((contact_email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")

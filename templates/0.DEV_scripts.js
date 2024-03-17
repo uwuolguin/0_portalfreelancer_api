@@ -1,39 +1,52 @@
-function postTalent() {
+async function postTalent() {
 
   oFormObject = document.forms['form7'];
 
-    email=oFormObject.elements["email"].value
-    password=oFormObject.elements["password"].value
+  email=oFormObject.elements["email"].value
+  password=oFormObject.elements["password"].value
 
-    myFile=document.getElementById("file")
-    file = myFile.files[0];  
-    filename = file.name;
-    fileextension=file.type
+  myFile=document.getElementById("file")
+  file = myFile.files[0];  
+  filename = file.name;
+  fileextension=file.type
 
-    full_name=oFormObject.elements["full_name"].value
-    profession=oFormObject.elements["profession"].value
-    rate=oFormObject.elements["rate"].value
-    description=oFormObject.elements["description"].value
- 
-    github=oFormObject.elements["github"].value
-    linkedin=oFormObject.elements["linkedin"].value
-    instagram=oFormObject.elements["instagram"].value
-    facebook=oFormObject.elements["facebook"].value
+  full_name=oFormObject.elements["full_name"].value
+  profession=oFormObject.elements["profession"].value
+  rate=oFormObject.elements["rate"].value
+  description=oFormObject.elements["description"].value
 
-    console.log(email)
-    console.log(password)
-    console.log(filename)
-    console.log(fileextension)
-    console.log(full_name)
-    console.log(profession)
-    console.log(rate)
-    console.log(description)
-    console.log(github)
-    console.log(linkedin)
-    console.log(instagram)
-    console.log(facebook)
+  github=oFormObject.elements["github"].value
+  linkedin=oFormObject.elements["linkedin"].value
+  instagram=oFormObject.elements["instagram"].value
+  facebook=oFormObject.elements["facebook"].value
+
+  console.log(email)
+  console.log(password)
+  console.log(filename)
+  console.log(fileextension)
+  console.log(full_name)
+  console.log(profession)
+  console.log(rate)
+  console.log(description)
+  console.log(github)
+  console.log(linkedin)
+  console.log(instagram)
+  console.log(facebook)
+
+    
+    
+  const responseCategories = await fetch("https://apiportalfreelancer.lat/categories/categories_get_all", {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+  const categories = await responseCategories.json();
+  console.log(categories);
 
 
+
+    }
+  
 
     // const body = new FormData
     // body.append("username", "hola")
@@ -52,4 +65,3 @@ function postTalent() {
     //   method: "POST"
     // })
 
-  }

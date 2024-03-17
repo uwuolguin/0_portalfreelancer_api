@@ -147,7 +147,7 @@ def post_talent(
     linkedin=str(linkedin)
     instagram=str(instagram)
     facebook=str(facebook)
-
+    email=email.replace(" ", "").lower()
 
     cursor.execute(""" SELECT * FROM number_of_user_today();""")
     users_today=cursor.fetchone()
@@ -159,14 +159,14 @@ def post_talent(
 #################Validate Blacklist Email ###############
 
     validate_email=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email % ((email.replace(" ", "").lower())))
+    cursor.execute(validate_email % ((email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
 
 #################Validate Email is not a company###############
     validate_email=""" SELECT * FROM remove_talent_by_being_in_firm('%s');"""
-    cursor.execute(validate_email % ((email.replace(" ", "").lower())))
+    cursor.execute(validate_email % ((email)))
     validate_0=cursor.fetchone()
     if validate_0 :
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
