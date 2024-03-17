@@ -141,7 +141,7 @@ def post_firm(
     instagram=str(instagram)
 
     email=email.replace(" ", "").lower()
-    contact_email=email.replace(" ", "").lower()
+    contact_email=contact_email.replace(" ", "").lower()
 
 
     cursor.execute(""" SELECT * FROM number_of_user_today();""")
