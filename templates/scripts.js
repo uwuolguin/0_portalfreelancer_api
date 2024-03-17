@@ -1,30 +1,35 @@
-function myFunction() {
-    // myFile=document.getElementById("lfile")
-    // file = myFile.files[0];  
-    // filename = file.name;
-    // fileextension=file.type
-    // text=filename
-    // text2=fileextension
-    // oFormObject = document.forms['form1'];
-    // oFormObject.elements["username"].value = text;
-    // oFormObject.elements["password"].value = text2;
-    // document.getElementById("demo").innerHTML = "Paragraph changed.";
+function postTalent() {
+    myFile=document.getElementById("file")
+    file = myFile.files[0];  
+    filename = file.name;
+    fileextension=file.type
+    oFormObject = document.forms['form7'];
+    email=oFormObject.elements["email"].value
+    password=oFormObject.elements["password"].value
 
-    const body = new FormData
-    body.append("username", "hola")
-    body.append("", "\\")
-    body.append("password", "hola")
-    body.append("", "\\")
-    body.append("file", "@Banco_Itaú_logo.svg;type=image/svg+xml")
+    full_name=oFormObject.elements["full_name"].value
+    profession=oFormObject.elements["profession"].value
+    rate=oFormObject.elements["rate"].value
+    password=oFormObject.elements["password"].value
+    password=oFormObject.elements["password"].value
+    password=oFormObject.elements["password"].value
+
+
+    // const body = new FormData
+    // body.append("username", "hola")
+    // body.append("", "\\")
+    // body.append("password", "hola")
+    // body.append("", "\\")
+    // body.append("file", "@Banco_Itaú_logo.svg;type=image/svg+xml")
     
-    fetch("http://127.0.0.1:8000/sign_up/", {
-      body,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-        "Access-Control-Allow-Origin": "*"
-      },
-      method: "POST"
-    })
+    // fetch("http://127.0.0.1:8000/sign_up/", {
+    //   body,
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "multipart/form-data",
+    //     "Access-Control-Allow-Origin": "*"
+    //   },
+    //   method: "POST"
+    // })
 
   }
