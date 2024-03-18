@@ -1,5 +1,8 @@
 async function postTalent() {
 
+  
+  document.getElementById("button_post").disabled = true;
+
   btn=document.querySelector(".custom-file-upload-2");
   btn.classList.toggle("custom-file-upload-2--loading");
 
@@ -108,5 +111,7 @@ await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
 .catch(err => console.log('Failed Request', err));
 
 btn.classList.remove("custom-file-upload-2--loading");
+
+document.getElementById("button_post").disabled = false;
 
 }
