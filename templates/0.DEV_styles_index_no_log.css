@@ -993,16 +993,61 @@ background-color:#06b821 ;
     height: 35px;
     border: 0.2vh solid rgb(2, 109, 2);
     background-color: rgb(2, 109, 2);
+    margin-left: 4.2%;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+
+}
+.custom-file-upload-2__text{
     color: white;
     text-align: center;
     font-family: 'san-serif';
     font-size: 25px;
-    margin-left: 4.2%;
-    border-radius: 8px;
-    display: inline-block;
-    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.custom-file-upload-2--loading .custom-file-upload-2__text{
+
+    visibility: hidden;
+    opacity: 0;
+}
+.custom-file-upload-2--loading::after{
+
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 5px solid transparent;
+    border-top-color: white ;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+
+    from {
+
+        transform: rotate(0turn);
+
+    }
+
+    to {
+
+        transform: rotate(1turn);
+
+    }
 
 }
+
+
+
+
 .custom-file-upload-3{
     width: 200px;
     height: 35px;

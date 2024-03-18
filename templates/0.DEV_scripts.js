@@ -1,5 +1,8 @@
 async function postTalent() {
 
+  btn=document.querySelector(".custom-file-upload-2");
+  btn.classList.toggle("custom-file-upload-2--loading");
+
   const responseCategories = await fetch("https://apiportalfreelancer.lat/categories/categories_get_all", {
     headers: {
       Accept: "application/json"
@@ -93,7 +96,7 @@ body.append("", "\\")
 body.append("linkedin", linkedin)
 
 
-fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
+await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
   body,
   headers: {
    Accept: "application/json"
@@ -103,5 +106,7 @@ fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
 .then(response => response.json())
 .then(json => console.log(json))
 .catch(err => console.log('Failed Request', err));
+
+btn.classList.remove("custom-file-upload-2--loading");
 
 }
