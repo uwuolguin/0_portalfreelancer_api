@@ -110,6 +110,7 @@ await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
 .then(json => console.log(json))
 .catch(err => console.log('Failed Request', err));
 
+
 btn.classList.remove("custom-file-upload-2--loading");
 
 document.getElementById("button_post").disabled = false;
