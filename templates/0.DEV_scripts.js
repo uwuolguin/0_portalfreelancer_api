@@ -74,7 +74,7 @@ async function postTalent() {
 const body = new FormData
 body.append("rate", parseInt(rate))
 body.append("", "\\")
-body.append("skills", skills)
+body.append("skills", oFormObject.elements["skills"].value)
 body.append("", "\\")
 body.append("github", github)
 body.append("", "\\")
@@ -90,7 +90,7 @@ body.append("profession", profession)
 body.append("", "\\")
 body.append("file", file);
 body.append("", "\\")
-body.append("categories", categories)
+body.append("categories", oFormObject.elements["categories"].value)
 body.append("", "\\")
 body.append("email", email)
 body.append("", "\\")
