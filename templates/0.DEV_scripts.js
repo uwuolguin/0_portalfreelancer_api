@@ -103,7 +103,7 @@ body.append("password", password)
 body.append("", "\\")
 body.append("profession", profession)
 body.append("", "\\")
-body.append("file", "@"+filename+";type="+fileextension)
+body.append("file", file);
 body.append("", "\\")
 body.append("categories", categories)
 body.append("", "\\")
