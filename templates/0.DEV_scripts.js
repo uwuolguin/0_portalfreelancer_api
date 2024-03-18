@@ -113,11 +113,12 @@ body.append("description", description)
 body.append("", "\\")
 body.append("linkedin", linkedin)
 
+console.log("@"+filename+";type="+fileextension)
+
 fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
   body,
   headers: {
-    Accept: "application/json",
-    "Content-Type": "multipart/form-data"
+    Accept: "application/json"
   },
   method: "POST"
 })
