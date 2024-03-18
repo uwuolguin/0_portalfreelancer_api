@@ -96,7 +96,7 @@ body.append("linkedin", linkedin)
 fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
   body,
   headers: {
-    Accept: "application/json"
+   Accept: "application/json"
   },
   method: "POST"
 })
