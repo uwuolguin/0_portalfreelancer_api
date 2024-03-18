@@ -35,7 +35,37 @@ async function postTalent() {
   facebook=oFormObject.elements["facebook"].value
 
 
+  let categories_string = ""
+  for (var category of categories) {
 
+  id=(category.category.replace(/\s/g,'')).concat("-category")
+  checkbox_value=oFormObject.elements[id].checked
+
+  if (checkbox_value ===true){
+
+    categories_string=categories_string.concat(category.category.concat('.'))
+
+  }
+
+  }
+
+  oFormObject.elements["categories"].value=categories_string
+
+  let skills_string = ""
+  for (var skill of skills) {
+
+  id=(skill.skill.replace(/\s/g,'')).concat("-skill")
+  checkbox_value=oFormObject.elements[id].checked
+
+  if (checkbox_value ===true){
+
+    skills_string=skills_string.concat(skill.skill.concat('.'))
+
+  }
+
+  }
+
+  oFormObject.elements["skills"].value=skills_string
 
   console.log(categories);
   console.log(skills);
@@ -51,8 +81,8 @@ async function postTalent() {
   console.log(linkedin)
   console.log(instagram)
   console.log(facebook)
-
-
+  console.log(oFormObject.elements["categories"].value)
+  console.log(oFormObject.elements["skills"].value)
 }
   
 
