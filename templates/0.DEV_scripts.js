@@ -21,8 +21,6 @@ async function postTalent() {
 
   myFile=document.getElementById("file")
   file = myFile.files[0];  
-  filename = file.name;
-  fileextension=file.type
 
   full_name=oFormObject.elements["full_name"].value
   profession=oFormObject.elements["profession"].value
@@ -66,26 +64,7 @@ async function postTalent() {
   }
 
   oFormObject.elements["skills"].value=skills_string
-
-  console.log(categories);
-  console.log(skills);
-  console.log(email)
-  console.log(password)
-  console.log(filename)
-  console.log(fileextension)
-  console.log(full_name)
-  console.log(profession)
-  console.log(rate)
-  console.log(description)
-  console.log(github)
-  console.log(linkedin)
-  console.log(instagram)
-  console.log(facebook)
-  console.log(oFormObject.elements["categories"].value)
-  console.log(oFormObject.elements["skills"].value)
-
   
-
 const body = new FormData
 body.append("rate", parseInt(rate))
 body.append("", "\\")
@@ -113,7 +92,6 @@ body.append("description", description)
 body.append("", "\\")
 body.append("linkedin", linkedin)
 
-console.log("@"+filename+";type="+fileextension)
 
 fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
   body,
