@@ -83,7 +83,7 @@ async function postTalent() {
   console.log(facebook)
   console.log(oFormObject.elements["categories"].value)
   console.log(oFormObject.elements["skills"].value)
-}
+
   
 
 const body = new FormData
@@ -125,3 +125,4 @@ fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
 .then(json => console.log(json))
 .catch(err => console.log('Failed Request', err));
 
+}
