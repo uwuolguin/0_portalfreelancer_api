@@ -7,6 +7,24 @@
     /* border: 1px solid black; */
 
 }
+.red_text{
+    color: #aa0404;
+    font-size: 20px;
+
+}
+
+.green_text{
+
+    color: #016911;
+    font-size: 20px;
+}
+.hidden_div {
+
+    visibility:hidden;
+}
+
+
+
 textarea {
     border: none;
     overflow: auto;

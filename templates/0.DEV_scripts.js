@@ -1,5 +1,21 @@
+
+function post_succesful_visible(){
+
+  document.getElementById("succesful_post").classList.remove("hidden_div")
+
+}
+
+function post_failed_visible(){
+
+  document.getElementById("failed_post").classList.remove("hidden_div")
+  
+}
+
 async function postTalent() {
 
+  post_succesful_visible()
+
+  post_failed_visible()
   
   document.getElementById("button_post").disabled = true;
 
@@ -106,9 +122,9 @@ await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
   },
   method: "POST"
 })
-.then(response => response.json())
-.then(json => console.log(json))
-.catch(err => console.log('Failed Request', err));
+.then((response) => response.text())
+.then((result) => console.log(result))
+.catch((error) => console.error(error));
 
 
 btn.classList.remove("custom-file-upload-2--loading");
