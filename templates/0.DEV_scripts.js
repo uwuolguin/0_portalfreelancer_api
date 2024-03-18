@@ -86,20 +86,42 @@ async function postTalent() {
 }
   
 
-    // const body = new FormData
-    // body.append("username", "hola")
-    // body.append("", "\\")
-    // body.append("password", "hola")
-    // body.append("", "\\")
-    // body.append("file", "@Banco_Itaú_logo.svg;type=image/svg+xml")
-    
-    // fetch("http://127.0.0.1:8000/sign_up/", {
-    //   body,
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "multipart/form-data",
-    //     "Access-Control-Allow-Origin": "*"
-    //   },
-    //   method: "POST"
-    // })
+const body = new FormData
+body.append("rate", parseInt(rate))
+body.append("", "\\")
+body.append("skills", skills)
+body.append("", "\\")
+body.append("github", github)
+body.append("", "\\")
+body.append("facebook", facebook)
+body.append("", "\\")
+body.append("instagram", instagram)
+body.append("", "\\")
+body.append("full_name", full_name)
+body.append("", "\\")
+body.append("password", password)
+body.append("", "\\")
+body.append("profession", profession)
+body.append("", "\\")
+body.append("file", "@"+filename+";type="+fileextension)
+body.append("", "\\")
+body.append("categories", categories)
+body.append("", "\\")
+body.append("email", email)
+body.append("", "\\")
+body.append("description", description)
+body.append("", "\\")
+body.append("linkedin", linkedin)
+
+fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
+  body,
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "multipart/form-data"
+  },
+  method: "POST"
+})
+.then(response => response.json())
+.then(json => console.log(json))
+.catch(err => console.log('Failed Request', err));
 
