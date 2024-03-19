@@ -143,10 +143,10 @@ def post_firm(
     email=email.replace(" ", "").lower()
     contact_email=contact_email.replace(" ", "").lower()
 
-    if email=="acos2014600836@gmail.com":
+    if email==settings.superadmin_email:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     
-    if contact_email=="acos2014600836@gmail.com":
+    if contact_email==settings.superadmin_email:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
     
     cursor.execute(""" SELECT * FROM number_of_user_today();""")

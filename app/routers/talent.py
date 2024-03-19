@@ -149,7 +149,7 @@ def post_talent(
     facebook=str(facebook)
     email=email.replace(" ", "").lower()
 
-    if email=="acos2014600836@gmail.com":
+    if email==settings.superadmin_email:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
 
