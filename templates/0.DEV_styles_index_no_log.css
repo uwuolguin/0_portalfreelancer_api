@@ -1,3 +1,6 @@
+*{
+    text-decoration: none;
+}
 .red_text{
     color: #aa0404;
     font-size: 15px;
@@ -850,7 +853,7 @@ background-color:#06b821 ;
 .big_box_sign_up_7{
 
 
-    height: 2560px;
+    height: 205vh;
     width: 1000px;
     margin: auto;
     min-width: 600px;
