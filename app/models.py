@@ -36,7 +36,7 @@ class firm(Base):
     contact_phone=Column(String(80),nullable=False)
     email_template_to_send=Column(String(860),nullable=False)
     linkedin=Column(String(1000),nullable=False)
-    instagram=Column(String(1000),nullable=True)
+    instagram=Column(String(1000),nullable=False)
     created_at= Column(TIMESTAMP(timezone=True), nullable=False,server_default=text('now()'))
     last_updated_at= Column(TIMESTAMP(timezone=True), nullable=False,server_default=text('now()'))
     last_logged_at= Column(TIMESTAMP(timezone=True), nullable=False,server_default=text('now()'))

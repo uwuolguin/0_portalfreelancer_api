@@ -30,7 +30,7 @@ def upgrade() -> None:
     sa.Column('contact_phone',sa.String(80),nullable=False),
     sa.Column('email_template_to_send',sa.String(860),nullable=False),
     sa.Column('linkedin',sa.String(1000),nullable=False),
-    sa.Column('instagram',sa.String(1000),nullable=True),
+    sa.Column('instagram',sa.String(1000),nullable=False),
     sa.Column('created_at',sa.TIMESTAMP(timezone=True),nullable=False,server_default=text('now()')),
     sa.Column('last_updated_at',sa.TIMESTAMP(timezone=True),nullable=False,server_default=text('now()'))
     #,op.add_column('user',sa.Column('created_at2',sa.TIMESTAMP(timezone=True),nullable=False,server_default=text('now()')))

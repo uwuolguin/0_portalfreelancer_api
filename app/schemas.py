@@ -84,7 +84,7 @@ class firmResponse(BaseModel):
     contact_phone: Annotated[int, Field(ge=1)]
     email_template_to_send:Annotated[str, Field(min_length=1,max_length=860)]
     linkedin:Annotated[Url,UrlConstraints(max_length=1000, allowed_schemes=["https"]),]
-    instagram:Annotated[str,BeforeValidator(check_instagram)]
+    instagram:Annotated[Url,UrlConstraints(max_length=1000, allowed_schemes=["https"]),]
     created_at:datetime
     last_updated_at:datetime
     last_logged_at:datetime
@@ -99,7 +99,7 @@ class firmResponse4(BaseModel):
     firm_contact_phone: Annotated[int, Field(ge=1)]
     firm_email_template_to_send:Annotated[str, Field(min_length=1,max_length=860)]
     firm_linkedin:Annotated[Url,UrlConstraints(max_length=1000, allowed_schemes=["https"]),]
-    firm_instagram:Annotated[str,BeforeValidator(check_instagram)]
+    firm_instagram:Annotated[Url,UrlConstraints(max_length=1000, allowed_schemes=["https"]),]
     firm_created_at:datetime
     firm_last_updated_at:datetime
     firm_last_logged_at:datetime
