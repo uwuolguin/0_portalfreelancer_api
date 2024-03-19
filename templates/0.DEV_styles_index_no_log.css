@@ -1176,8 +1176,14 @@ background-color:#06b821 ;
 #form7 input::placeholder {
     padding:10px;
     font-size: 16px;
+    color: rgb(42, 42, 42)
   }
  
+
+#form7 textarea::placeholder {
+
+    color: rgb(42, 42, 42)
+  }  
 
 .img_3{
 
