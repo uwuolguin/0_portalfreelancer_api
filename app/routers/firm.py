@@ -344,7 +344,7 @@ def update_firm(
 templates= Jinja2Templates(directory="./templates")
 
 
-@router.get('/signUpTalent/',response_class=HTMLResponse)
+@router.get('/signUpFirm/',response_class=HTMLResponse)
 def index(request: Request):
 
     try:
