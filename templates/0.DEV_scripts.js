@@ -6,12 +6,14 @@ function post_succesful_visible(response){
 
   if (status ==="2") {
     document.getElementById("succesful_post").classList.remove("hidden_div")
-    document.getElementById("succesful_post").classList.add("green_div")
+    document.getElementById("succesful_post").classList.remove("red_text")
+    document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Your user was Created"
   } else {
     
     document.getElementById("succesful_post").classList.remove("hidden_div")
-    document.getElementById("succesful_post").classList.add("red_div")
+    document.getElementById("succesful_post").classList.remove("green_text")
+    document.getElementById("succesful_post").classList.add("red_text")
     document.getElementById("succesful_post").innerHTML="User was not Created"
 
   }
