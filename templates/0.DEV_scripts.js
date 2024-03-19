@@ -1,22 +1,35 @@
 
-function post_succesful_visible(){
+function post_succesful_visible(response){
 
-  document.getElementById("succesful_post").classList.remove("hidden_div")
+
+  const status = ((response.status).toString()).substring(0, 1);
+
+  if (status ==="2") {
+    document.getElementById("succesful_post").classList.remove("hidden_div")
+    document.getElementById("succesful_post").classList.add("green_div")
+    document.getElementById("succesful_post").innerHTML="Your user was Created"
+  } else {
+    
+    document.getElementById("succesful_post").classList.remove("hidden_div")
+    document.getElementById("succesful_post").classList.add("red_div")
+    document.getElementById("succesful_post").innerHTML="User was not Created"
+
+  }
+
+
+  
+
 
 }
 
-function post_failed_visible(){
-
+function post_failed_visible(error){
+  console.log(error.detail)
   document.getElementById("failed_post").classList.remove("hidden_div")
   
 }
 
 async function postTalent() {
 
-  post_succesful_visible()
-
-  post_failed_visible()
-  
   document.getElementById("button_post").disabled = true;
 
   btn=document.querySelector(".custom-file-upload-2");
@@ -122,13 +135,17 @@ await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
   },
   method: "POST"
 })
-.then((response) => response.text())
-.then((result) => console.log(result))
-.catch((error) => console.error(error));
+.then((response) => post_succesful_visible(response))
+.catch((error) => post_failed_visible(error));
 
 
 btn.classList.remove("custom-file-upload-2--loading");
 
 document.getElementById("button_post").disabled = false;
+
+setTimeout(() => {
+  document.getElementById("succesful_post").classList.add("hidden_div");
+  document.getElementById("failed_post").classList.add("hidden_div");
+}, "5000");
 
 }
