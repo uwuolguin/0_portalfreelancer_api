@@ -363,8 +363,14 @@ def delup(request: Request,login: str = Cookie(None)):
     except:
         pass
 
-    print(login)
+
     if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in.html",context)
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") != "firm":
             context={'request': request}
             return templates.TemplateResponse("4_log_in.html",context)
 
