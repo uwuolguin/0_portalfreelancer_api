@@ -63,7 +63,7 @@ async function postTalent() {
   body.append("", "\\")
   body.append("linkedin", linkedin)
 
-  await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
+  await fetch("https://apiportalfreelancer.lat/firm/firm_post/", {
     body,
     headers: {
     Accept: "application/json"
