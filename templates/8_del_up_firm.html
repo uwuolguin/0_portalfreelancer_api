@@ -61,21 +61,21 @@
                 <input type="text" class="input" placeholder="Enter your Instagram Url (Optional) | Example: https://instagram.com/iliatopuria/" name="instagram" maxlength="1000">
 
                 
-                <button type="submit" onclick= "postTalent()" class="custom-file-upload-2" id="button_post" >
-                    <span class="custom-file-upload-2__text">Create Account</span>
+                <button type="submit" onclick= "updateTalent()" class="custom-file-upload-2" id="button_post_update"  style="background-color: blue;">
+                    <span class="custom-file-upload-2__text"> Update Account</span>
                 </button>
                 <div class="big_box_sign_up_9999">
                     or
                 </div>
-                <button type="submit" onclick= "postTalent()" class="custom-file-upload-2" id="button_post" >
-                    <span class="custom-file-upload-2__text">Create Account</span>
+                <button type="submit" onclick= "postTalent()" class="custom-file-upload-2" id="button_post_delete" style="background-color: red;" >
+                    <span class="custom-file-upload-2__text"> Delete Account</span>
                 </button>
             </form>
 
             <br>
             <div class="big_box_sign_up_999" >
                 <div class="hidden_div" id="succesful_post"></div>
-                <div class="hidden_div red_text"id="failed_post">User was not Created</div>
+                <div class="hidden_div red_text"id="failed_post">Failed Request</div>
             </div>
     
         </div>

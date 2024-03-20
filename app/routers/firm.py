@@ -356,12 +356,17 @@ def index(request: Request):
     return templates.TemplateResponse("6_sign_up_firm.html",context)
 
 @router.get('/delUpFirm/',response_class=HTMLResponse)
-def delup(request: Request):
+def delup(request: Request,login: str = Cookie(None)):
 
     try:
         conn_firm.rollback()
     except:
         pass
+
+
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in.html",context)
 
     context={'request': request}
     return templates.TemplateResponse("8_del_up_firm.html",context)
