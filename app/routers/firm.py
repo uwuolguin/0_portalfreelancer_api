@@ -364,7 +364,7 @@ def delup(request: Request):
         pass
 
     context={'request': request}
-    return templates.TemplateResponse("6_sign_up_firm.html",context)
+    return templates.TemplateResponse("8_del_up_firm.html",context)
     
 
 # fetch("https://apiportalfreelancer.lat/firm/firm_put/", {
