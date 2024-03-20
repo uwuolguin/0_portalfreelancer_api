@@ -28,49 +28,52 @@
                 <input class="input" type="text" name="email" placeholder="Enter your Email"  maxlength="80" required>
                 <input class="input" type="password" name="password" placeholder="Enter your Password"  maxlength="80" required>
 
+                <input class="input" type="text" name="full_name" placeholder="Enter your Company's Name"  maxlength="80" required>
+                <input class="input" type="text" name="contact_email" placeholder="Enter your Company's Contact Email"  maxlength="80" required>
 
-                    <input type="text" class="input" placeholder="Enter your Company's Name" name="buscar_profesionales" maxlength="80">
-                    <input type="text" class="input" placeholder="Enter your Company's Contact Email" name="buscar_profesionales" maxlength="80">
-                    <input type="text" class="input" placeholder="Enter your Company's Contact Phone" name="buscar_profesionales" maxlength="80">
+                <input type="text" class="input" placeholder="Enter your Company's Contact Phone | Only Numbers" name="contact_phone" maxlength="40" required>
+
+                <textarea id="f1000description" placeholder="Enter a brief message (860 characters maximum) that we will send to your potential candidates, keep in mind that the email will have this structure:
+                
+                Hello dear developer,
+                
+                The company (company name) is interested in you and has sent you this message:
+
+                (MESSAGE WRITTEN IN THIS BOX).
+                
+                Information About the company:
+                
+                -Company's Contact Email
+                -Company's Contact Phone
+                -Company's Linkedin Url
+                -Company's Instagram Url
 
 
-                    <textarea id="f1000description" placeholder="Enter a brief message (860 characters maximum) that we will send to your potential candidates, keep in mind that the email will have this structure:
-                    
-                    Hello dear developer,
-                    
-                    The company (company name) is interested in you and has sent you this message:
+                Kind Regards
 
-                    (MESSAGE WRITTEN IN THIS BOX).
-                    
-                    Information About the company:
-                    
-                    -Company's Contact Email
-                    -Company's Contact Phone
-                    -Company's Linkedin Url
-                    -Company's Instagram Url
+                PortalFreelancer Team
+                "  name="email_template_to_send" class="input" maxlength="860" required ></textarea>
 
+                <div class="talent_indication_url">
+                    Valid Url's have to contain at least the https scheme and a host: https://google.com/
+                </div>
 
-                    Kind Regards
-
-                    PortalFreelancer Team
-                    " name="buscar_profesionales" form="form7" class="input" maxlength="860"></textarea>
-
-                    <div class="talent_indication_url">
-                        Valid Url's have to contain at least the https scheme and a host: https://google.com/
-                    </div>
-
-                    <input type="text" class="input" placeholder="Enter your Linkedin Url | Example: https://linkedin.com/in/martin-paul-weiss-klemmer-9183671ba/" name="buscar_profesionales" maxlength="1000">
-
-                    <input type="text" class="input" placeholder="Enter your Instagram Url (Optional) | Example: https://instagram.com/iliatopuria/" name="buscar_profesionales" maxlength="1000">
+                <input type="text" class="input" placeholder="Enter your Linkedin Url | Example: https://linkedin.com/in/martin-paul-weiss-klemmer-9183671ba/" name="linkedin" maxlength="1000" required>
+                <input type="text" class="input" placeholder="Enter your Instagram Url (Optional) | Example: https://instagram.com/iliatopuria/" name="instagram" maxlength="1000">
 
                 
-                <button type="submit" form="form6" class="custom-file-upload-2" >
-                    Create Account
+                <button type="submit" onclick= "postTalent()" class="custom-file-upload-2" id="button_post" >
+                    <span class="custom-file-upload-2__text">Create Account</span>
                 </button>
 
             </form>
             <div class="big_box_sign_up_999">
                 Already have an account? <a href="https://www.w3schools.com" class="a_tag_sign_up2">Log In</a>
+            </div>
+            <br>
+            <div class="big_box_sign_up_999" >
+                <div class="hidden_div" id="succesful_post"></div>
+                <div class="hidden_div red_text"id="failed_post">User was not Created</div>
             </div>
     
         </div>
@@ -82,6 +85,7 @@
 
 
 
-
+<!-- <script src="0.DEV_scripts_pt.js"></script> -->
+<script src="https://apiportalfreelancer.lat/static/scripts_pt.js"></script>
 </body>
 </html>
