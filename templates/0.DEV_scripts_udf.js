@@ -101,6 +101,16 @@ async function deleteTalent() {
   .catch((error) => post_failed_visible(error));
 
 
+  await fetch("https://apiportalfreelancer.lat/auth/logout", {
+    headers: {
+      Accept: "application/json"
+    },
+    method: "DELETE"
+  })
+  .then((response) => console.log(response))
+  .catch((error) => console.log(error));
+
+
   btn.classList.remove("custom-file-upload-2--loading");
 
   document.getElementById("button_post_delete").disabled = false;
