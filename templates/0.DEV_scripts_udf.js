@@ -110,14 +110,7 @@ async function deleteTalent() {
   .then((response) => console.log(response))
   .catch((error) => console.log(error));
 
-  await fetch("https://apiportalfreelancer.lat/firm/delUpFirm/", {
-    headers: {
-      Accept: "application/json"
-    },
-    method: "GET"
-  })
-  .then((response) => console.log(response))
-  .catch((error) => console.log(error));
+  window.location.href = window.location.href;
 
 
   btn.classList.remove("custom-file-upload-2--loading");
