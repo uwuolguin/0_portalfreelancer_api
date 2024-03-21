@@ -73,7 +73,37 @@ async function updateTalent() {
 
   btn.classList.remove("custom-file-upload-2--loading");
 
-  document.getElementById("button_post").disabled = false;
+  document.getElementById("button_post_update").disabled = false;
+
+  setTimeout(() => {
+    document.getElementById("succesful_post").classList.add("hidden_div");
+    document.getElementById("failed_post").classList.add("hidden_div");
+  }, "5000");
+
+} 
+
+async function deleteTalent() {
+
+  document.getElementById("button_post_delete").disabled = true;
+
+  btn=document.querySelector(".custom-file-upload-2");
+  btn.classList.toggle("custom-file-upload-2--loading");
+
+  
+
+  await fetch("https://apiportalfreelancer.lat/firm/firm_delete/id/", {
+    headers: {
+      Accept: "*/*"
+    },
+    method: "DELETE"
+  })
+  .then((response) => post_succesful_visible(response))
+  .catch((error) => post_failed_visible(error));
+
+
+  btn.classList.remove("custom-file-upload-2--loading");
+
+  document.getElementById("button_post_delete").disabled = false;
 
   setTimeout(() => {
     document.getElementById("succesful_post").classList.add("hidden_div");
