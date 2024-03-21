@@ -164,6 +164,8 @@ async function postLogIn() {
   setTimeout(() => {
     document.getElementById("succesful_post").classList.add("hidden_div");
     document.getElementById("failed_post").classList.add("hidden_div");
-  }, "5000");
+  }, "3000");
+  
+  window.location.href = window.location.href;
 
 } 
