@@ -1007,6 +1007,7 @@ background-color:#06b821 ;
     position: relative;
     cursor: pointer;
     padding-left: 26.5px ;
+    margin: auto;
 }
 .submission_button_login__text{
     color: white;
