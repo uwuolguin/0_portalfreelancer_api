@@ -18,10 +18,6 @@ function post_succesful_visible(response){
 
   }
 
-
-  
-
-
 }
 
 function post_failed_visible(error){
@@ -30,7 +26,7 @@ function post_failed_visible(error){
   
 }
 
-async function postTalent() {
+async function updateTalent() {
 
   document.getElementById("button_post").disabled = true;
 
@@ -53,11 +49,17 @@ async function postTalent() {
 
   oFormObject = document.forms['form7'];
 
-  email=oFormObject.elements["email"].value
+
   password=oFormObject.elements["password"].value
 
   myFile=document.getElementById("file")
-  file = myFile.files[0];  
+
+  try {
+    file = myFile.files[0];  
+  }
+  catch(err) {
+    file=''
+  }
 
   full_name=oFormObject.elements["full_name"].value
   profession=oFormObject.elements["profession"].value
@@ -123,19 +125,17 @@ body.append("file", file);
 body.append("", "\\")
 body.append("categories", oFormObject.elements["categories"].value)
 body.append("", "\\")
-body.append("email", email)
-body.append("", "\\")
 body.append("description", description)
 body.append("", "\\")
 body.append("linkedin", linkedin)
 
 
-await fetch("https://apiportalfreelancer.lat/talent/talent_post/", {
+await fetch("https://apiportalfreelancer.lat/talent/talent_put/", {
   body,
   headers: {
    Accept: "application/json"
   },
-  method: "POST"
+  method: "PUT"
 })
 .then((response) => post_succesful_visible(response))
 .catch((error) => post_failed_visible(error));
