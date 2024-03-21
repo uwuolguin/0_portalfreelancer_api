@@ -997,6 +997,47 @@ background-color:#06b821 ;
 
 }
 
+.submission_button_login{
+
+    border: 5px solid #016911 ;
+    border-radius: 5px;
+    background-color:  #016911 ;
+    height: 30px;
+    width: 100px;
+    position: relative;
+    cursor: pointer;
+    padding-left: 26.5px ;
+}
+.submission_button_login__text{
+    color: white;
+    text-align: center;
+    font-family: 'san-serif';
+    font-size: 15px;
+    transition: all 0.2s;
+}
+.submission_button_login--loading .submission_button_login__text{
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+.submission_button_login--loading::after{
+
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 5px solid transparent;
+    border-top-color: white ;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s linear infinite;
+}
+
 
 .custom-file-upload-2{
     width: 90%;
@@ -1009,6 +1050,7 @@ background-color:#06b821 ;
     cursor: pointer;
 
 }
+
 .custom-file-upload-2__text{
     color: white;
     text-align: center;
@@ -1310,23 +1352,7 @@ background-color:#06b821 ;
 }
 
 
-  .submission_button_login{
 
-    border: 5px solid #016911 ;
-    border-radius: 5px;
-    background-color:  #016911 ;
-    font-family: 'san-serif';
-    height: 30px;
-    width: 100px;
-    color: white;
-    margin: auto;
-    display: flex;
-    padding-left: 26.5px ;
-    font-size: 15px;
-
-
-
-}
 
 
 .submission_button_change{
