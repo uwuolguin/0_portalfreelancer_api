@@ -35,8 +35,7 @@ async def lifespan(app: FastAPI):
     conn_skills.close()
 app= FastAPI(lifespan=lifespan)
 
-origins = ["*"
-#add the domain of the front end server when its complete
+origins = ["https://apiportalfreelancer.lat/"
 ]
 
 app.add_middleware(
