@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4375">
+    <title>Log In</title>
+    <link rel="stylesheet", href="https://apiportalfreelancer.lat/static/styles_index_no_log.css"/>
+    <!-- <link rel="stylesheet", href="0.DEV_styles_index_no_log.css"/>  -->
+</head>
+<body >
+
+    <!-- NAVIGATION BAR -->
+    <div class="div_nav_6">
+        <nav >
+            <a href="https://apiportalfreelancer.lat/firm/signUpFirm/" class="logo">Portal Freelancer</a>
+
+        </nav>
+    </div>
+
+    <div class="big_box_sign_up_6">
+    
+        <div class="big_box_login_2">
+            <div class="div_h1_mid_3">
+                <h1 class="h1_mid_2_login2">
+                    Log in to Portal Freelancer
+                </h1>
+            </div>
+        </div>
+        <div class="big_box_login_3">
+            <form id="form6" >
+                <div class="log_in_bottom_2">
+                    <img src="https://apiportalfreelancer.lat/static/user_log_in.svg" alt="Team Effort" class="img_4" >
+                    <input class="input" type="text" name="email" placeholder="Enter your Email"  maxlength="80" required>
+                </div>
+                <div class="log_in_bottom_2">
+                    <img src="https://apiportalfreelancer.lat/static/password.svg" alt="Team Effort" class="img_4" >
+                    <input class="input" type="password" name="password" placeholder="Enter your Password"  maxlength="80" >
+                </div>
+                <button type="button" onclick= "postLogIn()" class="submission_button_login" id="button_post_log_in"  >
+                    <span class="submission_button_login__text"> Log In</span>
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+    <div class="big_box_sign_up_99_2">
+        Don't have a Portal Freelancer account? <a href="https://www.w3schools.com" class="a_tag_sign_up2">Sign Up</a>
+    </div>
+    <div class="big_box_sign_up_99_2_2">
+        Forgot your password? <a href="https://www.w3schools.com" class="a_tag_sign_up2">Recover your password</a>
+    </div>
+    <br>
+    <div class="big_box_sign_up_999" >
+        <div class="hidden_div" id="succesful_post"></div>
+        <div class="hidden_div red_text"id="failed_post">Failed Log In</div>
+    </div>
+
+
+    <!-- MID SECTION -->
+
+
+
+<script src="https://apiportalfreelancer.lat/static/scripts_udf.js"></script>
+</body>
+</html>

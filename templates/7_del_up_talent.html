@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.4375">
+    <title>Sign Up Talent</title>
+    <link rel="stylesheet", href="https://apiportalfreelancer.lat/static/styles_index_no_log.css"/>
+    <!-- <link rel="stylesheet", href="0.DEV_styles_index_no_log.css"/>  -->
+<!--  -->
+</head>
+<body >
+    <!-- NAVIGATION BAR -->
+    <div class="div_nav_7">
+
+            <a href="https://www.w3schools.com" class="logo">Portal Freelancer</a>
+
+    </div>
+    <div class="big_box_sign_up_7">    
+        <div class="big_box_talent_2">
+                <h1 class="h1_mid_2_talent2">
+                    Sign up to find Work
+                </h1>
+        </div>
+        <div class="big_box_talent_3">
+
+                <form id="form7" >
+
+                    <input class="input" type="password" name="password" placeholder="Enter your Password"  maxlength="80" required>
+                    <label class="custom-file-upload">
+                        <input type="file" name="file" id="file" required/>
+                        Upload Profile Picture
+                    </label>
+                    <div class="talent_indication_img">
+                        The image cannot exceed 1 MB. in size and has to be a PNG.*
+                    </div>
+                    <input type="text" class="input" placeholder="Enter your Complete Name" name="full_name" maxlength="80" required>
+                    <input type="text" class="input" placeholder="Enter your Profession's name" name="profession" maxlength="80" required>
+                    <input type="text" class="input" placeholder="Enter your hourly rate in US dollars, for example ''27'', it has to be a whole number" name="rate" maxlength="4" required>
+                    <textarea id="f1000description2" placeholder="Enter a brief description about your professional background and capabilities. use a maximum of 860 characters" name="description" class="input" maxlength="860" required ></textarea>
+                    <div class="talent_indication_url">
+                        Valid Url's have to contain at least the https scheme and a host: https://google.com/
+                    </div>
+                    <input type="text" class="input" placeholder="Enter your GitHub Url | Example: https://github.com/Rob--W" name="github" maxlength="1000" required>
+                    <input type="text" class="input" placeholder="Enter your Linkedin Url | Example: https://linkedin.com/in/martin-paul-weiss-klemmer-9183671ba/" name="linkedin" maxlength="1000" required>
+                    <input type="text" class="input" placeholder="Enter your Instagram Url (Optional) | Example: https://instagram.com/iliatopuria/" name="instagram" maxlength="1000">
+                    <input type="text" class="input" placeholder="Enter your Facebook Url (Optional) | Example: https://facebook.com/zarina.zabala.5" name="facebook" maxlength="1000">
+
+                    <div class="checkbox_container">
+                        <h1 >Select your Skills:</h1> 
+                        <div class="talent_checkbox_box">
+                            {% for skill in skills %}
+                            <div class="input-checkbox-2">
+                                <input
+                                
+                                type="checkbox"
+                                name={{skill.skill_key|e ~ "-skill"}}
+                                value={{skill.skill_key|e ~ "-skill"}}
+                                id={{skill.skill_key|e ~ "-skill"}}
+                                />
+                                <label for={{skill.skill_key|e ~ "-skill"}}>{{ skill.skill|e }}</label>
+                            
+                            </div>
+                            {% endfor %}
+                        </div>    
+                        <h1 >Select your Categories:</h1>
+                        <div class="talent_checkbox_box">
+                            {% for category in categories %}
+                            <div class="input-checkbox-2">
+                                <input
+                                
+                                type="checkbox"
+                                name={{category.category_key|e ~ "-category"}}
+                                value={{category.category_key|e ~ "-category"}}
+                                id={{category.category_key|e ~ "-category"}}
+                                />
+                                <label for={{category.category_key|e ~ "-category"}}>{{ category.category|e }}</label>
+                            
+                            </div>
+                            {% endfor %}
+                        </div> 
+                    </div>
+                    <input type="hidden" class="input" name="skills">
+                    <input type="hidden" class="input" name="categories">
+            
+                    <button type="submit" onclick= "updateTalent()" class="custom-file-upload-2" id="button_post_update"  style="background-color: blue;">
+                        <span class="custom-file-upload-2__text"> Update Account</span>
+                    </button>
+                    <div class="big_box_sign_up_9999">
+                        or
+                    </div>
+                    <button type="submit" onclick= "deleteTalent()" class="custom-file-upload-2" id="button_post_delete" style="background-color: red;" >
+                        <span class="custom-file-upload-2__text"> Delete Account</span>
+                    </button>
+                </form>
+    
+                <br>
+                <div class="big_box_sign_up_999" >
+                    <div class="hidden_div" id="succesful_post"></div>
+                    <div class="hidden_div red_text"id="failed_post">Failed Request</div>
+                </div>
+        </div>
+    </div>
+
+<!-- <script src="0.DEV_scripts_pt.js"></script> -->
+<script src="https://apiportalfreelancer.lat/static/scripts_udt.js"></script>
+</body>
+</html>
