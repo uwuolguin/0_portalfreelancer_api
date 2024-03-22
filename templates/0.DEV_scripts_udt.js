@@ -157,7 +157,7 @@ async function deleteTalent() {
 
   document.getElementById("button_post_delete").disabled = true;
 
-  btn=document.querySelector(".custom-file-upload-2");
+  btn=document.getElementById("button_post_delete");
   btn.classList.toggle("custom-file-upload-2--loading");
 
   
