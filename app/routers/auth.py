@@ -148,3 +148,14 @@ def indexLogIn(request: Request):
 
     context={'request': request}
     return templates.TemplateResponse("4_log_in.html",context)
+
+@router.get('/SigInRouter/',response_class=HTMLResponse)
+def SigInRoute(request: Request):
+
+    try:
+        conn_auth.rollback()
+    except:
+        pass
+
+    context={'request': request}
+    return templates.TemplateResponse("3_sign_up.html",context)
