@@ -53,13 +53,8 @@ async function updateTalent() {
   password=oFormObject.elements["password"].value
 
   myFile=document.getElementById("file")
-
-  try {
-    file = myFile.files[0];  
-  }
-  catch(err) {
-    file=''
-  }
+  file = myFile.files[0];  
+  console.log(file)
 
   full_name=oFormObject.elements["full_name"].value
   profession=oFormObject.elements["profession"].value
