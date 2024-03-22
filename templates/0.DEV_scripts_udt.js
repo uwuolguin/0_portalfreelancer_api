@@ -8,7 +8,7 @@ async function post_succesful_visible(response){
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
-    document.getElementById("succesful_post").innerHTML="Your user was Created"
+    document.getElementById("succesful_post").innerHTML="Succesful Request"
     await fetch("https://apiportalfreelancer.lat/auth/logout", {
       headers: {
         Accept: "application/json"
@@ -24,7 +24,7 @@ async function post_succesful_visible(response){
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("green_text")
     document.getElementById("succesful_post").classList.add("red_text")
-    document.getElementById("succesful_post").innerHTML="User was not Created"
+    document.getElementById("succesful_post").innerHTML="Failed Request"
 
 
 
@@ -40,14 +40,14 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
-    document.getElementById("succesful_post").innerHTML="Your user was Created"
+    document.getElementById("succesful_post").innerHTML="Succesful Login"
 
   } else {
     
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("green_text")
     document.getElementById("succesful_post").classList.add("red_text")
-    document.getElementById("succesful_post").innerHTML="User was not Created"
+    document.getElementById("succesful_post").innerHTML="Failed Login"
 
   }
 
