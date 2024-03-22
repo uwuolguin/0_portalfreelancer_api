@@ -99,7 +99,7 @@ async function updateTalent() {
     },
     method: "PUT"
   })
-  .then((response) => post_succesful_visible(response))
+  .then((response) => post_succesful_visible_2(response))
   .catch((error) => post_failed_visible(error));
 
 
