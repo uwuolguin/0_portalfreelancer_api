@@ -152,3 +152,92 @@ setTimeout(() => {
 }, "5000");
 
 }
+
+async function deleteTalent() {
+
+  document.getElementById("button_post_delete").disabled = true;
+
+  btn=document.querySelector(".custom-file-upload-2");
+  btn.classList.toggle("custom-file-upload-2--loading");
+
+  
+
+  await fetch("https://apiportalfreelancer.lat/talent/talent_delete/id/", {
+    headers: {
+      Accept: "*/*"
+    },
+    method: "DELETE"
+  })
+  .then((response) => post_succesful_visible(response))
+  .catch((error) => post_failed_visible(error));
+
+
+  await fetch("https://apiportalfreelancer.lat/auth/logout", {
+    headers: {
+      Accept: "application/json"
+    },
+    method: "DELETE"
+  })
+  .then((response) => console.log(response))
+  .catch((error) => console.log(error));
+
+  window.location.href = window.location.href;
+
+
+  btn.classList.remove("custom-file-upload-2--loading");
+
+  document.getElementById("button_post_delete").disabled = false;
+
+  setTimeout(() => {
+    document.getElementById("succesful_post").classList.add("hidden_div");
+    document.getElementById("failed_post").classList.add("hidden_div");
+  }, "5000");
+
+} 
+
+
+async function postLogIn() {
+
+  document.getElementById("button_post_log_in").disabled = true;
+
+  btn=document.querySelector(".submission_button_login");
+  btn.classList.toggle("submission_button_login--loading");
+
+  oFormObject = document.forms['form6'];
+
+  email=oFormObject.elements["email"].value
+  password=oFormObject.elements["password"].value
+
+  
+
+
+
+  const body = new FormData
+  body.append("email", email)
+  body.append("", "\\")
+  body.append("password", password)
+
+
+  await fetch("https://apiportalfreelancer.lat/auth/login_talent_firm", {
+    body,
+    headers: {
+    Accept: "application/json"
+    },
+    method: "POST"
+  })
+  .then((response) => post_succesful_visible(response))
+  .catch((error) => post_failed_visible(error));
+
+
+  btn.classList.remove("submission_button_login--loading");
+
+  document.getElementById("button_post_log_in").disabled = false;
+
+  setTimeout(() => {
+    document.getElementById("succesful_post").classList.add("hidden_div");
+    document.getElementById("failed_post").classList.add("hidden_div");
+  }, "3000");
+  
+  window.location.href = window.location.href;
+
+} 
