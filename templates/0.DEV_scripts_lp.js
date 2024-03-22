@@ -8,7 +8,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
-    document.getElementById("succesful_post").innerHTML="Your user was Created"
+    document.getElementById("succesful_post").innerHTML="Succesful Login"
     document.location.href = "https://github.com/uwuolguin/portalfreelancer_api";
 
   } else {
@@ -16,7 +16,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("green_text")
     document.getElementById("succesful_post").classList.add("red_text")
-    document.getElementById("succesful_post").innerHTML="User was not Created"
+    document.getElementById("succesful_post").innerHTML="Failed Login"
 
   }
 
