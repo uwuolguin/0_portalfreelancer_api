@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Response
+from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Response,Request
 from .. import schemas,utils,oath2
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -10,6 +10,8 @@ from typing_extensions import Annotated
 from pydantic.networks import EmailStr
 from pydantic.functional_validators import BeforeValidator
 from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 
 router= APIRouter(
@@ -131,3 +133,18 @@ def login_function(
 async def logout(response: Response,):
     response.delete_cookie("login")
     return {"status":"success"}
+
+################################################# TEMPLATES ####################################################################
+    
+templates= Jinja2Templates(directory="./templates")
+
+@router.get('/signUpTalent/',response_class=HTMLResponse)
+def index(request: Request):
+
+    try:
+        conn_auth.rollback()
+    except:
+        pass
+
+    context={'request': request}
+    return templates.TemplateResponse("4_log_in.html",context)
