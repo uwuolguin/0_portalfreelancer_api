@@ -18,7 +18,7 @@ async function post_succesful_visible(response){
     .then((response) => console.log(response))
     .catch((error) => console.log(error));
   
-    window.location.href = window.location.href;
+    location.reload();
   } else {
     
     document.getElementById("succesful_post").classList.remove("hidden_div")
@@ -263,6 +263,6 @@ async function postLogIn() {
     document.getElementById("failed_post").classList.add("hidden_div");
   }, "3000");
   
-  window.location.href = window.location.href;
+  location.reload();
 
 } 
