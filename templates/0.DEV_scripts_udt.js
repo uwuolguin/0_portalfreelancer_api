@@ -184,15 +184,6 @@ async function deleteTalent() {
   window.location.href = window.location.href;
 
 
-  btn.classList.remove("custom-file-upload-2--loading");
-
-  document.getElementById("button_post_delete").disabled = false;
-
-  setTimeout(() => {
-    document.getElementById("succesful_post").classList.add("hidden_div");
-    document.getElementById("failed_post").classList.add("hidden_div");
-  }, "5000");
-
 } 
 
 
