@@ -31,6 +31,27 @@ async function post_succesful_visible(response){
   }
 
 }
+function post_succesful_visible_2(response){
+
+
+  const status = ((response.status).toString()).substring(0, 1);
+
+  if (status ==="2") {
+    document.getElementById("succesful_post").classList.remove("hidden_div")
+    document.getElementById("succesful_post").classList.remove("red_text")
+    document.getElementById("succesful_post").classList.add("green_text")
+    document.getElementById("succesful_post").innerHTML="Your user was Created"
+
+  } else {
+    
+    document.getElementById("succesful_post").classList.remove("hidden_div")
+    document.getElementById("succesful_post").classList.remove("green_text")
+    document.getElementById("succesful_post").classList.add("red_text")
+    document.getElementById("succesful_post").innerHTML="User was not Created"
+
+  }
+
+}
 
 function post_failed_visible(error){
   console.log(error.detail)
@@ -229,7 +250,7 @@ async function postLogIn() {
     },
     method: "POST"
   })
-  .then((response) => post_succesful_visible(response))
+  .then((response) => post_succesful_visible_2(response))
   .catch((error) => post_failed_visible(error));
 
 
