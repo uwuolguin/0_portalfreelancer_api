@@ -56,6 +56,12 @@ async function updateTalent() {
   file = myFile.files[0];  
   console.log(file)
 
+  if (file === undefined) {
+    file = '';
+  }
+
+  console.log(file)
+
   full_name=oFormObject.elements["full_name"].value
   profession=oFormObject.elements["profession"].value
   rate=oFormObject.elements["rate"].value
