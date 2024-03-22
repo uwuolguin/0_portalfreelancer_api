@@ -1,5 +1,5 @@
 
-function post_succesful_visible(response){
+async function post_succesful_visible(response){
 
 
   const status = ((response.status).toString()).substring(0, 1);
@@ -9,12 +9,24 @@ function post_succesful_visible(response){
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Your user was Created"
+    await fetch("https://apiportalfreelancer.lat/auth/logout", {
+      headers: {
+        Accept: "application/json"
+      },
+      method: "DELETE"
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+  
+    window.location.href = window.location.href;
   } else {
     
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("green_text")
     document.getElementById("succesful_post").classList.add("red_text")
     document.getElementById("succesful_post").innerHTML="User was not Created"
+
+
 
   }
 
@@ -23,6 +35,7 @@ function post_succesful_visible(response){
 function post_failed_visible(error){
   console.log(error.detail)
   document.getElementById("failed_post").classList.remove("hidden_div")
+
   
 }
 
@@ -172,17 +185,17 @@ async function deleteTalent() {
   .catch((error) => post_failed_visible(error));
 
 
-  await fetch("https://apiportalfreelancer.lat/auth/logout", {
-    headers: {
-      Accept: "application/json"
-    },
-    method: "DELETE"
-  })
-  .then((response) => console.log(response))
-  .catch((error) => console.log(error));
 
-  window.location.href = window.location.href;
 
+
+  btn.classList.remove("custom-file-upload-2--loading");
+
+  document.getElementById("button_post_delete").disabled = false;
+
+  setTimeout(() => {
+    document.getElementById("succesful_post").classList.add("hidden_div");
+    document.getElementById("failed_post").classList.add("hidden_div");
+  }, "5000");
 
 } 
 
