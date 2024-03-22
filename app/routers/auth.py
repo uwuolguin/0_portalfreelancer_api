@@ -138,8 +138,8 @@ async def logout(response: Response,):
     
 templates= Jinja2Templates(directory="./templates")
 
-@router.get('/signUpTalent/',response_class=HTMLResponse)
-def index(request: Request):
+@router.get('/logIn/',response_class=HTMLResponse)
+def indexLogIn(request: Request):
 
     try:
         conn_auth.rollback()
