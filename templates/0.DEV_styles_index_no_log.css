@@ -287,10 +287,12 @@ background-color:#023b0b ;
     font-size: 25px;
     color: rgb(0, 0, 0);
     font-weight: 100;
+    margin: auto;
     margin-bottom: 20px;
     white-space: wrap;
     width:200px;
     text-align: center;
+    
 
 }
 
