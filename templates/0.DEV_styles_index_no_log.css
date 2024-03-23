@@ -75,18 +75,6 @@ textarea {
     min-width: 600px;
 }
 
-.div_nav_6_v77 {
-
-    height:6px;
-    background-color: rgb(246, 248, 246);
-    display: inline-flex;
-    align-items: baseline;
-    width: 100%;
-    padding-top: 3vh;
-    padding-bottom: 7vh;
-    min-width: 600px;
-}
-
 .div_nav_7 {
 
     height:0.05rem;
@@ -851,14 +839,14 @@ background-color:#06b821 ;
 
 
 }
-.big_box_sign_up_6_v24{
+.big_box_sign_up_6_v2{
 
 
     height: 125px;
-    width: 300px;
+    width: 600px;
     margin: auto;
     margin-bottom: 0;
-    min-width: 300px;
+    min-width: 600px;
 
 
 
