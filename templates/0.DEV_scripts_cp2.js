@@ -39,7 +39,7 @@ async function postLogIn() {
   oFormObject = document.forms['form6'];
 
   email=oFormObject.elements["email"].value
-
+  password=oFormObject.elements["password"].value
 
   const body = new FormData
   body.append("email", email)
