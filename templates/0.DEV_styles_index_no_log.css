@@ -717,12 +717,10 @@ background-color:#023b0b ;
 }
 .big_box_sign_up_version_2{
 
-    border: 0.1vh solid rgb(138, 148, 138);
-    border-radius: 1vh;
+
     height: 300px;
     width: 80%;
     margin: auto;
-    border-style: solid;
     min-width: 600px;
     margin-bottom: 20px;
     min-height: 400px;
