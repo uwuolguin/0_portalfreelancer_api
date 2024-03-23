@@ -9,7 +9,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Succesful Login"
-    document.location.href = "https://apiportalfreelancer.lat/changepassword/changePasswordP1/";
+    document.location.href = "https://apiportalfreelancer.lat/changepassword/changePasswordP2/";
 
   } else {
     
