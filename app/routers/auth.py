@@ -171,7 +171,7 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
 
     if login==None:
             context={'request': request}
-            return templates.TemplateResponse("4_log_in.html",context)
+            return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
     
     credentials=oath2.decode_access_token(login)
 
@@ -184,5 +184,5 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
             return templates.TemplateResponse("7_del_up_talent.html",context)
 
     context={'request': request}
-    return templates.TemplateResponse("4_log_in.html",context)
+    return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
     
