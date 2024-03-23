@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form
+from fastapi import  status, HTTPException,APIRouter,Form,Response,Request
 from .. import schemas
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -12,6 +12,8 @@ import os
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 import secrets
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 router= APIRouter(
     
@@ -255,3 +257,29 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
     print(email_response)
 
     return {'Email Sent'}
+
+################################################# TEMPLATES ####################################################################
+    
+templates= Jinja2Templates(directory="./templates")
+
+@router.get('/changePasswordP1/',response_class=HTMLResponse)
+def cp1(request: Request):
+
+    try:
+        conn_changepassword.rollback()
+    except:
+        pass
+
+    context={'request': request}
+    return templates.TemplateResponse("9_recover_password.html",context)
+
+@router.get('/changePasswordP2/',response_class=HTMLResponse)
+def cp2(request: Request):
+
+    try:
+        conn_changepassword.rollback()
+    except:
+        pass
+
+    context={'request': request}
+    return templates.TemplateResponse("10_recover_password_p2.html",context)
