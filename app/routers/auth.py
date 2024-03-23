@@ -159,3 +159,30 @@ def SigInRoute(request: Request):
 
     context={'request': request}
     return templates.TemplateResponse("3_sign_up.html",context)
+
+@router.get('/settings_url_for_del_up/',response_class=HTMLResponse)
+def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
+
+    try:
+        conn_auth.rollback()
+    except:
+        pass
+
+
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in.html",context)
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") == "firm":
+            context={'request': request}
+            return templates.TemplateResponse("8_del_up_firm.html",context)
+    
+    if dict(credentials).get("role") == "talent":
+            context={'request': request}
+            return templates.TemplateResponse("7_del_up_talent.html",context)
+
+    context={'request': request}
+    return templates.TemplateResponse("4_log_in.html",context)
+    

@@ -378,13 +378,4 @@ def delup(request: Request,login: str = Cookie(None)):
     return templates.TemplateResponse("8_del_up_firm.html",context)
     
 
-# fetch("https://apiportalfreelancer.lat/firm/firm_put/", {
-#   body: "password=hola&full_name=actualizado&contact_email=acos201460083665%40gmail.com&contact_phone=944338593&email_template_to_send=actualizado&linkedin=https%3A%2F%2Flinkedin.com%2F&instagram=https%3A%2F%2Finstagram.com%2F",
-#   headers: {
-#     Accept: "application/json",
-#     "Content-Type": "application/x-www-form-urlencoded"
-#   },
-#   method: "PUT"
-# })
-
 
