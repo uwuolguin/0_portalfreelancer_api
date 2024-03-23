@@ -288,7 +288,8 @@ background-color:#023b0b ;
     color: rgb(0, 0, 0);
     font-weight: 100;
     margin-bottom: 3.5vh;
-    white-space: nowrap;
+    white-space: wrap;
+    width:50px;
 
 }
 
