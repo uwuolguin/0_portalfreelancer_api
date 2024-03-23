@@ -267,16 +267,7 @@ background-color:#023b0b ;
     font-weight: 100;
 
 }
-.h1_mid_2_login2_v333{
 
-
-    font-family:'sans-serif';
-    font-size: 27px;
-    color: rgb(2, 134, 2);
-    font-weight: 100;
-    margin-bottom: 20px;
-
-}
 
 .h1_mid_2_talent2{
 
@@ -1342,6 +1333,16 @@ background-color:#06b821 ;
     center;
     margin: auto;
     margin-bottom: 30px;
+}
+
+.big_box_login_2_v333{
+
+    height: 2%;
+    width: 90%;
+    text-align:
+    center;
+    margin: auto;
+    margin-bottom: 70px;
 }
 
 .big_box_talent_2{
