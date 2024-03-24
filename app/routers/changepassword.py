@@ -14,6 +14,7 @@ from sib_api_v3_sdk.rest import ApiException
 import secrets
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+import requests
 
 router= APIRouter(
     
@@ -258,11 +259,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
 
     return {'Email Sent'}
 
-################################DELETE COOKIES#######################
-@router.delete("/logout_change")
-async def logout_change(response: Response,):
-    response.delete_cookie("login")
-    return {"status":"success"}
+
 ################################################# TEMPLATES ####################################################################
     
 templates= Jinja2Templates(directory="./templates")
@@ -276,6 +273,10 @@ async def cp1(request:Request):
 
     except:
         pass
+
+
+    r = requests.get("https://apiportalfreelancer.lat/auth/logout")
+    print(r)
 
     context={'request': request}
     return templates.TemplateResponse("9_recover_password.html",context)
