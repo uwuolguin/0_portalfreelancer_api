@@ -259,7 +259,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
 
     return {'Email Sent'}
 
-#######################################################
+################################DELETE COOKIES#######################
 @router.delete("/logout_change")
 async def logout_change(response: Response,):
     response.delete_cookie("login")
