@@ -1,6 +1,35 @@
 *{
     text-decoration: none;
 }
+.ul_navbar {
+    height:100px;
+    background-color: rgb(238, 245, 238);
+    min-width: 1200px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 10px;
+
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  li {
+    float: left;
+    display: inline;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    align-items: baseline;
+    padding-top: 30px;
+  }
+
+
 .red_text{
     color: #aa0404;
     font-size: 15px;
@@ -34,35 +63,25 @@ textarea {
 #form1{
 
     display:inline-flex;
-    margin-right:1vw;
-    margin-left:0.7vw;
-    padding-top:0.3vw;
-    padding-bottom:0.3vw;
-    padding-right:0.3vw;
-    padding-left:0.3vw;
-    width: 17vw;
-    border-radius: 1vw;
-    border: 0.1vw solid #023b0b;
+    margin-right:2px;
+    margin-left:10px;
+    padding-bottom:1.2px;
+    padding-right:1.2px;
+    padding-left:20px;
+    width: 210px;
+    border-radius: 50px;
+    border: 2px solid #023b0b;
     background: white;
-    margin-top: 2vh;
+    margin-top: 18px;
+
+
 }
 
 #form1:focus {
     border: 0.1vw solid #021c3b;
   }
 
-.div_nav {
 
-    height:4.4rem;
-    background-color: rgb(238, 245, 238);
-    display: inline-flex;
-    align-items: baseline;
-    width: 100%;
-    padding-top: 3vh;
-    padding-bottom: 7vh;
-    margin-bottom: 4VH;
-    min-width: 600px;
-}
 .div_nav_6 {
 
     height:6px;
@@ -90,11 +109,16 @@ textarea {
 
 .logo {
     color: rgb(2, 109, 2);
-    font-size: 3vh;
+    font-size: 25px;
     font-family: 'sans-serif';
     border-color: black;
     font-weight: 700;
-    padding-left: 1vh;
+    white-space: nowrap;
+    margin-right: 20px;
+    padding-top: 25px;
+
+
+
 
   }
   .logo_uwu {
@@ -112,12 +136,12 @@ textarea {
 
 
 .nav_a{
-    padding-right: 0.8vw;
+
     color:black;
-    font-size: 2.5vh;
-    margin: 1px;
-    white-space: nowrap;
-    padding-left:1.2vw;
+    font-size: 18px;
+    max-width: 100px;
+    margin-right: 15px;
+
 }
 .nav_a:hover{
     color:green;
@@ -157,17 +181,18 @@ background-color:#023b0b ;
 }
 
 #form1 input[type=text] {
-    width: 15vw;
+    width: 150px;
     height: 3rem;
     border: 0;
     background: white;
     text-align: center;
+    font-size: 17px;
 }
 #form1 input::placeholder {
     font-family:Arial, Helvetica, sans-serif;
     text-align: center;
     color: rgb(0, 0, 0);
-
+    font-size: 13px;
 
 
  }
@@ -185,8 +210,9 @@ background-color:#023b0b ;
     overflow: visible;
 }
 .w3_image{
-    width:100%;
-    max-width:2vw;
+    width:25px;
+    margin-top: 7px;
+
 
 }
 
@@ -398,25 +424,26 @@ background-color:#023b0b ;
 .dropdown{
     display:inline-block;
     vertical-align: middle;
-    margin-left: 0.5vw;
+    margin-right: 80px;
+    margin-top: 22px;
 }
 
 .dropdown img{
-        height: 6.3vh;
-        width: 6.3vw;
+        height: 50px;
+        width: 50px;
 }
 .dropdown a{
     display: block;
     color: black;
     text-decoration: none;
-    padding: 2vh 1vw;
-    font-size: 2.5vh;
+    padding: 10px 5px;
+    font-size: 20px;
 }
 .dropdown .content{
     display: none;
     position: absolute;
     background-color: hsl(0, 0%, 95%);
-    min-width: 10vw;
+    min-width: 120px;
     box-shadow: 2px 2px 5px hsla(0, 0%, 0%, 0.8);
 }
 .dropdown:hover .content{
@@ -875,8 +902,6 @@ background-color:#06b821 ;
     margin: auto;
     min-width: 600px;
     margin-top: 2vh;
-    border: 0.1vh solid  rgb(24, 24, 24);
-    border-radius: 5vh;
     margin-bottom: 10vh;
 
 
