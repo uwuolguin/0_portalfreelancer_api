@@ -55,22 +55,42 @@
                 </h1>
         </div>
         <div class="big_box_talent_3">
-            <form action="/action_page.php" method="get" id="form7" >
-
-                    <textarea id="f1000description2" placeholder="Use a maximum of 1000 characters" name="buscar_profesionales" form="form7" class="input" maxlength="860" ></textarea>
-                <button type="submit" form="form6" class="custom-file-upload-3" >
-                    Send Information
-                </button>
-        </div>
-
-
+            <div class="big_box_login_3">
+                <form id="form6" >
+                    <div class="log_in_bottom_2">
+                        <img src="https://apiportalfreelancer.lat/static/user_log_in.svg" alt="Team Effort" class="img_4" >
+                        <input class="input" type="text" name="email" placeholder="Enter your Email"  maxlength="80" required>
+                    </div>
+                    <div class="log_in_bottom_2">
+                        <img src="https://apiportalfreelancer.lat/static/password.svg" alt="Team Effort" class="img_4" >
+                        <input class="input" type="password" name="password" placeholder="Enter your Password"  maxlength="80" >
+                    </div>
+                    <button type="button" onclick= "postLogIn()" class="submission_button_login" id="button_post_log_in"  >
+                        <span class="submission_button_login__text"> Send Information</span>
+                    </button>
     
-    </div>
-    <!-- MID SECTION -->
-
-
-
-
-
+                </form>
+            </div>
+    
+        </div>
+        <br>
+        <div class="big_box_sign_up_99_2">
+            Don't have a Portal Freelancer account? <a href="https://apiportalfreelancer.lat/auth/SigInRouter/" class="a_tag_sign_up2">Sign Up</a>
+        </div>
+        <div class="big_box_sign_up_99_2_2">
+            Forgot your password? <a href="https://www.w3schools.com" class="a_tag_sign_up2">Recover your password</a>
+        </div>
+        <br>
+        <div class="big_box_sign_up_999" >
+            <div class="hidden_div" id="succesful_post"></div>
+            <div class="hidden_div red_text"id="failed_post">Failed Log In</div>
+        </div>
+    
+    
+        <!-- MID SECTION -->
+    
+    
+    
+<script src="https://apiportalfreelancer.lat/static/scripts_lp.js"></script>
 </body>
 </html>
