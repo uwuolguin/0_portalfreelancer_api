@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Request,Depends
+from fastapi import  status, HTTPException,APIRouter,Form,Request,Depends,Response
 from .. import schemas
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -259,6 +259,11 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
 
     return {'Email Sent'}
 
+#######################################################
+@router.delete("/logout_change")
+async def logout_change(response: Response,):
+    response.delete_cookie("login")
+    return {"status":"success"}
 ################################################# TEMPLATES ####################################################################
     
 templates= Jinja2Templates(directory="./templates")
