@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Cookie
+from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Request
 from .. import schemas,oath2
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -8,6 +8,8 @@ from typing import Any
 import os
 from typing_extensions import Annotated
 from pydantic.functional_validators import BeforeValidator
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 while True:
     try:
@@ -103,3 +105,17 @@ def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_10
     cursor.execute(email_uwu % (str(email),str(email_sent)))
     conn_complaints.commit()
 
+################################################# TEMPLATES ####################################################################
+    
+templates= Jinja2Templates(directory="./templates")
+
+@router.get('/complaints_html/',response_class=HTMLResponse)
+def complaints_html(request: Request):
+
+    try:
+        conn_complaints.rollback()
+    except:
+        pass
+
+    context={'request': request}
+    return templates.TemplateResponse("11_complaints.html",context)
