@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Request,Depends,Response
+from fastapi import  status, HTTPException,APIRouter,Form,Request
 from .. import schemas
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -14,7 +14,7 @@ from sib_api_v3_sdk.rest import ApiException
 import secrets
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import requests
+
 
 router= APIRouter(
     
