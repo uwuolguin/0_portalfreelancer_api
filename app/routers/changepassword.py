@@ -14,7 +14,6 @@ from sib_api_v3_sdk.rest import ApiException
 import secrets
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from .auth import logout
 
 router= APIRouter(
     
