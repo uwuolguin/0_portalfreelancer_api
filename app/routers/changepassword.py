@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Response,Request
+from fastapi import  status, HTTPException,APIRouter,Form,Request,Depends
 from .. import schemas
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -14,6 +14,7 @@ from sib_api_v3_sdk.rest import ApiException
 import secrets
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from .auth import logout
 
 router= APIRouter(
     
@@ -264,11 +265,11 @@ templates= Jinja2Templates(directory="./templates")
 
 @router.get('/changePasswordP1/',response_class=HTMLResponse) 
     
-async def cp1(request: Request,response: Response):
+async def cp1(request: Annotated[Request,Depends(logout)]):
 
     try:
         conn_changepassword.rollback()
-        response.delete_cookie("login")
+
     except:
         pass
 
