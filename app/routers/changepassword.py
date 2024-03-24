@@ -259,7 +259,10 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
 
     return {'Email Sent'}
 
-
+@router.delete("/logout_change")
+async def logout_change(response: Response,):
+    response.delete_cookie("login")
+    return {"status":"success"}
 ################################################# TEMPLATES ####################################################################
     
 templates= Jinja2Templates(directory="./templates")
@@ -273,6 +276,8 @@ async def cp1(request:Request):
 
     except:
         pass
+
+    logout_change(response=Response)
 
     context={'request': request}
     return templates.TemplateResponse("9_recover_password.html",context)
