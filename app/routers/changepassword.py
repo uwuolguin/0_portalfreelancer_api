@@ -262,11 +262,13 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
     
 templates= Jinja2Templates(directory="./templates")
 
-@router.get('/changePasswordP1/',response_class=HTMLResponse)
-def cp1(request: Request):
+@router.get('/changePasswordP1/',response_class=HTMLResponse) 
+    
+async def cp1(request: Request,response: Response):
 
     try:
         conn_changepassword.rollback()
+        response.delete_cookie("login")
     except:
         pass
 
