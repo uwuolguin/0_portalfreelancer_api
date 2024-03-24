@@ -29,16 +29,18 @@ function post_failed_visible(error){
   
 }
 
-async function postLogIn() {
+async function logOut() {
 
   await fetch("https://apiportalfreelancer.lat/auth/logout", {
     headers: {
       Accept: "application/json"
     },
     method: "DELETE"
-  })
-  .then((response) => console.log(response))
-  .catch((error) => console.log(error));
+  }).then((response) => console.log(response)).catch((error) => console.log(error));
+
+ }
+
+async function postLogIn() {
 
   document.getElementById("button_post_log_in").disabled = true;
 
