@@ -265,7 +265,7 @@ templates= Jinja2Templates(directory="./templates")
 
 @router.get('/changePasswordP1/',response_class=HTMLResponse) 
     
-async def cp1(request: Annotated[Request,Depends(logout())]):
+async def cp1(request:Request):
 
     try:
         conn_changepassword.rollback()
