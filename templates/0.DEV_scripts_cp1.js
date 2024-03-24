@@ -42,6 +42,8 @@ async function logOut() {
 
 async function postLogIn() {
 
+  await logOut()
+
   document.getElementById("button_post_log_in").disabled = true;
 
   btn=document.querySelector(".submission_button_login");
