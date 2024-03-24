@@ -274,10 +274,6 @@ async def cp1(request:Request):
     except:
         pass
 
-
-    r = requests.get("https://apiportalfreelancer.lat/auth/logout")
-    print(r)
-
     context={'request': request}
     return templates.TemplateResponse("9_recover_password.html",context)
 
