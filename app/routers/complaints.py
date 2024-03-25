@@ -110,12 +110,16 @@ def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_10
 templates= Jinja2Templates(directory="./templates")
 
 @router.get('/complaints_html/',response_class=HTMLResponse)
-def complaints_html(request: Request):
+def complaints_html(request: Request,login: str = Cookie(None)):
 
     try:
         conn_complaints.rollback()
     except:
         pass
+    
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in_complaints.html",context)
 
     context={'request': request}
     return templates.TemplateResponse("11_complaints.html",context)
