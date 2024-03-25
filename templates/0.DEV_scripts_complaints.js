@@ -41,7 +41,7 @@ async function postLogIn() {
 
 
   const body = new FormData
-  body.append(" email_sent",  email_sent)
+  body.append("email_sent",  email_sent)
 
 
 
