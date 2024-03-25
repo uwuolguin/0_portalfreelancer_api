@@ -55,19 +55,20 @@
                 </h1>
         </div>
         <div class="big_box_talent_3">
-            <form action="/action_page.php" method="get" id="form7" >
+            <form id="form7" >
 
-                    <textarea id="f1000description2" placeholder="Use a maximum of 1000 characters" name="buscar_profesionales" form="form7" class="input" maxlength="860" ></textarea>
-                <button type="submit" form="form6" class="custom-file-upload-3" >
-                    Send Information
+                <textarea id="f1000description2" placeholder="Use a maximum of 860 characters" name="buscar_profesionales" class="input" maxlength="860" ></textarea>
+
+                <button type="button" onclick= "postLogIn()" class="submission_button_login" id="button_post_log_in"  >
+                    <span class="submission_button_login__text"> Send Information</span>
                 </button>
         </div>
 
-
         <br>
+
         <div class="big_box_sign_up_999" >
             <div class="hidden_div" id="succesful_post"></div>
-            <div class="hidden_div red_text"id="failed_post">Failed Log In</div>
+            <div class="hidden_div red_text"id="failed_post">Failed Request</div>
         </div>
     
     
