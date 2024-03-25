@@ -45,7 +45,7 @@ async function postLogIn() {
 
 
 
-  await fetch("https://apiportalfreelancer.lat/complaints/complaint_post", {
+  await fetch("https://apiportalfreelancer.lat/complaints/complaint_post/", {
     body,
     headers: {
     Accept: "application/json"
