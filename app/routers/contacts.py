@@ -1,4 +1,4 @@
-from fastapi import  status, HTTPException, APIRouter,Cookie
+from fastapi import  status, HTTPException, APIRouter, Response,File, UploadFile,Form,Cookie,Request
 from .. import schemas,oath2
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -9,6 +9,12 @@ import os
 # Import SendinBlue library
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+
+
+
 
 router= APIRouter(
     
@@ -276,3 +282,56 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 
 
     return {'Email Sent'}
+
+################################################# TEMPLATES ####################################################################
+    
+templates= Jinja2Templates(directory="./templates")
+
+@router.get('/contacts_normal/',response_class=HTMLResponse)
+def contacts_normal(request: Request,login: str = Cookie(None)):
+
+    try:
+        conn_contacts.rollback()
+    except:
+        pass
+
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") != "firm":
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    
+
+
+    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
+    skills=cursor.fetchall()
+
+    if not skills :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    
+    Skills_List=[]
+
+    for  skill in skills:
+        skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
+        Skills_List.append(skill_dict)
+
+
+    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+    categories=cursor.fetchall()
+    if not categories :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    
+    Categories_List=[]
+
+    for  category in categories:
+        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+        Categories_List.append(category_dict)
+
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+    return templates.TemplateResponse("7_del_up_talent.html",context)
