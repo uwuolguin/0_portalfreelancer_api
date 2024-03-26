@@ -327,4 +327,4 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         Categories_List.append(category_dict)
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List}
-    return templates.TemplateResponse("7_del_up_talent.html",context)
+    return templates.TemplateResponse("2_find_talent.html",context)

@@ -51,178 +51,41 @@
     <div class="left_column_mid_find_talent">
         <div class="checkbox_container">
             <h3 >Skills</h3> 
-    
+ 
+            {% for skill in skills %}
             <div class="input-checkbox">
                 <input
-                 
-                type="checkbox"
-                name="Languages"
-                value="php"
-                id="php"
-                />
-                <label for="php">PHP</label>
-            </div>
-    
-            <div class="input-checkbox">
-                    <input
-                     
-                    type="checkbox"
-                    name="Languages"
-                    value="javascript"
-                    id="javascript"
-                    />
-                    <label for="javascript">Javascript</label>
-    
                 
-            </div>
-    
-            <div class="input-checkbox">
-                <input
-                 
                 type="checkbox"
-                name="Languages"
-                value="Python"
-                id="Python"
+                name={{skill.skill_key|e ~ "-skill"}}
+                value={{skill.skill_key|e ~ "-skill"}}
+                id={{skill.skill_key|e ~ "-skill"}}
                 />
-                <label for="Python">Python</label>
-    
+                <label for={{skill.skill_key|e ~ "-skill"}}>{{ skill.skill|e }}</label>
             
             </div>
-            <div class="input-checkbox">
-                <input
-                 
-                type="checkbox"
-                name="Languages"
-                value="Laravel"
-                id="Laravel"
-                />
-                <label for="Laravel">Laravel</label>
-            </div>
-    
-            <div class="input-checkbox">
-                    <input
-                     
-                    type="checkbox"
-                    name="Languages"
-                    value="Wordpress"
-                    id="Wordpress"
-                    />
-                    <label for="Wordpress">Wordpress</label>
-    
-                
-            </div>
-    
-            <div class="input-checkbox">
-                <input
-                 
-                type="checkbox"
-                name="Languages"
-                value="Bootstrap"
-                id="Bootstrap"
-                />
-                <label for="Bootstrap">Bootstrap</label>
-    
-            
-            </div>
-            <div class="input-checkbox">
-                <input
-                 
-                type="checkbox"
-                name="Languages"
-                value="Other"
-                id="Other"
-                />
-                <label for="Other">Other</label>
-    
-            
-            </div>
+            {% endfor %}
+
             <h2 >Categories</h2>
+            {% for category in categories %}
             <div class="input-checkbox">
                 <input
-                 
-                type="checkbox"
-                name="Categories"
-                value="Development and IT"
-                id="Development and IT"
-                />
-                <label for="Development and IT">Development and IT</label>
-            </div>
-    
-            <div class="input-checkbox">
-                    <input
-                     
-                    type="checkbox"
-                    name="Categories"
-                    value="AI Services"
-                    id="AI Services"
-                    />
-                    <label for="AI Services">AI Services</label>
-    
                 
-            </div>
-    
-            <div class="input-checkbox">
-                <input
-                 
                 type="checkbox"
-                name="Categories"
-                value="Design and Creative"
-                id="Design and Creative"
+                name={{category.category_key|e ~ "-category"}}
+                value={{category.category_key|e ~ "-category"}}
+                id={{category.category_key|e ~ "-category"}}
                 />
-                <label for="Design and Creative">Design and Creative</label>
-    
+                <label for={{category.category_key|e ~ "-category"}}>{{ category.category|e }}</label>
             
             </div>
-            <div class="input-checkbox">
-                <input
-                 
-                type="checkbox"
-                name="Categories"
-                value="Finance and Accounting"
-                id="Finance and Accounting"
-                />
-                <label for="Finance and Accounting">Finance and Accounting</label>
-    
-            
-            </div> 
-            <div class="input-checkbox">
-                <input
-                 
-                type="checkbox"
-                name="Categories"
-                value="Sales and Marketing"
-                id="Sales and Marketing"
-                />
-                <label for="Sales and Marketing">Sales and Marketing</label>
+            {% endfor %}
 
             
         </div>
 
-        <div class="input-checkbox">
-            <input
-             
-            type="checkbox"
-            name="Categories"
-            value="Engineering and Architecture"
-            id="Engineering and Architecture"
-            />
-            <label for="Engineering and Architecture">Engineering and Architecture</label>
 
         
-        </div>
-        <div class="input-checkbox">
-            <input
-             
-            type="checkbox"
-            name="Categories"
-            value="Other_categories"
-            id="Other_categories"
-            />
-            <label for="Other_categories">Other</label>
-
-        
-        </div> 
-        </div>
     </div>
 
     <div class="right_column_mid_find_talent">
