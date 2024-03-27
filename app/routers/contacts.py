@@ -295,9 +295,9 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     except:
         pass
 
-    if login==None:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    # if login==None:
+    #         context={'request': request}
+    #         return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
@@ -334,7 +334,7 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
 
-
+    print(talent.get("facebook") == 'None')
 
     Talents_List=[]
 
