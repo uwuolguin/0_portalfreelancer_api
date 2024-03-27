@@ -408,8 +408,8 @@ background-color:#023b0b ;
 
 .image_footer_style{
 
-    height: 6.3vh;
-    width: 3.15vw;
+    height: 50px;
+    width: 40px;
     border-radius: 100%;
     background-color: white;
 }
