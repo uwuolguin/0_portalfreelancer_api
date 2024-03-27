@@ -339,5 +339,5 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         talent_dict={'id':talent.get("id"),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':talent.get("rate"),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':talent.get("instagram"),'facebook':talent.get("facebook"),'skills':talent.get("skills"),'categories':talent.get("categories")}
         Talents_List.append(talent_dict)
 
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
     return templates.TemplateResponse("2_find_talent.html",context)
