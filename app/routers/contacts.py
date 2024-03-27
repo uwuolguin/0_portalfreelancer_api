@@ -295,11 +295,6 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     except:
         pass
 
-    if login==None:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_contacts.html",context)
-    
-
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
     skills=cursor.fetchall()
 
@@ -325,6 +320,17 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     for  category in categories:
         category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
         Categories_List.append(category_dict)
+    
+    cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
+    talents=cursor.fetchall()
+    if not talents :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    Talents_List=[]
+
+    for  talent in talents:
+        talent_dict={'id':talent.get("id"),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':talent.get("rate"),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':talent.get("instagram"),'facebook':talent.get("facebook"),'skills':talent.get("skills"),'categories':talent.get("categories")}
+        Talents_List.append(talent_dict)
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List}
     return templates.TemplateResponse("2_find_talent.html",context)
