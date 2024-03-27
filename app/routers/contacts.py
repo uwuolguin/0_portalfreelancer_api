@@ -340,12 +340,12 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     for  talent in talents:
 
         facebook_c=talent.get("facebook")
-        if facebook_c ==None:
-            facebook_c='None'
+        if facebook_c =='None':
+            facebook_c="https://apiportalfreelancer.lat/contacts/contacts_normal/"
 
         instagram_c=talent.get("instagram")
-        if instagram_c ==None:
-            instagram_c ='None'
+        if instagram_c =='None':
+            instagram_c ='https://apiportalfreelancer.lat/contacts/contacts_normal/'
 
 
 
