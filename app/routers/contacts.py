@@ -341,11 +341,11 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
 
         facebook_c=talent.get("facebook")
         if facebook_c =='None':
-            facebook_c="https://apiportalfreelancer.lat/contacts/contacts_normal/"
+            facebook_c=''
 
         instagram_c=talent.get("instagram")
         if instagram_c =='None':
-            instagram_c ='https://apiportalfreelancer.lat/contacts/contacts_normal/'
+            instagram_c =''
 
 
 
