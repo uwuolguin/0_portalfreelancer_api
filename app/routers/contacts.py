@@ -295,6 +295,11 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     except:
         pass
 
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    
+
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
     skills=cursor.fetchall()
 
@@ -321,6 +326,8 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
         Categories_List.append(category_dict)
     
+
+
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
     if not talents :
