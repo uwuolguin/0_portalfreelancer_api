@@ -334,11 +334,16 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
 
-    print(talent.get("facebook") == 'None')
+    hola=talent.get("facebook")
 
     Talents_List=[]
 
     for  talent in talents:
+
+        hola=talent.get("facebook")
+        print(hola ==None)
+
+        
         talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':talent.get("instagram"),'facebook':talent.get("facebook"),'skills':talent.get("skills"),'categories':talent.get("categories")}
         Talents_List.append(talent_dict)
 
