@@ -343,6 +343,7 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         Talents_List.append(talent_dict)
 
 
+    print(Talents_List)
 
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
