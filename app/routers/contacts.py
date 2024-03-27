@@ -336,15 +336,22 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
 
     corrected_facebook=''
     corrected_instagram=''
-    
+
+    if talent.get("instagram") ==None:
+        corrected_instagram='https://apiportalfreelancer.lat/contacts/contacts_normal/'
+
+    if talent.get("facebook") ==None:
+        corrected_instagram='https://apiportalfreelancer.lat/contacts/contacts_normal/'
+
+
     Talents_List=[]
 
     for  talent in talents:
-        talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':talent.get("instagram"),'facebook':talent.get("facebook"),'skills':talent.get("skills"),'categories':talent.get("categories")}
+        talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':corrected_instagram,'facebook':corrected_facebook,'skills':talent.get("skills"),'categories':talent.get("categories")}
         Talents_List.append(talent_dict)
 
 
-
+    
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
     return templates.TemplateResponse("2_find_talent.html",context)
