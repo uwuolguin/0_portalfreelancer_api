@@ -599,7 +599,7 @@ background-color:#023b0b ;
     margin:20px 0px 20px 30px;
     display: inline-block;
     height: 400px;
-    min-width: 1300px;
+    width: 1300px;
     background-color: rgb(240, 250, 240);
     border: 0.5px solid rgba(0, 0, 0, 0.151);
     border-radius: 1.5px;
