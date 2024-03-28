@@ -498,10 +498,9 @@ background-color:#023b0b ;
 
 .right_column_mid_find_talent{
 
-    min-width: 1200px;
+    width: 70%;
     float:right;
-    padding-left: 10px;
-
+    padding-left: 2vw;
 }
 
 
@@ -634,11 +633,11 @@ background-color:#023b0b ;
 
         }
 .left_mid_post_data_talent{
-    margin-top: 5px;
+    margin-top: 1vh;
     height: 90%;
     float: left;
-    width: 1200px;
-
+    width: 60%;
+    display: inline-flex;
 
 }
 .right_mid_post_data_talent{
