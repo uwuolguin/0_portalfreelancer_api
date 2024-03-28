@@ -546,7 +546,7 @@ background-color:#023b0b ;
     display: inline-flex;
     align-content: center;
     justify-content: center;
-    border:2px solid rgb(1, 85, 1);
+    border:10px solid rgb(1, 85, 1);
     border-radius: 100%;
     margin-right: 5px;
 
