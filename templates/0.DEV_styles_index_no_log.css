@@ -634,11 +634,11 @@ background-color:#023b0b ;
 
         }
 .left_mid_post_data_talent{
-    margin-top: 1vh;
+    margin-top: 5px;
     height: 90%;
     float: left;
-    width: 60%;
-    display: inline-flex;
+    width: 1200px;
+
 
 }
 .right_mid_post_data_talent{
