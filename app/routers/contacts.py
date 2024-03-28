@@ -295,9 +295,9 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     except:
         pass
 
-    # if login==None:
-    #         context={'request': request}
-    #         return templates.TemplateResponse("4_log_in_contacts.html",context)
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
