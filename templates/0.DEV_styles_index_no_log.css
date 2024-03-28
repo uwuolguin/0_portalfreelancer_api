@@ -598,12 +598,12 @@ background-color:#023b0b ;
     min-width: 400px;
     margin:20px 0px 20px 30px;
     display: inline-block;
-    height: 55vh;
-    width: 60vw;
+    height: 400px;
+    width: 1200px;
     background-color: rgb(240, 250, 240);
-    border: 0.1vw solid rgba(0, 0, 0, 0.151);
-    border-radius: 3vh;
-    margin-right: 1vw;
+    border: 0.5px solid rgba(0, 0, 0, 0.151);
+    border-radius: 1.5px;
+    margin-right: 1px;
     font-family: 'sans-serif';
     box-sizing: border-box;
 
