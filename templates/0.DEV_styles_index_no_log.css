@@ -509,11 +509,11 @@ background-color:#023b0b ;
 .checkbox_container h2{
 
     font-family:'sans-serif';
-    font-size:  3.0vh;
+    font-size:  25px;
     color: rgb(1, 85, 1);
     font-weight: 900;
-    margin-bottom: 1.5vh;
-    margin-top: 4vh;
+    margin-bottom: 8px;
+    margin-top: 8px;
 
 }
 
