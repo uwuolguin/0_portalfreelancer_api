@@ -553,8 +553,8 @@ background-color:#023b0b ;
   }
   .checkbox_container input[type="checkbox"]::before {
     content: "";
-    width: 6px;
-    height: 3px;
+    width: 16px;
+    height: 13px;
     clip-path: polygon(35% 78%, 93% 14%, 100% 20%, 65% 58%, 45% 79%, 33% 92%, 8% 56%, 16% 50%);
     transform: scale(0);
     background-color:rgb(1, 85, 1);
