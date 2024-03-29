@@ -712,14 +712,14 @@ background-color:#023b0b ;
 }
 .button_find_talent {
 
-    margin: 4vh 1vh 1vh 1vh;
+
     height: 40%;
     width: 80%;
     font-family: 'sans-serif';
     background-color:rgb(18, 98, 18); /* Green */
-    font-size: 2.5vh;
-    border: 0.1vw solid black;
-    border-radius: 1vw;
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 2px;
     color: white;
 
 
