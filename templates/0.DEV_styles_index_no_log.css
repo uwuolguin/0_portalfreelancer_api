@@ -599,7 +599,7 @@ background-color:#023b0b ;
     margin:20px 0px 20px 30px;
     display: inline-block;
     height: 400px;
-    width: 1250px;
+    width: 1249px;
     background-color: rgb(240, 250, 240);
     border: 0.5px solid rgba(0, 0, 0, 0.151);
     border-radius: 1.5px;
@@ -610,7 +610,7 @@ background-color:#023b0b ;
 }
 
 .mid_post_data_talent{
-    margin-top: 1vh;
+    margin-top: 10px;
     height: 35%;
 
     }
