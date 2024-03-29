@@ -654,9 +654,9 @@ background-color:#023b0b ;
 
 .img_2 {
 
-    max-width: 7.5vw;
-    max-height:90%;
-    margin: 0.3vh 0.3vh 0.3vh 0.9vw;
+    width:5opx;
+    height:50px;
+    margin:5px;
 
     border-radius: 100%;
 
