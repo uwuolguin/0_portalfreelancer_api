@@ -623,9 +623,11 @@ background-color:#023b0b ;
         font-size: 20px;
         text-align: justify;
         overflow-wrap: break-word;
+        margin-bottom: 20px;
         }
 .mid_post_social_talent{
             height: 10%;
+            margin-top: 10px;
 
 
 
