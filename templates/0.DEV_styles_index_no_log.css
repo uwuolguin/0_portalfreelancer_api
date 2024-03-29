@@ -681,6 +681,7 @@ background-color:#023b0b ;
     display: flex;
     flex-direction: column;
     padding-top: 10px;
+    margin-left: 10px;
 }
 .card{
     display: inline-flex;
