@@ -622,7 +622,8 @@ background-color:#023b0b ;
         font-size: 20px;
         text-align: justify;
         display:inline-block;
-        max-width: 1200px;
+        display: flex;  
+        flex-wrap: wrap;
         }
 .mid_post_social_talent{
             margin-top: 0.5vh;
