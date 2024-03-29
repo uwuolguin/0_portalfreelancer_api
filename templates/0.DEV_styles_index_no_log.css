@@ -680,7 +680,7 @@ background-color:#023b0b ;
   .deck {
     display: flex;
     flex-direction: column;
-    padding-top: 3vh;
+
 }
 .card{
     display: inline-flex;
