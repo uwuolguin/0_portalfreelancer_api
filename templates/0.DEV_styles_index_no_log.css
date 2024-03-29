@@ -616,12 +616,10 @@ background-color:#023b0b ;
     }
 
 .mid_post_text_talent{
-        margin-top: 0.5vh;
+        margin-top: 5px;
         height: 45%;
         font-family: 'sans-serif';
-        padding-left: 1vw;
-        padding-right: 1vw;
-        font-size: 2.3vh;
+        font-size: 20px;
         text-align: justify;
         display:inline-block;
         }
