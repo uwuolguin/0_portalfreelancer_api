@@ -694,13 +694,13 @@ background-color:#023b0b ;
 }
 
 .nav_a_find_talent{
-    padding-right: 0.8vw;
-    padding-left:1.2vw;
+
     font-family: 'sans-serif';
     color: rgb(18, 98, 18);
-    font-size: 2.5vh;
+    font-size: 20px;
     font-weight: 600;
     white-space: nowrap;
+    margin: 5px;
 }
 
 .nav_a_find_talent:hover{
