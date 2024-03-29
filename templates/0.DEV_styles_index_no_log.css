@@ -623,6 +623,7 @@ background-color:#023b0b ;
         text-align: justify;
         display: flex;  
         flex-wrap: wrap;
+        overflow-wrap: break-word;
         }
 .mid_post_social_talent{
             margin-top: 0.5vh;
