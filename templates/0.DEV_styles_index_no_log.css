@@ -595,10 +595,10 @@ background-color:#023b0b ;
 
   }
   .nav_b_4{
-    min-width: 600px;
+
     margin:20px 0px 20px 30px;
     display: inline-block;
-    height: 400px;
+    height: 500px;
     width: 1249px;
     background-color: rgb(240, 250, 240);
     border: 0.5px solid rgba(0, 0, 0, 0.151);
