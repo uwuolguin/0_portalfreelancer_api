@@ -11,7 +11,7 @@ import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-
+import random
 
 
 
@@ -326,7 +326,7 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
         Categories_List.append(category_dict)
     
-
+###################################### Talent #######################
 
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
@@ -350,11 +350,10 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
 
 
         talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories")}
+
         Talents_List.append(talent_dict)
-
-
-    print(Talents_List)
-
+    
+    Talents_List_Shuffle = random.shuffle(Talents_List)
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
     return templates.TemplateResponse("2_find_talent.html",context)

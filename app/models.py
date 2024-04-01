@@ -98,3 +98,18 @@ class skill(Base):
 class category(Base):    
     __tablename__= "categories"
     category= Column(String(1000),primary_key=True)
+
+class talent_cache_normal(Base):    
+    __tablename__= "talent_cache_normal"
+    id= Column(BigInteger,primary_key=True)
+    email=Column(String(80),unique=True,nullable=False)
+    full_name=Column(String(80),nullable=False)
+    profession=Column(String(80),nullable=False)
+    rate=Column(BigInteger,nullable=False)
+    description=Column(String(860),nullable=False)
+    github=Column(String(1000),nullable=False)
+    linkedin=Column(String(1000),nullable=False)
+    instagram=Column(String(1000),nullable=True)
+    facebook=Column(String(1000),nullable=True)
+    skills=Column(String(1000),nullable=False)
+    categories=Column(String(1000),nullable=False)
