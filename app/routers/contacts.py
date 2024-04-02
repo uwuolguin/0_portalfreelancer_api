@@ -328,22 +328,26 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
 ###################################### Talent Cache #######################
         
     credentials=oath2.decode_access_token(login)
+    print(dict(credentials))
 
-    try:
-        email_login=dict(credentials).get("superadmin_email") 
-    except:
-        pass
-    try:
-        email_login=dict(credentials).get("talent_email") 
-    except:
-        pass
-    try:
-        email_login=dict(credentials).get("firm_email") 
-    except:
-        pass
     
-    delete=""" DELETE FROM """+settings.table_name_for_select_all_talent_cache+""" WHERE email_login=%s;"""
-    cursor.execute(delete % (email_login))
+    role=dict(credentials).get("role") 
+  
+    if role=="talent":
+        email_login=dict(credentials).get("talent_email") 
+    
+    elif role=="firm":
+        email_login=dict(credentials).get("firm_email") 
+
+    else:
+        email_login=dict(credentials).get("superadmin_email")
+
+
+    delete=""" DELETE FROM """+settings.table_name_for_select_all_talent_cache+""" WHERE email_login='""" + "%s" % (email_login) +"""';""" 
+
+
+    print(delete)
+    cursor.execute(delete )
     conn_contacts.commit()
 
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
