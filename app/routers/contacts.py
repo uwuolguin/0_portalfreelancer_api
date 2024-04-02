@@ -15,7 +15,6 @@ import random
 
 
 
-
 router= APIRouter(
     
     prefix="/contacts",
@@ -354,8 +353,6 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     if not talents :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
-
-
     Talents_List=[]
 
     for  talent in talents:
