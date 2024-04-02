@@ -113,3 +113,5 @@ class talent_cache_normal(Base):
     facebook=Column(String(1000),nullable=True)
     skills=Column(String(1000),nullable=False)
     categories=Column(String(1000),nullable=False)
+    pagination=Column(BigInteger)
+    email_login=Column(String(80),primary_key=True)
