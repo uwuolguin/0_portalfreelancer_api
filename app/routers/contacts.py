@@ -368,12 +368,12 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
 
         Talents_List.append(talent_dict)
     
-    random.shuffle(Talents_List)
-    length = len(Talents_List)
+    Talents_List_2=random.shuffle(Talents_List)
+    length = len(Talents_List_2)
     pagination_number=1
 
     
-    insert=""" INSERT INTO """+settings.table_name_for_select_all_talent_cache+""" (id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories, pagination,email_login) VALUES (%s, '%s', '%s', '%s',%s, '%s', '%s', '%s','%s', '%s', '%s', '%s',%s, '%s'); """ % (Talents_List[0].get("id"),Talents_List[0].get("email"),Talents_List[0].get("full_name"),Talents_List[0].get("profession"),Talents_List[0].get("rate"),Talents_List[0].get("description"),Talents_List[0].get("github"),Talents_List[0].get("linkedin"),Talents_List[0].get("instagram"),Talents_List[0].get("facebook"),Talents_List[0].get("skills"),Talents_List[0].get("categories"),pagination_number,email_login)
+    insert=""" INSERT INTO """+settings.table_name_for_select_all_talent_cache+""" (id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories, pagination,email_login) VALUES (%s, '%s', '%s', '%s',%s, '%s', '%s', '%s','%s', '%s', '%s', '%s',%s, '%s'); """ % (Talents_List_2[0].get("id"),Talents_List_2[0].get("email"),Talents_List_2[0].get("full_name"),Talents_List_2[0].get("profession"),Talents_List_2[0].get("rate"),Talents_List_2[0].get("description"),Talents_List_2[0].get("github"),Talents_List_2[0].get("linkedin"),Talents_List_2[0].get("instagram"),Talents_List_2[0].get("facebook"),Talents_List_2[0].get("skills"),Talents_List_2[0].get("categories"),pagination_number,email_login)
 
     cursor.execute(insert)
     conn_contacts.commit()
@@ -386,10 +386,10 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
             pagination_number=1+pagination_number
 
 
-        insert=""" INSERT INTO """+settings.table_name_for_select_all_talent_cache+""" (id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories, pagination,email_login) VALUES (%s, '%s', '%s', '%s',%s, '%s', '%s', '%s','%s', '%s', '%s', '%s',%s, '%s'); """ % (Talents_List[i].get("id"),Talents_List[i].get("email"),Talents_List[i].get("full_name"),Talents_List[i].get("profession"),Talents_List[i].get("rate"),Talents_List[i].get("description"),Talents_List[i].get("github"),Talents_List[i].get("linkedin"),Talents_List[i].get("instagram"),Talents_List[i].get("facebook"),Talents_List[i].get("skills"),Talents_List[i].get("categories"),pagination_number,email_login)
+        insert=""" INSERT INTO """+settings.table_name_for_select_all_talent_cache+""" (id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories, pagination,email_login) VALUES (%s, '%s', '%s', '%s',%s, '%s', '%s', '%s','%s', '%s', '%s', '%s',%s, '%s'); """ % (Talents_List_2[i].get("id"),Talents_List_2[i].get("email"),Talents_List_2[i].get("full_name"),Talents_List_2[i].get("profession"),Talents_List_2[i].get("rate"),Talents_List_2[i].get("description"),Talents_List_2[i].get("github"),Talents_List_2[i].get("linkedin"),Talents_List_2[i].get("instagram"),Talents_List_2[i].get("facebook"),Talents_List_2[i].get("skills"),Talents_List_2[i].get("categories"),pagination_number,email_login)
 
         cursor.execute(insert)
         conn_contacts.commit()
 
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List_2}
     return templates.TemplateResponse("2_find_talent.html",context)
