@@ -101,7 +101,7 @@ class category(Base):
 
 class talent_cache_normal(Base):    
     __tablename__= "talent_cache_normal"
-    id= Column(BigInteger)
+    id= Column(BigInteger,primary_key=True)
     email=Column(String(80),nullable=False)
     full_name=Column(String(80),nullable=False)
     profession=Column(String(80),nullable=False)

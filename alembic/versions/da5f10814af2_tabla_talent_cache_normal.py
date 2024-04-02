@@ -21,6 +21,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table('talent_cache_normal',
+    sa.PrimaryKeyConstraint('id','email_login'),
     sa.Column('id',sa.BigInteger()),
     sa.Column('email',sa.String(80),nullable=False),
     sa.Column('full_name',sa.String(80),nullable=False),
@@ -34,6 +35,7 @@ def upgrade() -> None:
     sa.Column('skills',sa.String(1000),nullable=False),
     sa.Column('categories',sa.String(1000),nullable=False),
     sa.Column('pagination',sa.BigInteger()),
+    sa.Column('email_login',sa.String(80),nullable=False),
 
     )
 
