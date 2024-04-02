@@ -370,8 +370,9 @@ def contacts_normal(request: Request,login: str = Cookie(None), ):
 
         Talents_List.append(talent_dict)
     
-    Talents_List_2=random.shuffle(Talents_List)
+    
+    random.shuffle(Talents_List)
 
 
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List_2}
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
     return templates.TemplateResponse("2_find_talent.html",context)
