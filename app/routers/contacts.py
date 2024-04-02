@@ -342,7 +342,7 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     except:
         pass
     
-    delete=""" DELETE FROM """+settings.table_name_for_select_all_talent_cache+""" WHERE email_login='%s';"""
+    delete=""" DELETE FROM """+settings.table_name_for_select_all_talent_cache+""" WHERE email_login=%s;"""
     cursor.execute(delete % (email_login))
     conn_contacts.commit()
 
