@@ -287,7 +287,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 templates= Jinja2Templates(directory="./templates")
 
 @router.get('/contacts_normal/',response_class=HTMLResponse)
-def contacts_normal(request: Request,login: str = Cookie(None)):
+def contacts_normal(request: Request,login: str = Cookie(None), ):
 
     try:
         conn_contacts.rollback()
@@ -342,11 +342,6 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     else:
         email_login=dict(credentials).get("superadmin_email")
 
-
-    delete=""" DELETE FROM """+settings.table_name_for_select_all_talent_cache+""" WHERE email_login='""" + "%s" % (email_login) +"""';""" 
-    cursor.execute(delete )
-    conn_contacts.commit()
-
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
     if not talents :
@@ -354,7 +349,14 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
     
     Talents_List=[]
 
+    counter=1
+    pagination_number=1
+
     for  talent in talents:
+
+        if counter % 4 ==0:
+            pagination_number=1+pagination_number
+        counter=counter+1
 
         facebook_c=talent.get("facebook")
         if facebook_c =='None':
@@ -363,33 +365,13 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         instagram_c=talent.get("instagram")
         if instagram_c =='None':
             instagram_c =''
-
-        talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories")}
+ 
+        talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories"),'pagination':pagination_number}
 
         Talents_List.append(talent_dict)
     
     Talents_List_2=random.shuffle(Talents_List)
-    length = len(Talents_List_2)
-    pagination_number=1
 
-    
-    insert=""" INSERT INTO """+settings.table_name_for_select_all_talent_cache+""" (id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories, pagination,email_login) VALUES (%s, '%s', '%s', '%s',%s, '%s', '%s', '%s','%s', '%s', '%s', '%s',%s, '%s'); """ % (Talents_List_2[0].get("id"),Talents_List_2[0].get("email"),Talents_List_2[0].get("full_name"),Talents_List_2[0].get("profession"),Talents_List_2[0].get("rate"),Talents_List_2[0].get("description"),Talents_List_2[0].get("github"),Talents_List_2[0].get("linkedin"),Talents_List_2[0].get("instagram"),Talents_List_2[0].get("facebook"),Talents_List_2[0].get("skills"),Talents_List_2[0].get("categories"),pagination_number,email_login)
-
-    cursor.execute(insert)
-    conn_contacts.commit()
-
-
-    for i in range(1,length):
-
-        if i % 3 ==0:
-
-            pagination_number=1+pagination_number
-
-
-        insert=""" INSERT INTO """+settings.table_name_for_select_all_talent_cache+""" (id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories, pagination,email_login) VALUES (%s, '%s', '%s', '%s',%s, '%s', '%s', '%s','%s', '%s', '%s', '%s',%s, '%s'); """ % (Talents_List_2[i].get("id"),Talents_List_2[i].get("email"),Talents_List_2[i].get("full_name"),Talents_List_2[i].get("profession"),Talents_List_2[i].get("rate"),Talents_List_2[i].get("description"),Talents_List_2[i].get("github"),Talents_List_2[i].get("linkedin"),Talents_List_2[i].get("instagram"),Talents_List_2[i].get("facebook"),Talents_List_2[i].get("skills"),Talents_List_2[i].get("categories"),pagination_number,email_login)
-
-        cursor.execute(insert)
-        conn_contacts.commit()
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List_2}
     return templates.TemplateResponse("2_find_talent.html",context)
