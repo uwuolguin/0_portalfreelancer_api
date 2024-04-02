@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     table_name_for_select_all_issues:str
     table_name_for_select_all_categories:str
     table_name_for_select_all_skills:str
+    table_name_for_select_all_talent_cache:str
     cloud_platform_user_for_email_sending:str
     cloud_platform_password_for_email_sending:str
     api_name_for_email_sending:str

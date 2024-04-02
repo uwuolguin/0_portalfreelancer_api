@@ -326,7 +326,28 @@ def contacts_normal(request: Request,login: str = Cookie(None)):
         category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
         Categories_List.append(category_dict)
     
-###################################### Talent #######################
+###################################### Talent Cache #######################
+        
+    credentials=oath2.decode_access_token(login)
+
+    try:
+        email_login=dict(credentials).get("superadmin_email") 
+    except:
+        pass
+    try:
+        email_login=dict(credentials).get("talent_email") 
+    except:
+        pass
+    try:
+        email_login=dict(credentials).get("firm_email") 
+    except:
+        pass
+    
+    delete=""" DELETE FROM """+settings.table_name_for_select_all_talent_cache+""" WHERE email_login='%s';"""
+
+    
+    cursor.execute(delete % (email_login))
+    conn_contacts.commit()
 
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
