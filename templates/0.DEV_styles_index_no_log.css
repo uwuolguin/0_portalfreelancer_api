@@ -16,8 +16,7 @@
 }
 
 .w3-button:hover {
-    border: 1px solid rgb(147, 145, 145);
-    background-color: rgb(147, 145, 145);
+    background-color: rgb(207, 207, 207);
 }
 .ul_navbar {
     height:100px;
