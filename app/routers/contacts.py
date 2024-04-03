@@ -4,7 +4,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from ..config import settings
 import time
-from typing import Any
+from typing import Any,Optional
 import os
 # Import SendinBlue library
 import sib_api_v3_sdk
@@ -287,7 +287,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 templates= Jinja2Templates(directory="./templates")
 
 @router.get('/contacts_normal/',response_class=HTMLResponse)
-def contacts_normal(request: Request,login: str = Cookie(None), ):
+def contacts_normal(request: Request,login: str = Cookie(None), skill_list: Optional[list] = None,category_list: Optional[list] = None, magic_word:Optional[str] = None, pagination_value:Optional[int] = None):
 
     try:
         conn_contacts.rollback()
