@@ -1,6 +1,19 @@
 *{
     text-decoration: none;
 }
+.w3-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+}
 .ul_navbar {
     height:100px;
     background-color: rgb(238, 245, 238);
