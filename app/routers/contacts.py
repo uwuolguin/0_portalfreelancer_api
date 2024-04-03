@@ -331,17 +331,6 @@ def contacts_normal(request: Request,login: str = Cookie(None), skill_list: Opti
     print(dict(credentials))
 
     
-    role=dict(credentials).get("role") 
-  
-    if role=="talent":
-        email_login=dict(credentials).get("talent_email") 
-    
-    elif role=="firm":
-        email_login=dict(credentials).get("firm_email") 
-
-    else:
-        email_login=dict(credentials).get("superadmin_email")
-
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
     if not talents :

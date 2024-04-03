@@ -167,3 +167,4 @@ class categoryResponse(BaseModel):
 
 class skillResponse(BaseModel):
     skill:Annotated[str, Field(min_length=1,max_length=1000)]
+
