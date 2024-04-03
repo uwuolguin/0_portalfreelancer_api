@@ -287,7 +287,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 templates= Jinja2Templates(directory="./templates")
 
 @router.get('/contacts_normal/',response_class=HTMLResponse)
-def contacts_normal(request: Request,login: str = Cookie(None), skill_list: Optional[list] = None,category_list: Optional[list] = None, magic_word:Optional[str] = None, pagination_value:Optional[int] = None):
+def contacts_normal(request: Request,login: str = Cookie(None), skills_string: Optional[str] = None,category_string: Optional[str] = None, magic_word:Optional[str] = None, pagination_value:Optional[int] = None):
 
     try:
         conn_contacts.rollback()
@@ -330,7 +330,7 @@ def contacts_normal(request: Request,login: str = Cookie(None), skill_list: Opti
     credentials=oath2.decode_access_token(login)
     print(dict(credentials))
 
-    
+
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
     if not talents :
