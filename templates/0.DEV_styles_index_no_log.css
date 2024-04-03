@@ -612,9 +612,10 @@ background-color:#023b0b ;
 
 .nav_b_6{
 
-    margin: auto;
+    margin:20px 0px 20px 70px;
     display: inline-block;
     width: 850px;
+    margin-right: 1px;
     font-family: 'sans-serif';
 
 }
