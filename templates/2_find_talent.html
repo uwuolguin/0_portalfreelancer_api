@@ -144,8 +144,20 @@
 
                     </div>
                     <div class="right_mid_post_data_talent">
-                        <button class="button_find_talent">Contact Professional</button>
+                        
+                        <button type="button" onclick= "postLogIn()" class="submission_button_login" id="button_post_log_in" style="width: 200px; height: 50px;"  >
+                            <span class="submission_button_login__text" style="font-size: 22px;" > Contact Professional</span>
+                        </button>
                     </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="big_box_sign_up_999" >
+                        <div class="hidden_div" id="succesful_post"></div>
+                        <div class="hidden_div red_text"id="failed_post">Failed Request</div>
+                    </div>
+
+
                 </div> 
                 <div class="mid_post_text_talent">
                     {{talent.description|e}}
@@ -166,18 +178,18 @@
             {% endfor %}
             <div class="nav_b_6">
                     <div class="div_nav_find_talent">
-                        <button class="w3-button">«</button>
-                        <button class="w3-button">1</button>
-                        <button class="w3-button">2</button>
-                        <button class="w3-button">3</button>
-                        <button class="w3-button">4</button>
-                        <button class="w3-button">5</button>
-                        <button class="w3-button">6</button>
-                        <button class="w3-button">7</button>
-                        <button class="w3-button">8</button>
-                        <button class="w3-button">9</button>
-                        <button class="w3-button">10</button>
-                        <button class="w3-button">»</button>
+                        <button class="w3-button" id="pagination_minus">«</button>
+                        <button class="w3-button" id="pagination_one">1</button>
+                        <button class="w3-button" id="pagination_two">2</button>
+                        <button class="w3-button" id="pagination_three">3</button>
+                        <button class="w3-button" id="pagination_four">4</button>
+                        <button class="w3-button" id="pagination_five">5</button>
+                        <button class="w3-button" id="pagination_six">6</button>
+                        <button class="w3-button" id="pagination_seven">7</button>
+                        <button class="w3-button" id="pagination_eight">8</button>
+                        <button class="w3-button" id="pagination_nine">9</button>
+                        <button class="w3-button" id="pagination_ten">10</button>
+                        <button class="w3-button" id="pagination_plus">»</button>
                     </div>
             </div>
         </nav>
@@ -207,6 +219,6 @@
 
 
 
-
+<script src="https://apiportalfreelancer.lat/static/scripts_contacts_normal"></script>
 </body>
 </html>
