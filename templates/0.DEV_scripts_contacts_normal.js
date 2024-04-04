@@ -15,7 +15,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("green_text")
     document.getElementById("succesful_post").classList.add("red_text")
-    document.getElementById("succesful_post").innerHTML="Failed Request. You can send and receive 1 email per day. We support the sending of 300 emails per day."
+    document.getElementById("succesful_post").innerHTML="Failed Request. You can send and receive 1 email per day. We support the sending of 300 emails per day. Only Companies/Employers can contact Professionals"
 
   }
 
