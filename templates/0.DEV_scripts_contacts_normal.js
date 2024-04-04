@@ -37,6 +37,9 @@ async function postLogIn(id) {
 
   let id_text_3 = id.toString();
   button_tex_id="button_post_log_in_"+id_text_3
+
+  console.log(button_tex_id)
+
   document.getElementById(button_tex_id).disabled = true;
 
   btn=document.getElementById(button_tex_id);
