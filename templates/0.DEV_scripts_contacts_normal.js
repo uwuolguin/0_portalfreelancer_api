@@ -59,12 +59,14 @@ async function postLogIn(id_var) {
 
 
   btn.classList.remove("submission_button_login--loading");
+  btn.classList.add("hidden_div");
 
   document.getElementById(button_tex_id).disabled = false;
 
   setTimeout(() => {
     document.getElementById(suc_tex_id).classList.add("hidden_div");
     document.getElementById(fail_tex_id).classList.add("hidden_div");
+    btn.classList.remove("hidden_div");
   }, "5000");
   
 } 
