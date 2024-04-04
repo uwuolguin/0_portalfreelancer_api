@@ -39,7 +39,7 @@ async function postLogIn(id) {
   button_tex_id="button_post_log_in_"+id_text_3
   document.getElementById(button_tex_id).disabled = true;
 
-  btn=document.querySelector(".submission_button_login");
+  btn=document.getElementById(button_tex_id);
   btn.classList.toggle("submission_button_login--loading");
 
   url="https://apiportalfreelancer.lat/contacts/contacts/post/"+id_text_3
