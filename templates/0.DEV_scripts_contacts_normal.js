@@ -33,9 +33,9 @@ function post_failed_visible(error,id){
   
 }
 
-async function postLogIn(id) {
+async function postLogIn(id_var) {
 
-  let id_text_3 = id.toString();
+  let id_text_3 = id_var.toString();
   button_tex_id="button_post_log_in_"+id_text_3
 
   console.log(button_tex_id)
@@ -54,8 +54,8 @@ async function postLogIn(id) {
     },
     method: "POST"
   })
-  .then((response) => post_succesful_visible_2(response,id=id))
-  .catch((error) => post_failed_visible(error,id=id));
+  .then((response) => post_succesful_visible_2(response,id=id_var))
+  .catch((error) => post_failed_visible(error,id=id_var));
 
 
   btn.classList.remove("submission_button_login--loading");
