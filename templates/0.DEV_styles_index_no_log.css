@@ -65,6 +65,7 @@
 .hidden_div {
 
     visibility:hidden;
+    display: none;
 }
 
 
