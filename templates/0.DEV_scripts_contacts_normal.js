@@ -37,8 +37,8 @@ async function postLogIn(id_var) {
 
   let id_text_3 = id_var.toString();
   button_tex_id="button_post_log_in_"+id_text_3
-
-  console.log(button_tex_id)
+  suc_tex_id="succesful_post_"+id_text_3
+  fail_tex_id="failed_post_"+id_text_3
 
   document.getElementById(button_tex_id).disabled = true;
 
@@ -63,8 +63,8 @@ async function postLogIn(id_var) {
   document.getElementById(button_tex_id).disabled = false;
 
   setTimeout(() => {
-    document.getElementById("succesful_post").classList.add("hidden_div");
-    document.getElementById("failed_post").classList.add("hidden_div");
+    document.getElementById(suc_tex_id).classList.add("hidden_div");
+    document.getElementById(fail_tex_id).classList.add("hidden_div");
   }, "5000");
   
 } 
