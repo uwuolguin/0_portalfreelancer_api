@@ -70,7 +70,8 @@ async function postLogIn(id_var) {
   }, "5000");
   
 } 
-// PAGINATION LOGIC
+// PAGINATION LOGIC ********************************************************************************************************************************************************
+
 function paginationMinusClick(){
   let pag_value_1 = document.getElementById("pagination_one").innerHTML;
 
