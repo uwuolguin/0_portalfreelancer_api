@@ -92,16 +92,16 @@ function paginationMinusClick(){
 
 function paginationPlusClick(){
 
-    document.getElementById("pagination_one").innerHTML = document.getElementById("pagination_one").innerHTML+10
-    document.getElementById("pagination_two").innerHTML = document.getElementById("pagination_two").innerHTML+10
-    document.getElementById("pagination_three").innerHTML = document.getElementById("pagination_three").innerHTML+10
-    document.getElementById("pagination_four").innerHTML = document.getElementById("pagination_four").innerHTML+10
-    document.getElementById("pagination_five").innerHTML = document.getElementById("pagination_five").innerHTML+10
-    document.getElementById("pagination_six").innerHTML = document.getElementById("pagination_six").innerHTML+10
-    document.getElementById("pagination_seven").innerHTML = document.getElementById("pagination_seven").innerHTML+10
-    document.getElementById("pagination_eight").innerHTML = document.getElementById("pagination_eight").innerHTML+10
-    document.getElementById("pagination_nine").innerHTML = document.getElementById("pagination_nine").innerHTML+10
-    document.getElementById("pagination_ten").innerHTML = document.getElementById("pagination_ten").innerHTML+10
+    document.getElementById("pagination_one").innerHTML = parseInt(document.getElementById("pagination_one").innerHTML)+10
+    document.getElementById("pagination_two").innerHTML = parseInt(document.getElementById("pagination_two").innerHTML)+10
+    document.getElementById("pagination_three").innerHTML = parseInt(document.getElementById("pagination_three").innerHTML)+10
+    document.getElementById("pagination_four").innerHTML = parseInt(document.getElementById("pagination_four").innerHTML)+10
+    document.getElementById("pagination_five").innerHTML = parseInt(document.getElementById("pagination_five").innerHTML)+10
+    document.getElementById("pagination_six").innerHTML = parseInt(document.getElementById("pagination_six").innerHTML)+10
+    document.getElementById("pagination_seven").innerHTML = parseInt(document.getElementById("pagination_seven").innerHTML)+10
+    document.getElementById("pagination_eight").innerHTML = parseInt(document.getElementById("pagination_eight").innerHTML)+10
+    document.getElementById("pagination_nine").innerHTML = parseInt(document.getElementById("pagination_nine").innerHTML)+10
+    document.getElementById("pagination_ten").innerHTML = parseInt(document.getElementById("pagination_ten").innerHTML)+10
 
 
 }
