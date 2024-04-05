@@ -70,4 +70,38 @@ async function postLogIn(id_var) {
   }, "5000");
   
 } 
-// 
+// PAGINATION LOGIC
+function paginationMinusClick(){
+  let pag_value_1 = document.getElementById("pagination_one").innerHTML;
+
+  if (pag_value_1 > 10) {
+    document.getElementById("pagination_one").innerHTML = document.getElementById("pagination_one").innerHTML-10
+    document.getElementById("pagination_two").innerHTML = document.getElementById("pagination_two").innerHTML-10
+    document.getElementById("pagination_three").innerHTML = document.getElementById("pagination_three").innerHTML-10
+    document.getElementById("pagination_four").innerHTML = document.getElementById("pagination_four").innerHTML-10
+    document.getElementById("pagination_five").innerHTML = document.getElementById("pagination_five").innerHTML-10
+    document.getElementById("pagination_six").innerHTML = document.getElementById("pagination_six").innerHTML-10
+    document.getElementById("pagination_seven").innerHTML = document.getElementById("pagination_seven").innerHTML-10
+    document.getElementById("pagination_eight").innerHTML = document.getElementById("pagination_eight").innerHTML-10
+    document.getElementById("pagination_nine").innerHTML = document.getElementById("pagination_nine").innerHTML-10
+    document.getElementById("pagination_ten").innerHTML = document.getElementById("pagination_ten").innerHTML-10
+
+  }
+
+}
+
+function paginationPlusClick(){
+
+    document.getElementById("pagination_one").innerHTML = document.getElementById("pagination_one").innerHTML+10
+    document.getElementById("pagination_two").innerHTML = document.getElementById("pagination_two").innerHTML+10
+    document.getElementById("pagination_three").innerHTML = document.getElementById("pagination_three").innerHTML+10
+    document.getElementById("pagination_four").innerHTML = document.getElementById("pagination_four").innerHTML+10
+    document.getElementById("pagination_five").innerHTML = document.getElementById("pagination_five").innerHTML+10
+    document.getElementById("pagination_six").innerHTML = document.getElementById("pagination_six").innerHTML+10
+    document.getElementById("pagination_seven").innerHTML = document.getElementById("pagination_seven").innerHTML+10
+    document.getElementById("pagination_eight").innerHTML = document.getElementById("pagination_eight").innerHTML+10
+    document.getElementById("pagination_nine").innerHTML = document.getElementById("pagination_nine").innerHTML+10
+    document.getElementById("pagination_ten").innerHTML = document.getElementById("pagination_ten").innerHTML+10
+
+
+}
