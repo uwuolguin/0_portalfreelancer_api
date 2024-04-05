@@ -105,3 +105,12 @@ function paginationPlusClick(){
 
 
 }
+
+function paginationPlusClick(clicked_object){
+
+  var current_id = clicked_object.getAttribute("id")
+  console.log(current_id)
+
+
+}
+
