@@ -108,8 +108,22 @@ function paginationPlusClick(){
 
 function paginationPlusClick(clicked_object){
 
+
+
   var current_id = clicked_object.getAttribute("id")
-  console.log(current_id)
+
+  document.getElementById("pagination_one").classList.remove("w3-button-active")
+  document.getElementById("pagination_two").classList.remove("w3-button-active")
+  document.getElementById("pagination_three").classList.remove("w3-button-active")
+  document.getElementById("pagination_four").classList.remove("w3-button-active")
+  document.getElementById("pagination_five").classList.remove("w3-button-active")
+  document.getElementById("pagination_six").classList.remove("w3-button-active")
+  document.getElementById("pagination_seven").classList.remove("w3-button-active")
+  document.getElementById("pagination_eight").classList.remove("w3-button-active")
+  document.getElementById("pagination_nine").classList.remove("w3-button-active")
+  document.getElementById("pagination_ten").classList.remove("w3-button-active")
+
+  document.getElementById(current_id).classList.add("w3-button-active")
 
 
 }
