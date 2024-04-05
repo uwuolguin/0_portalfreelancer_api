@@ -86,6 +86,17 @@ function paginationMinusClick(){
     document.getElementById("pagination_nine").innerHTML = document.getElementById("pagination_nine").innerHTML-10
     document.getElementById("pagination_ten").innerHTML = document.getElementById("pagination_ten").innerHTML-10
 
+    document.getElementById("pagination_one").classList.remove("w3-button-active")
+    document.getElementById("pagination_two").classList.remove("w3-button-active")
+    document.getElementById("pagination_three").classList.remove("w3-button-active")
+    document.getElementById("pagination_four").classList.remove("w3-button-active")
+    document.getElementById("pagination_five").classList.remove("w3-button-active")
+    document.getElementById("pagination_six").classList.remove("w3-button-active")
+    document.getElementById("pagination_seven").classList.remove("w3-button-active")
+    document.getElementById("pagination_eight").classList.remove("w3-button-active")
+    document.getElementById("pagination_nine").classList.remove("w3-button-active")
+    document.getElementById("pagination_ten").classList.remove("w3-button-active")
+
   }
 
 }
@@ -103,10 +114,20 @@ function paginationPlusClick(){
     document.getElementById("pagination_nine").innerHTML = parseInt(document.getElementById("pagination_nine").innerHTML)+10
     document.getElementById("pagination_ten").innerHTML = parseInt(document.getElementById("pagination_ten").innerHTML)+10
 
+    document.getElementById("pagination_one").classList.remove("w3-button-active")
+    document.getElementById("pagination_two").classList.remove("w3-button-active")
+    document.getElementById("pagination_three").classList.remove("w3-button-active")
+    document.getElementById("pagination_four").classList.remove("w3-button-active")
+    document.getElementById("pagination_five").classList.remove("w3-button-active")
+    document.getElementById("pagination_six").classList.remove("w3-button-active")
+    document.getElementById("pagination_seven").classList.remove("w3-button-active")
+    document.getElementById("pagination_eight").classList.remove("w3-button-active")
+    document.getElementById("pagination_nine").classList.remove("w3-button-active")
+    document.getElementById("pagination_ten").classList.remove("w3-button-active")
 
 }
 
-function paginationPlusClick(clicked_object){
+function paginationBackground(clicked_object){
 
 
 
