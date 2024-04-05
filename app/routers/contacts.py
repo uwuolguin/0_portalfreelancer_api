@@ -287,7 +287,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 templates= Jinja2Templates(directory="./templates")
 
 @router.get('/contacts_normal/',response_class=HTMLResponse)
-def contacts_normal(request: Request,login: str = Cookie(None), skills_string: Optional[str] = None,category_string: Optional[str] = None, magic_word:Optional[str] = None, pagination_value:Optional[int] = None):
+def contacts_normal(request: Request,login: str = Cookie(None), skills_string: Optional[str] = None,skills_state_string: Optional[str] = None,category_string: Optional[str] = None, category_state_string: Optional[str] = None,magic_word:Optional[str] = None, pagination_value:Optional[int] = None, pagination_state:Optional[int] = None):
 
     try:
         conn_contacts.rollback()
