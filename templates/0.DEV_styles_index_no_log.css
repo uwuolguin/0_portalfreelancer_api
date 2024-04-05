@@ -22,16 +22,6 @@
 .w3-button-active {
     background-color: rgb(11, 223, 78);
     color: white;
-    border: none;
-    display: inline-block;
-    padding: 8px 16px;
-    vertical-align: middle;
-    overflow: hidden;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    white-space: nowrap;
-    font-size: 20px;
 }
 .ul_navbar {
     height:100px;
