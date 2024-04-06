@@ -233,10 +233,12 @@ if(glassValueStateButton==""){
 }
 
 
-}
 console.log(skillStringValues)
 console.log(skillStringState)
 console.log(categoryStringValues)
 console.log(categoryStringState)
 console.log(glassValueStateButton)
+
+}
+
 
