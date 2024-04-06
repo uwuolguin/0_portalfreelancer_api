@@ -337,9 +337,13 @@ def contacts_normal(  request: Request,
         
     credentials=oath2.decode_access_token(login)
     print(dict(credentials))
-# SELECT A.* FROM (select id,created_at from talent ORDER by CREATED_AT LIMIT 4) AS A ORDER BY CREATED_AT DESC LIMIT 3;
+    
+# SELECT A.* FROM (""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+"""  ORDER by CREATED_AT LIMIT 4) AS A ORDER BY CREATED_AT DESC LIMIT 3;
 
-    cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
+    limit_pagination=pagination_value*3
+    query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM"+settings.table_name_for_select_all_free_user+"ORDER by CREATED_AT LIMIT"+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3"
+
+    cursor.execute(""" """ + query_part_1+ """ """)
     talents=cursor.fetchall()
     if not talents :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
