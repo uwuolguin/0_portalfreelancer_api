@@ -337,14 +337,18 @@ def contacts_normal(  request: Request,
         
     credentials=oath2.decode_access_token(login)
     print(dict(credentials))
-    
-# SELECT A.* FROM (""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+"""  ORDER by CREATED_AT LIMIT 4) AS A ORDER BY CREATED_AT DESC LIMIT 3;
 
     limit_pagination=pagination_value*3
-    query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+    
+    if magic_word =="None":
+        query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
 
+    else:
 
-    print(query_part_1)
+        magic_word_c =(magic_word.replace(" ", "")).lower()
+
+        query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE "+ magic_word_c +" like '%' ||  LOWER(REPLACE(full_name, ' ', '')) ||'%' OR "+ magic_word_c +" like '%' ||  LOWER(REPLACE(profession, ' ', '')) ||'%' OR "+ magic_word_c +" like '%' ||  LOWER(REPLACE(descriptio, ' ', '')) ||'%' ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+
 
     cursor.execute(query_part_1)
     talents=cursor.fetchall()
@@ -353,14 +357,7 @@ def contacts_normal(  request: Request,
     
     Talents_List=[]
 
-    counter=1
-    pagination_number=1
-
     for  talent in talents:
-
-        if counter % 4 ==0:
-            pagination_number=1+pagination_number
-        counter=counter+1
 
         facebook_c=talent.get("facebook")
         if facebook_c =='None':
@@ -370,6 +367,8 @@ def contacts_normal(  request: Request,
         if instagram_c =='None':
             instagram_c =''
  
+        pagination_number=1
+
         talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories"),'pagination':pagination_number}
 
         Talents_List.append(talent_dict)
