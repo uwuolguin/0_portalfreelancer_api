@@ -147,9 +147,21 @@ function paginationBackground(clicked_object){
 
   document.getElementById(current_id).classList.add("w3-button-active")
 
-  paginationState=document.getElementById("pagination_one").innerHTML
 
-  console.log(paginationState)
+  paginationState1=document.getElementById("pagination_one").innerHTML
+  paginationState2=document.getElementById("pagination_two").innerHTML
+  paginationState3=document.getElementById("pagination_three").innerHTML
+  paginationState4=document.getElementById("pagination_four").innerHTML
+  paginationState5=document.getElementById("pagination_five").innerHTML
+  paginationState6=document.getElementById("pagination_six").innerHTML
+  paginationState7=document.getElementById("pagination_seven").innerHTML
+  paginationState8=document.getElementById("pagination_eight").innerHTML
+  paginationState9=document.getElementById("pagination_nine").innerHTML
+  paginationState10=document.getElementById("pagination_ten").innerHTML
+
+ paginationState= paginationState1.toString()+paginationState2.toString()+paginationState3.toString()+paginationState4.toString()+paginationState5.toString()+paginationState6.toString()+paginationState7.toString()+paginationState8.toString()+paginationState9.toString()+paginationState10.toString()
+
+ console.log(paginationState)
 
 }
 
