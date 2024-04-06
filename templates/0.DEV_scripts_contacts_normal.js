@@ -207,7 +207,7 @@ console.log(categoryStringValues)
 console.log(categoryStringState)
 
 
-let glassValueStateButton= document.getElementById('lens_button').innerHTML
+let glassValueStateButton= document.getElementById('lens_button').value
 console.log(glassValueStateButton)
 }
 
