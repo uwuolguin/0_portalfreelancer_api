@@ -159,7 +159,7 @@ function paginationBackground(clicked_object){
   paginationState9=document.getElementById("pagination_nine").innerHTML
   paginationState10=document.getElementById("pagination_ten").innerHTML
 
- paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10+
+ paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10
 
  console.log(paginationState)
 
