@@ -203,8 +203,8 @@ for (let i = 0; i < checkboxArrayCategories.length; i++) {
 
 }
 
-console.log(skillStringValues)
-console.log(skillStringState)
+console.log(categoryStringValues)
+console.log(categoryStringState)
 
 
 }
