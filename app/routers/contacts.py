@@ -289,11 +289,11 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/contacts_normal/',response_class=HTMLResponse)
 def contacts_normal(  request: Request,
                       login: str = Cookie(None),
-                      skills_string: Optional[str] = None,
-                      skills_state_string: Optional[str] = None,
-                      category_string: Optional[str] = None,
-                      category_state_string: Optional[str] = None,
-                      magic_word:Optional[str] = None, 
+                      skills_string: Optional[str] = "None",
+                      skills_state_string: Optional[str] = "None",
+                      category_string: Optional[str] = "None",
+                      category_state_string: Optional[str] = "None",
+                      magic_word:Optional[str] = "None", 
                       pagination_value:Optional[int] = 1, 
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10"):
 

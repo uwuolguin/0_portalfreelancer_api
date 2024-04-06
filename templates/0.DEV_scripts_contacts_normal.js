@@ -185,8 +185,17 @@ for (let i = 0; i < checkboxArraySkills.length; i++) {
 
 }
 
-console.log(skillStringValues)
-console.log(skillStringState)
+if(skillStringValues==""){
+  
+  skillStringValues="None"
+
+}
+
+if(skillStringState==""){
+  
+  skillStringState="None"
+
+}
 
 let categoryStringValues=''
 let categoryStringState=''
@@ -203,13 +212,31 @@ for (let i = 0; i < checkboxArrayCategories.length; i++) {
 
 }
 
-console.log(categoryStringValues)
-console.log(categoryStringState)
-
-
-let glassValueStateButton= document.getElementById('lens_button').value
-console.log(glassValueStateButton)
-console.log(glassValueStateButton=="")
+if(categoryStringValues==""){
+  
+  categoryStringValues="None"
 
 }
+
+if(categoryStringState==""){
+  
+  categoryStringState="None"
+
+}
+
+let glassValueStateButton= document.getElementById('lens_button').value
+
+if(glassValueStateButton==""){
+  
+  glassValueStateButton="None"
+
+}
+
+
+}
+console.log(skillStringValues)
+console.log(skillStringState)
+console.log(categoryStringValues)
+console.log(categoryStringState)
+console.log(glassValueStateButton)
 
