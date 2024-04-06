@@ -294,7 +294,7 @@ def contacts_normal(  request: Request,
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
                       magic_word:Optional[str] = "perro", 
-                      pagination_value:Optional[int] = 1, 
+                      pagination_value:Optional[int] = 2, 
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10"):
 
     try:
