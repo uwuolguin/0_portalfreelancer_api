@@ -337,7 +337,7 @@ def contacts_normal(  request: Request,
         
     credentials=oath2.decode_access_token(login)
     print(dict(credentials))
-
+# SELECT A.* FROM (select id,created_at from talent ORDER by CREATED_AT LIMIT 4) AS A ORDER BY CREATED_AT DESC LIMIT 3;
 
     cursor.execute(""" SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories FROM """+settings.table_name_for_select_all_free_user+""" """)
     talents=cursor.fetchall()
