@@ -293,12 +293,12 @@ def contacts_normal(  request: Request,
                       skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
-                      magic_word:Optional[str] = "Esto es una prueba ZERGAL", 
+                      magic_word:Optional[str] = "zERGAL", 
                     #   magic_word:Optional[str] = "None", 
                       pagination_value:Optional[int] = 1, 
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10"
                       ):
-
+#SELECT id FROM TAG_TABLE WHERE position(tag_name in 'aaaaaaaaaaa')>0;
     try:
         conn_contacts.rollback()
     except:
@@ -348,9 +348,9 @@ def contacts_normal(  request: Request,
     else:
 
         magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
-        magic_word_c2=" like '%' ||  LOWER(REPLACE("+magic_word_c+", ' ', '')) ||'%' "
 
-        query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE full_name "+magic_word_c2+ " OR profession "+ magic_word_c2+ " OR description "+magic_word_c2+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+
+        query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in full_name)>0  ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
 
 
     cursor.execute(query_part_1)
