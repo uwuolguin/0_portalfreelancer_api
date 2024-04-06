@@ -106,7 +106,9 @@ function paginationBackground(clicked_object){
 
 // DISABLE ALL BUTTONS UNTIL PAGE IS CHARGED
 
-
+document.querySelectorAll('.w3-button-m').forEach(elem => {
+  elem.disabled=true;
+  });
 //CHANGE STATE PAGINATION
   let current_id = clicked_object.getAttribute("id")
 
