@@ -302,9 +302,9 @@ def contacts_normal(  request: Request,
     except:
         pass
 
-    if login==None:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    # if login==None:
+    #         context={'request': request}
+    #         return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
@@ -335,8 +335,8 @@ def contacts_normal(  request: Request,
     
 ###################################### Talent Cache #######################
         
-    credentials=oath2.decode_access_token(login)
-    print(dict(credentials))
+    # credentials=oath2.decode_access_token(login)
+    # print(dict(credentials))
 
     limit_pagination=pagination_value*3
     
@@ -350,6 +350,7 @@ def contacts_normal(  request: Request,
         query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE "+ magic_word_c +" like '%' ||  LOWER(REPLACE(full_name, ' ', '')) ||'%' OR "+ magic_word_c +" like '%' ||  LOWER(REPLACE(profession, ' ', '')) ||'%' OR "+ magic_word_c +" like '%' ||  LOWER(REPLACE(descriptio, ' ', '')) ||'%' ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
 
 
+    print(query_part_1)
     cursor.execute(query_part_1)
     talents=cursor.fetchall()
     if not talents :
