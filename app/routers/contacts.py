@@ -360,7 +360,6 @@ def contacts_normal(  request: Request,
 
             cursor.execute(query_part_1)
             talents=cursor.fetchall()
-
 #####################################################################################################################
     
     Talents_List=[]
