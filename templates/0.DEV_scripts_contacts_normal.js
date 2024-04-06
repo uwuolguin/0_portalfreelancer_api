@@ -115,7 +115,7 @@ document.querySelectorAll('.submission_button').forEach(elem => {
 document.querySelectorAll('.submission_button_login').forEach(elem => {
     elem.disabled=true;
   });
-  document.querySelectorAll('input[type="checkbox"]').forEach(elem => {
+document.querySelectorAll('input[type="checkbox"]').forEach(elem => {
     elem.disabled=true;
   });
 
