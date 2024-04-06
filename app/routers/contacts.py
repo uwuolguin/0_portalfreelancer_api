@@ -304,9 +304,9 @@ def contacts_normal(  request: Request,
     except:
         pass
 
-    if login==None:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    # if login==None:
+    #         context={'request': request}
+    #         return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
@@ -337,8 +337,8 @@ def contacts_normal(  request: Request,
     
 ###################################### Talent Cache #######################
         
-    credentials=oath2.decode_access_token(login)
-    print(dict(credentials))
+    # credentials=oath2.decode_access_token(login)
+    # print(dict(credentials))
 
     limit_pagination=pagination_value*3
     
