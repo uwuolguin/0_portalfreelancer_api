@@ -293,7 +293,7 @@ def contacts_normal(  request: Request,
                       skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
-                      magic_word:Optional[str] = "usuario_prueba_0", 
+                      magic_word:Optional[str] = "perro", 
                       pagination_value:Optional[int] = 1, 
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10"):
 
@@ -302,9 +302,9 @@ def contacts_normal(  request: Request,
     except:
         pass
 
-    # if login==None:
-    #         context={'request': request}
-    #         return templates.TemplateResponse("4_log_in_contacts.html",context)
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
@@ -335,8 +335,8 @@ def contacts_normal(  request: Request,
     
 ###################################### Talent Cache #######################
         
-    # credentials=oath2.decode_access_token(login)
-    # print(dict(credentials))
+    credentials=oath2.decode_access_token(login)
+    print(dict(credentials))
 
     limit_pagination=pagination_value*3
     
