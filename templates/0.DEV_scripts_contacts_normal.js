@@ -109,6 +109,15 @@ function paginationBackground(clicked_object){
 document.querySelectorAll('.w3-button-m').forEach(elem => {
   elem.disabled=true;
   });
+document.querySelectorAll('submission_button').forEach(elem => {
+    elem.disabled=true;
+  });
+  document.querySelectorAll('submission_button_login').forEach(elem => {
+    elem.disabled=true;
+  });
+  
+
+  
 //CHANGE STATE PAGINATION
   let current_id = clicked_object.getAttribute("id")
 
