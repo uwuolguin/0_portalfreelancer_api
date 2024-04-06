@@ -195,9 +195,9 @@ let checkboxArrayCategories=document.getElementById('checkbox_container_categori
 
 for (let i = 0; i < checkboxArrayCategories.length; i++) {
 
-  		if (checkboxArraySkills[i].checked){
-			categoryStringValues=categoryStringValues+checkboxArraySkills[i].value+'.'
-			categoryStringState=categoryStringState+checkboxArraySkills[i].id+'.'
+  		if (checkboxArrayCategories[i].checked){
+			categoryStringValues=categoryStringValues+checkboxArrayCategories[i].value+'.'
+			categoryStringState=categoryStringState+checkboxArrayCategories[i].id+'.'
 
 			}
 
