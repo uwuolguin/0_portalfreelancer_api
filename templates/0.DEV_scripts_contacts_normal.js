@@ -167,5 +167,25 @@ let paginationStateSelected= document.getElementById(current_id).innerHTML
 console.log(paginationState)
 console.log(paginationStateSelected)
 
+
+
+let skillStringValues=''
+let skillStringState=''
+
+let checkboxArraySkills=document.getElementById('checkbox_container_skills').getElementsByTagName('input')
+
+for (let i = 0; i < checkboxArraySkills.length; i++) {
+
+  		if (checkboxArraySkills[i].checked){
+			skillStringValues=skillStringValues+checkboxArraySkills[i].value+'.'
+			skillStringState=skillStringState+checkboxArraySkills[i].id+'.'
+
+			}
+
+}
+
+console.log(skillStringValues)
+console.log(skillStringState)
+
 }
 
