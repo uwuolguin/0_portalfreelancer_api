@@ -147,6 +147,9 @@ function paginationBackground(clicked_object){
 
   document.getElementById(current_id).classList.add("w3-button-active")
 
+  paginationState=document.getElementById("pagination_one").value
+
+  console.log(paginationState)
 
 }
 
