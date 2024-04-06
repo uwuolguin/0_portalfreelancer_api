@@ -109,10 +109,10 @@ function paginationBackground(clicked_object){
 document.querySelectorAll('.w3-button-m').forEach(elem => {
   elem.disabled=true;
   });
-document.querySelectorAll('.submission_button').forEach(elem => {
+document.querySelectorAll('.submission_button_login').forEach(elem => {
     elem.disabled=true;
   });
-document.querySelectorAll('.submission_button_login').forEach(elem => {
+document.querySelectorAll('.submission_button').forEach(elem => {
     elem.disabled=true;
   });
 document.querySelectorAll('input[type="checkbox"]').forEach(elem => {
