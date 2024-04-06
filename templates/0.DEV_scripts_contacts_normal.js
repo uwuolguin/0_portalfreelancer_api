@@ -132,7 +132,7 @@ function paginationBackground(clicked_object){
 
 
 
-  var current_id = clicked_object.getAttribute("id")
+  let current_id = clicked_object.getAttribute("id")
 
   document.getElementById("pagination_one").classList.remove("w3-button-active")
   document.getElementById("pagination_two").classList.remove("w3-button-active")
@@ -159,9 +159,13 @@ function paginationBackground(clicked_object){
   paginationState9=document.getElementById("pagination_nine").innerHTML
   paginationState10=document.getElementById("pagination_ten").innerHTML
 
- paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10
+// Pagiantion Sate General
+ let paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10
 
- console.log(paginationState)
+let paginationStateSelected= document.getElementById(current_id).innerHTML
+
+console.log(paginationState)
+console.log(paginationStateSelected)
 
 }
 
