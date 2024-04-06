@@ -127,6 +127,7 @@ function paginationPlusClick(){
     document.getElementById("pagination_ten").classList.remove("w3-button-active")
 
 }
+//
 
 function paginationBackground(clicked_object){
 
@@ -159,7 +160,7 @@ function paginationBackground(clicked_object){
   paginationState9=document.getElementById("pagination_nine").innerHTML
   paginationState10=document.getElementById("pagination_ten").innerHTML
 
-// Pagiantion Sate General
+// Pagiantion State General
  let paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10
 
 let paginationStateSelected= document.getElementById(current_id).innerHTML
@@ -186,6 +187,25 @@ for (let i = 0; i < checkboxArraySkills.length; i++) {
 
 console.log(skillStringValues)
 console.log(skillStringState)
+
+let categoryStringValues=''
+let categoryStringState=''
+
+let checkboxArrayCategories=document.getElementById('checkbox_container_categories').getElementsByTagName('input')
+
+for (let i = 0; i < checkboxArrayCategories.length; i++) {
+
+  		if (checkboxArraySkills[i].checked){
+			categoryStringValues=categoryStringValues+checkboxArraySkills[i].value+'.'
+			categoryStringState=categoryStringState+checkboxArraySkills[i].id+'.'
+
+			}
+
+}
+
+console.log(skillStringValues)
+console.log(skillStringState)
+
 
 }
 
