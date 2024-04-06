@@ -293,7 +293,7 @@ def contacts_normal(  request: Request,
                       skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
-                      magic_word:Optional[str] = "muNoz", 
+                      magic_word:Optional[str] = "dancer", 
                     #   magic_word:Optional[str] = "None", 
                       pagination_value:Optional[int] = 1, 
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10"
@@ -352,7 +352,6 @@ def contacts_normal(  request: Request,
 
         query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
 
-    print(query_part_1)
 
     cursor.execute(query_part_1)
     talents=cursor.fetchall()
