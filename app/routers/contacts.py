@@ -11,10 +11,6 @@ import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-import random
-import numpy as np
-
-
 
 router= APIRouter(
     
@@ -319,7 +315,7 @@ def contacts_normal(  request: Request,
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
-                      pagination_value:Optional[int] = 2, 
+                      pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
 
