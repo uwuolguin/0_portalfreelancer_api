@@ -285,6 +285,30 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 ################################################# TEMPLATES ####################################################################
     
 templates= Jinja2Templates(directory="./templates")
+#####FUNCTIONS TO ASSIST IN THE SCENARIOS########################################
+
+def PAGINATE_A_LIST(list_to_paginate,pagination_value_var):
+        lenght_talents=len(list_to_paginate)
+
+        if (pagination_value_var-1)*3 <lenght_talents:
+            talents_part1=[list_to_paginate[(pagination_value_var-1)*3]]
+        else:
+            talents_part1=[]
+
+        if ((pagination_value_var-1)*3)+1 <lenght_talents:
+            talents_part2=[list_to_paginate[((pagination_value_var-1)*3)+1]]
+        else:
+            talents_part2=[]
+        
+        if ((pagination_value_var-1)*3)+2 <lenght_talents:
+            talents_part3=[list_to_paginate[((pagination_value_var-1)*3)+2]]
+        else:
+            talents_part3=[]
+
+        talents=talents_part1+talents_part2+talents_part3
+
+        return talents
+
 
 @router.get('/contacts_normal/',response_class=HTMLResponse)
 def contacts_normal(  request: Request,
@@ -294,7 +318,7 @@ def contacts_normal(  request: Request,
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
-                      pagination_value:Optional[int] = 4, 
+                      pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
 
@@ -345,6 +369,8 @@ def contacts_normal(  request: Request,
     if category_string !="None":
         category_string_list=category_string.replace(' ','').lower().split('.')
 
+
+
 ####################################3  SCENARIOS , they are 8  for now
 
     if magic_word =="None" and skills_string=="None" and category_string == "None":
@@ -354,24 +380,7 @@ def contacts_normal(  request: Request,
         cursor.execute(query_part_1)
         talents=cursor.fetchall()#THIS IS A LIST
 
-        lenght_talents=len(talents)
-
-        if (pagination_value-1)*3 <lenght_talents:
-            talents_part1=[talents[(pagination_value-1)*3]]
-        else:
-            talents_part1=[]
-
-        if ((pagination_value-1)*3)+1 <lenght_talents:
-            talents_part2=[talents[((pagination_value-1)*3)+1]]
-        else:
-            talents_part2=[]
-        
-        if ((pagination_value-1)*3)+2 <lenght_talents:
-            talents_part3=[talents[((pagination_value-1)*3)+2]]
-        else:
-            talents_part3=[]
-
-        talents=talents_part1+talents_part2+talents_part3
+        talents=PAGINATE_A_LIST(talents,pagination_value)
 
     if magic_word !="None" and skills_string=="None" and category_string == "None":
 
