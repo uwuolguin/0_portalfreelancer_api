@@ -339,8 +339,6 @@ def contacts_normal(  request: Request,
     # credentials=oath2.decode_access_token(login)
     # print(dict(credentials))
 
-    limit_pagination=pagination_value*3
-
     if skills_string !="None":
         skills_string_list=skills_string.replace(' ','').lower().split('.')
 
@@ -356,7 +354,25 @@ def contacts_normal(  request: Request,
         cursor.execute(query_part_1)
         talents=cursor.fetchall()#THIS IS A LIST
 
+        lenght_talents=len(talents)
 
+        if (pagination_value-1)*3 <lenght_talents:
+            talents_part1=talents[(pagination_value-1)*3]
+        else:
+            talents_part1=[]
+
+        if ((pagination_value-1)*3)+1 <lenght_talents:
+            talents_part2=talents[((pagination_value-1)*3)+1]
+        else:
+            talents_part2=[]
+        
+        if ((pagination_value-1)*3)+2 <lenght_talents:
+            talents_part3=talents[((pagination_value-1)*3)+2]
+        else:
+            talents_part3=[]
+
+        talents=talents_part1+talents_part2+talents_part3
+        
     if magic_word !="None" and skills_string=="None" and category_string == "None":
 
         magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
@@ -384,7 +400,7 @@ def contacts_normal(  request: Request,
 
 ###############CRITICAL ERROR MANAGEMENT#################################################
     if not talents or talents==[]:
-            query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT ;"
 
             cursor.execute(query_part_1)
             talents=cursor.fetchall()
