@@ -357,22 +357,22 @@ def contacts_normal(  request: Request,
         lenght_talents=len(talents)
 
         if (pagination_value-1)*3 <lenght_talents:
-            talents_part1=talents[(pagination_value-1)*3]
+            talents_part1=[talents[(pagination_value-1)*3]]
         else:
             talents_part1=[]
 
         if ((pagination_value-1)*3)+1 <lenght_talents:
-            talents_part2=talents[((pagination_value-1)*3)+1]
+            talents_part2=[talents[((pagination_value-1)*3)+1]]
         else:
             talents_part2=[]
         
         if ((pagination_value-1)*3)+2 <lenght_talents:
-            talents_part3=talents[((pagination_value-1)*3)+2]
+            talents_part3=[talents[((pagination_value-1)*3)+2]]
         else:
             talents_part3=[]
 
         talents=talents_part1+talents_part2+talents_part3
-        
+
     if magic_word !="None" and skills_string=="None" and category_string == "None":
 
         magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
