@@ -146,8 +146,7 @@ document.querySelectorAll('input[type="checkbox"]').forEach(elem => {
 
 let paginationStateSelected= document.getElementById(current_id).innerHTML
 
-console.log(paginationState)
-console.log(paginationStateSelected)
+
 
 
 
@@ -224,13 +223,26 @@ if(glassValueStateButton==""){
   glassValueStateButton="None"
 
 }
-
+console.log(paginationState)
+console.log(paginationStateSelected)
 console.log(skillStringValues)
 console.log(skillStringState)
 console.log(categoryStringValues)
 console.log(categoryStringState)
 console.log(glassValueStateButton)
 
+url_part1="https://apiportalfreelancer.lat/contacts/contacts_normal/?"
+url_part2="skills_string="+skillStringValues+"&"
+url_part3="skills_state_string="+skillStringState+"&"
+url_part4="category_string="+categoryStringValues+"&"
+url_part5="category_state_string="+categoryStringState+"&"
+url_part6="pagination_state="+paginationState+"&"
+url_part7="pagination_value="+paginationStateSelected+"&"
+url_part8="magic_word="+glassValueStateButtons
+
+urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
+
+console.log(urlFinal)
 }
 
 
