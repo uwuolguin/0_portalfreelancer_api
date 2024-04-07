@@ -315,7 +315,7 @@ def contacts_normal(  request: Request,
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "DevelopmentandIT-category.AIServices-category",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
-                      pagination_value:Optional[int] = 3, 
+                      pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
 
@@ -578,7 +578,9 @@ def contacts_normal(  request: Request,
             Talents_List.append(talent_dict)
     except:
         pass
-    
-    
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word}
+
+
+    paginationStateListInt=[eval(i) for i in pagination_state.split(".")]
+
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value}
     return templates.TemplateResponse("2_find_talent.html",context)
