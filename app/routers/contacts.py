@@ -399,30 +399,31 @@ def contacts_normal(  request: Request,
 
 
 ###############CRITICAL ERROR MANAGEMENT#################################################
-    if not talents or talents==[]:
-            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT ;"
-
-            cursor.execute(query_part_1)
-            talents=cursor.fetchall()
+    if not talents :
+            talents=[]
 #####################################################################################################################
     
     Talents_List=[]
 
-    for  talent in talents:
+    try:
+        for  talent in talents:
+            
 
-        facebook_c=talent.get("facebook")
-        if facebook_c =='None':
-            facebook_c=''
+            facebook_c=talent.get("facebook")
+            if facebook_c =='None':
+                facebook_c=''
 
-        instagram_c=talent.get("instagram")
-        if instagram_c =='None':
-            instagram_c =''
- 
-        pagination_number=1
+            instagram_c=talent.get("instagram")
+            if instagram_c =='None':
+                instagram_c =''
+    
+            pagination_number=1
 
-        talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories"),'pagination':pagination_number}
+            talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories"),'pagination':pagination_number}
 
-        Talents_List.append(talent_dict)
+            Talents_List.append(talent_dict)
+    except:
+        pass
     
     
     context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List}
