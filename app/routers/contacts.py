@@ -445,7 +445,7 @@ def contacts_normal(  request: Request,
 
     if magic_word !="None" and skills_string=="None" and category_string != "None":
 
-        
+        magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
         talents=[]
         id_alredy_used=[]
         for i in category_string_list:
