@@ -312,11 +312,11 @@ def contacts_normal(  request: Request,
                       login: str = Cookie(None),
                       skills_string: Optional[str] = "None",
                       skills_state_string: Optional[str] = "None",
-                      category_string: Optional[str] = "None",
+                      category_string: Optional[str] = "Engineering and Architecture.Other",
                       category_state_string: Optional[str] = "None",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
                       pagination_value:Optional[int] = 1, 
-                      magic_word:Optional[str] = "None"
+                      magic_word:Optional[str] = "DevelopeR"
                       ):
 
     try:
@@ -392,7 +392,7 @@ def contacts_normal(  request: Request,
 
     if magic_word =="None" and skills_string!="None" and category_string == "None":
 
-        
+
         talents=[]
         id_alredy_used=[]
         for i in skills_string_list:
@@ -425,6 +425,32 @@ def contacts_normal(  request: Request,
         for i in category_string_list:
 
             query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(categories,' ','')))>0 ORDER by CREATED_AT ;"
+
+            cursor.execute(query_part_1)
+            talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+            
+            try:
+            
+                for x in talents_part:
+                    current_id=x.get("id")
+                    if current_id not in id_alredy_used:
+                        id_alredy_used.append(current_id)
+                        talents.append(x)
+            
+            except:
+                pass
+
+        
+        talents=PAGINATE_A_LIST(talents,pagination_value)
+
+    if magic_word !="None" and skills_string=="None" and category_string != "None":
+
+        
+        talents=[]
+        id_alredy_used=[]
+        for i in category_string_list:
+
+            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(categories,' ','')))>0 AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT ;"
 
             cursor.execute(query_part_1)
             talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
