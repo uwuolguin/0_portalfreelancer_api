@@ -392,15 +392,24 @@ def contacts_normal(  request: Request,
 
     if magic_word =="None" and skills_string!="None" and category_string == "None":
 
+        
         talents=[]
+        id_alredy_used=[]
         for i in skills_string_list:
 
             query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0 ORDER by CREATED_AT ;"
 
             cursor.execute(query_part_1)
-            talents_part=cursor.fetchall()
+            talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+            
             try:
-                talents=talents+talents_part
+            
+                for x in talents_part:
+                    current_id=x.get("id")
+                    if current_id not in id_alredy_used:
+                        id_alredy_used.append(current_id)
+                        talents.append(x)
+            
             except:
                 pass
 
