@@ -238,7 +238,7 @@ url_part4="category_string="+categoryStringValues+"&"
 url_part5="category_state_string="+categoryStringState+"&"
 url_part6="pagination_state="+paginationState+"&"
 url_part7="pagination_value="+paginationStateSelected+"&"
-url_part8="magic_word="+glassValueStateButtons
+url_part8="magic_word="+glassValueStateButton
 
 urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
 
