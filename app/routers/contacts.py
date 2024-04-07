@@ -311,9 +311,9 @@ def PAGINATE_A_LIST(list_to_paginate,pagination_value_var):
 def contacts_normal(  request: Request,
                       login: str = Cookie(None),
                       skills_string: Optional[str] = "None",
-                      skills_state_string: Optional[str] = "PHP-skill.Javascript-skill.Python-skill",
+                      skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
-                      category_state_string: Optional[str] = "DevelopmentandIT-category.AIServices-category",
+                      category_state_string: Optional[str] = "None",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
                       pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
