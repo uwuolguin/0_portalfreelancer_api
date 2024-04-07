@@ -580,5 +580,5 @@ def contacts_normal(  request: Request,
         pass
     
     
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string}
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word}
     return templates.TemplateResponse("2_find_talent.html",context)
