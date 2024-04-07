@@ -351,20 +351,20 @@ def contacts_normal(  request: Request,
 
     if magic_word =="None" and skills_string=="None" and category_string == "None":
 
-        query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+        query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT ;"
 
         cursor.execute(query_part_1)
-        talents=cursor.fetchall()
+        talents=cursor.fetchall()#THIS IS A LIST
 
 
     if magic_word !="None" and skills_string=="None" and category_string == "None":
 
         magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
 
-        query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+        query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ORDER by CREATED_AT ;"
 
         cursor.execute(query_part_1)
-        talents=cursor.fetchall()
+        talents=cursor.fetchall() #THIS IS A LIST
 
     if magic_word =="None" and skills_string!="None" and category_string == "None":
 
