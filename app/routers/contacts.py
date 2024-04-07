@@ -289,7 +289,7 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/contacts_normal/',response_class=HTMLResponse)
 def contacts_normal(  request: Request,
                       login: str = Cookie(None),
-                      skills_string: Optional[str] = "PHP",
+                      skills_string: Optional[str] = "PHP.Laravel",
                       skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
