@@ -319,7 +319,7 @@ def contacts_normal(  request: Request,
                       category_state_string: Optional[str] = "None",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
                       pagination_value:Optional[int] = 1, 
-                      magic_word:Optional[str] = "None"
+                      magic_word:Optional[str] = "winE"
                       ):
 
     try:
@@ -390,6 +390,8 @@ def contacts_normal(  request: Request,
 
         cursor.execute(query_part_1)
         talents=cursor.fetchall() #THIS IS A LIST
+
+        talents=PAGINATE_A_LIST(talents,pagination_value)
 
     if magic_word =="None" and skills_string!="None" and category_string == "None":
 
