@@ -218,7 +218,7 @@ if(glassValueStateButton==""){
 skillStringValues = skillStringValues.slice(0, -1); 
 skillStringState = skillStringState.slice(0, -1); 
 categoryStringValues = categoryStringValues.slice(0, -1); 
-scategoryStringState = scategoryStringState.slice(0, -1); 
+categoryStringState = categoryStringState.slice(0, -1); 
 
 console.log(skillStringValues)
 console.log(skillStringState)
