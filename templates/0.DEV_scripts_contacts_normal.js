@@ -1,4 +1,6 @@
 
+window.location.href ="https://apiportalfreelancer.lat/contacts/contacts_normal/?"
+
 function post_succesful_visible_2(response,id){
 
   let id_text = id.toString();
@@ -244,7 +246,9 @@ urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+u
 
 console.log(urlFinal)
 
+
 location.href =urlFinal
+
 }
 
 
