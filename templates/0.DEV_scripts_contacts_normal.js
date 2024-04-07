@@ -100,7 +100,7 @@ function paginationPlusClick(){
       elem.classList.remove("w3-button-active");
     });
 }
-//
+//SENDING REQUEST FOR HTML BY USING THE PAGINATION BUTTONS
 
 function paginationBackground(clicked_object){
 
