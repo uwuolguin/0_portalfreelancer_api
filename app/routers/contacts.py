@@ -12,6 +12,7 @@ from sib_api_v3_sdk.rest import ApiException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import random
+import numpy as np
 
 
 
@@ -407,7 +408,7 @@ def contacts_normal(  request: Request,
             except:
                 pass
 
-        talents = list(dict.fromkeys(talents))
+        talents = np.unique(talents)
         talents=PAGINATE_A_LIST(talents,pagination_value)
 
 ###############CRITICAL ERROR MANAGEMENT#################################################
