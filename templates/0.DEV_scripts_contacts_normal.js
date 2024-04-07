@@ -243,6 +243,8 @@ url_part8="magic_word="+glassValueStateButton
 urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
 
 console.log(urlFinal)
+
+location.href =urlFinal
 }
 
 
