@@ -407,7 +407,7 @@ def contacts_normal(  request: Request,
             except:
                 pass
 
-        talents = list(dict.fromkeys(talents))
+        # talents = list(dict.fromkeys(talents))
         talents=PAGINATE_A_LIST(talents,pagination_value)
 
 ###############CRITICAL ERROR MANAGEMENT#################################################
