@@ -173,16 +173,76 @@
             <div class="nav_b_6">
                     <div class="div_nav_find_talent">
                         <button class="w3-button" id="pagination_minus" onclick= "paginationMinusClick()">«</button>
+
+                        {% if paginationState[0] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[0]}}</button>
+                        {% else %}
                         <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[0]}}</button>
-                        <button class="w3-button-m" id="pagination_two" onclick= "paginationBackground(clicked_object=this)" >{{paginationState[1]}}</button>
-                        <button class="w3-button-m" id="pagination_three" onclick= "paginationBackground(clicked_object=this)">{{paginationState[2]}}</button>
-                        <button class="w3-button-m" id="pagination_four" onclick= "paginationBackground(clicked_object=this)">{{paginationState[3]}}</button>
-                        <button class="w3-button-m" id="pagination_five" onclick= "paginationBackground(clicked_object=this)">{{paginationState[4]}}</button>
-                        <button class="w3-button-m" id="pagination_six" onclick= "paginationBackground(clicked_object=this)">{{paginationState[5]}}</button>
-                        <button class="w3-button-m" id="pagination_seven" onclick= "paginationBackground(clicked_object=this)">{{paginationState[6]}}</button>
-                        <button class="w3-button-m" id="pagination_eight" onclick= "paginationBackground(clicked_object=this)">{{paginationState[7]}}</button>
-                        <button class="w3-button-m" id="pagination_nine" onclick= "paginationBackground(clicked_object=this)">{{paginationState[8]}}</button>
-                        <button class="w3-button-m" id="pagination_ten" onclick= "paginationBackground(clicked_object=this)">{{paginationState[9]}}</button>
+                        {% endif %}
+
+                        {% if paginationState[1] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[1]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[1]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[2] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[2]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[2]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[3] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[3]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[3]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[4] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[4]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[4]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[5] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[5]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[5]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[6] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[6]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[6]}}</button>
+                        {% endif %}
+
+                        {% if paginationState[7] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[7]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[7]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[8] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[8]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[8]}}</button>
+                        {% endif %}
+
+
+                        {% if paginationState[9] == paginationValue %}
+                        <button class="w3-button-m w3-button-active" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[9]}}</button>
+                        {% else %}
+                        <button class="w3-button-m" id="pagination_one" onclick= "paginationBackground(clicked_object=this)">{{paginationState[9]}}</button>
+                        {% endif %}
+
+
+
                         <button class="w3-button" id="pagination_plus" onclick= "paginationPlusClick()">»</button>
                     </div>
             </div>
