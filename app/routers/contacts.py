@@ -313,13 +313,13 @@ def PAGINATE_A_LIST(list_to_paginate,pagination_value_var):
 @router.get('/contacts_normal/',response_class=HTMLResponse)
 def contacts_normal(  request: Request,
                       login: str = Cookie(None),
-                      skills_string: Optional[str] = "None",
+                      skills_string: Optional[str] = "PHP.Laravel",
                       skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
                       pagination_state:Optional[str] = "1.2.3.4.5.6.7.8.9.10",
                       pagination_value:Optional[int] = 1, 
-                      magic_word:Optional[str] = "winE"
+                      magic_word:Optional[str] = "None"
                       ):
 
     try:
@@ -407,7 +407,8 @@ def contacts_normal(  request: Request,
             except:
                 pass
 
-
+        talents = list(dict.fromkeys(talents))
+        talents=PAGINATE_A_LIST(talents,pagination_value)
 
 ###############CRITICAL ERROR MANAGEMENT#################################################
     if not talents :
