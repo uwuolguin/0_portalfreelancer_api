@@ -289,7 +289,7 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/contacts_normal/',response_class=HTMLResponse)
 def contacts_normal(  request: Request,
                       login: str = Cookie(None),
-                      skills_string: Optional[str] = "None",
+                      skills_string: Optional[str] = "PHP",
                       skills_state_string: Optional[str] = "None",
                       category_string: Optional[str] = "None",
                       category_state_string: Optional[str] = "None",
@@ -303,9 +303,9 @@ def contacts_normal(  request: Request,
     except:
         pass
 
-    if login==None:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_contacts.html",context)
+    # if login==None:
+    #         context={'request': request}
+    #         return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
@@ -336,8 +336,8 @@ def contacts_normal(  request: Request,
     
 ###################################### Talent Cache #######################
         
-    credentials=oath2.decode_access_token(login)
-    print(dict(credentials))
+    # credentials=oath2.decode_access_token(login)
+    # print(dict(credentials))
 
     limit_pagination=pagination_value*3
 
@@ -350,7 +350,12 @@ def contacts_normal(  request: Request,
 ####################################3  SCENARIOS , they are 8  for now
 
     if magic_word =="None" and skills_string=="None" and category_string == "None":
+
         query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+
+        cursor.execute(query_part_1)
+        talents=cursor.fetchall()
+
 
     if magic_word !="None" and skills_string=="None" and category_string == "None":
 
@@ -358,14 +363,27 @@ def contacts_normal(  request: Request,
 
         query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
 
+        cursor.execute(query_part_1)
+        talents=cursor.fetchall()
 
-    cursor.execute(query_part_1)
-    talents=cursor.fetchall()
+    if magic_word =="None" and skills_string!="None" and category_string == "None":
 
-    print(talents)
+        talents=[]
+        for i in skills_string_list:
+
+            query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( "+i+" in LOWER(REPLACE(skills,' ','')))>0 ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
+
+            cursor.execute(query_part_1)
+            talents_part=cursor.fetchall()
+            try:
+                talents=talents+talents_part
+            except:
+                pass
+
+
 
 ###############CRITICAL ERROR MANAGEMENT#################################################
-    if not talents :
+    if not talents or talents==[]:
             query_part_1= "SELECT A.* FROM (SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT LIMIT "+ str(limit_pagination)+") AS A ORDER BY CREATED_AT DESC LIMIT 3;"
 
             cursor.execute(query_part_1)
