@@ -21,7 +21,11 @@
         <li ><a href="https://www.w3schools.com" class="nav_a">Donate</a></li>
         <li >
             <form action="/action_page.php" method="get" id="form1" >
+                {% if magic_word == "None" %}
                 <input type="text" class="input" placeholder="Search for Professionals" name="buscar_profesionales" maxlength="200" id="lens_button">
+                {% else %}
+                <input type="text" class="input" placeholder="Search for Professionals" name="buscar_profesionales" maxlength="200" id="lens_button" value={{magic_word}}>
+                {% endif %}
                 <button type="submit" form="form1" class="submission_button" >
                     <img src="https://apiportalfreelancer.lat/static/glass.svg" class="w3_image" onMouseOver="this.src='https://apiportalfreelancer.lat/static/glass_red.svg'" onMouseOut="this.src='https://apiportalfreelancer.lat/static/glass.svg'" alt="glass" >
                 </button>
