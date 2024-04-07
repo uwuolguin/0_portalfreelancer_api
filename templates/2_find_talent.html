@@ -80,6 +80,9 @@
                 name={{category.category_key|e ~ "-category"}}
                 value={{category.category_key|e }}
                 id={{category.category_key|e ~ "-category"}}
+                {% if category.category_key|e ~ "-category" in categoryState %}
+                    checked
+                {% endif %}
                 />
                 <label for={{category.category_key|e ~ "-category"}}>{{ category.category|e }}</label>
             
