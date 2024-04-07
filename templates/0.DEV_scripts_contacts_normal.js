@@ -170,11 +170,17 @@ if(skillStringValues==""){
   
   skillStringValues="None"
 
+} else {
+  skillStringValues = skillStringValues.slice(0, -1); 
 }
 
 if(skillStringState==""){
   
   skillStringState="None"
+
+} else {
+
+  skillStringState = skillStringState.slice(0, -1); 
 
 }
 
@@ -197,12 +203,18 @@ if(categoryStringValues==""){
   
   categoryStringValues="None"
 
+} else {
+  categoryStringValues = categoryStringValues.slice(0, -1); 
 }
 
 if(categoryStringState==""){
   
   categoryStringState="None"
 
+} else {
+
+
+  categoryStringState = categoryStringState.slice(0, -1); 
 }
 
 let glassValueStateButton= document.getElementById('lens_button').value
@@ -212,13 +224,6 @@ if(glassValueStateButton==""){
   glassValueStateButton="None"
 
 }
-
-
-
-skillStringValues = skillStringValues.slice(0, -1); 
-skillStringState = skillStringState.slice(0, -1); 
-categoryStringValues = categoryStringValues.slice(0, -1); 
-categoryStringState = categoryStringState.slice(0, -1); 
 
 console.log(skillStringValues)
 console.log(skillStringState)
