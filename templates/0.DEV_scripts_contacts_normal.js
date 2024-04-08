@@ -281,7 +281,7 @@ function lensButtonRequest(){
   // Pagiantion State General
    let paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10
   
-  let paginationStateSelected= document.querySelector('.w3-button-active')
+  let paginationStateSelected= document.querySelector('.w3-button-m w3-button-active')
 
   paginationStateSelected= parseInt(paginationStateSelected)
 
