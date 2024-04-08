@@ -283,8 +283,8 @@ function lensButtonRequest(){
   
   let paginationStateSelected= document.querySelector('.w3-button-active')
 
-  paginationStateSelected= paginationStateSelected.parseInt()
-  
+  paginationStateSelected= parseInt(paginationStateSelected)
+
   let skillStringValues=''
   let skillStringState=''
   
