@@ -134,7 +134,7 @@ textarea {
     width: 100%;
     padding-top: 3vh;
     padding-bottom: 7vh;
-    width: 1000px;
+    min-width: 1200px;
 }
 
 .div_nav_7 {
