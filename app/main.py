@@ -21,6 +21,7 @@ import time
 from typing import Optional
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from . import oath2
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -96,7 +97,21 @@ def root(  request: Request,
             print("Connecting to database failed")
             print("Error:",error)
             time.sleep(5)
-    
+
+
+    login_role_value="None"
+    try:
+        credentials=oath2.decode_access_token(login)
+
+        if dict(credentials).get("role") == "superadmin":
+            login_role_value="superadmin"
+        else:
+            login_role_value="not_superadmin"
+        
+        id_firm=dict(credentials).get("firm_id")
+
+    except:
+        pass
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
     categories=cursor.fetchall()
@@ -112,5 +127,5 @@ def root(  request: Request,
     
 
 
-    context={'request': request, 'categories':Categories_List}
+    context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
     return templates.TemplateResponse("1_index.html",context)

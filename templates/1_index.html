@@ -31,6 +31,20 @@
         </li>
 
         <li style="float: right;">
+            
+            {% if login_role == "superadmin" %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="">Settings</a>
+                        <a href="">Tableau</a>
+                        <a href="">Log Out</a>
+
+                    </div>
+
+                </div>
+            {% elif login_role == "not_superadmin" %}
                 <div class="dropdown"> 
 
                     <img src="https://apiportalfreelancer.lat/static/user.svg">
@@ -41,6 +55,21 @@
                     </div>
 
                 </div>
+
+            {% else %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="">Settings</a>
+                        <a href="">Log Out</a>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+            
         </li>
 
     </ul>
