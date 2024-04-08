@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.4375">
-    <title>Contacts</title>
+    <title>ApiPortalFreelancer</title>
     <link rel="stylesheet", href="https://apiportalfreelancer.lat/static/styles_index_no_log.css"/>
     <!-- <link rel="stylesheet", href="0.DEV_styles_index_no_log.css"/>  -->
 </head>
@@ -31,7 +31,7 @@
         </li>
 
         <li style="float: right;">
-            
+
             {% if login_role == "superadmin" %}
                 <div class="dropdown"> 
 
@@ -57,16 +57,11 @@
                 </div>
 
             {% else %}
-                <div class="dropdown"> 
-
-                    <img src="https://apiportalfreelancer.lat/static/user.svg">
-                    <div class="content">
-                        <a href="">Settings</a>
-                        <a href="">Log Out</a>
-
-                    </div>
-
-                </div>
+            
+            <div class="div_nav_2">
+                <a href="https://www.w3schools.com" class="nav_b_2">Log in</a>      
+                <a href="https://www.w3schools.com" class="nav_b_2">Sign up</a>
+            </div>   
 
             {% endif %}
             
