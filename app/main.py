@@ -138,10 +138,12 @@ def root(  request: Request,
             return templates.TemplateResponse("1_index.html",context)
         
         except:
+
             time.sleep(1)
+            
             try:
                 conn.close()
             except:
                 pass
+
             return RedirectResponse("https://apiportalfreelancer.lat/")
-            pass
