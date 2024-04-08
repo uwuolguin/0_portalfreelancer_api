@@ -19,7 +19,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
 from typing import Optional
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
 from . import oath2
 
@@ -143,4 +143,5 @@ def root(  request: Request,
                 conn.close()
             except:
                 pass
+            return RedirectResponse("https://apiportalfreelancer.lat/")
             pass
