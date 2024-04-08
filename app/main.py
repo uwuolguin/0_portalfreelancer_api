@@ -128,4 +128,5 @@ def root(  request: Request,
 
 
     context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
+    conn.close()
     return templates.TemplateResponse("1_index.html",context)
