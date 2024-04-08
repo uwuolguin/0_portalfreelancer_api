@@ -139,4 +139,8 @@ def root(  request: Request,
         
         except:
             time.sleep(1)
+            try:
+                conn.close()
+            except:
+                pass
             pass
