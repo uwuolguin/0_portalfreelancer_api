@@ -110,11 +110,6 @@ def root(  request: Request,
         category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
         Categories_List.append(category_dict)
     
-###################################### Talent Cache #######################
-        
-
-    if category_string !="None":
-        category_string_list=category_string.replace(' ','').lower().split('.')
 
 
     context={'request': request, 'categories':Categories_List}
