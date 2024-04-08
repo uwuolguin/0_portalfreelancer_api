@@ -9,7 +9,7 @@ function post_succesful_visible(response){
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Your user was Created"
-    document.location.href = "https://apiportalfreelancer.lat/";
+    document.location.href = "https://apiportalfreelancer.lat/auth/logIn/";
   } else {
     
     document.getElementById("succesful_post").classList.remove("hidden_div")
