@@ -1,5 +1,5 @@
 
-history.pushState({}, null, "https://apiportalfreelancer.lat/contacts/contacts_normal/");
+// history.pushState({}, null, "https://apiportalfreelancer.lat/contacts/contacts_normal/");
 
 function post_succesful_visible_2(response,id){
 
@@ -285,101 +285,103 @@ function lensButtonRequest(){
 
   paginationStateSelected= parseInt(paginationStateSelected)
 
-  let skillStringValues=''
-  let skillStringState=''
-  
-  let checkboxArraySkills=document.getElementById('checkbox_container_skills').getElementsByTagName('input')
-  
-  for (let i = 0; i < checkboxArraySkills.length; i++) {
-  
-        if (checkboxArraySkills[i].checked){
-        skillStringValues=skillStringValues+checkboxArraySkills[i].value+'.'
-        skillStringState=skillStringState+checkboxArraySkills[i].id+'.'
-  
-        }
-  
-  }
-  
-  if(skillStringValues==""){
-    
-    skillStringValues="None"
-  
-  } else {
-    skillStringValues = skillStringValues.slice(0, -1); 
-  }
-  
-  if(skillStringState==""){
-    
-    skillStringState="None"
-  
-  } else {
-  
-    skillStringState = skillStringState.slice(0, -1); 
-  
-  }
-  
-  let categoryStringValues=''
-  let categoryStringState=''
-  
-  let checkboxArrayCategories=document.getElementById('checkbox_container_categories').getElementsByTagName('input')
-  
-  for (let i = 0; i < checkboxArrayCategories.length; i++) {
-  
-        if (checkboxArrayCategories[i].checked){
-        categoryStringValues=categoryStringValues+checkboxArrayCategories[i].value+'.'
-        categoryStringState=categoryStringState+checkboxArrayCategories[i].id+'.'
-  
-        }
-  
-  }
-  
-  if(categoryStringValues==""){
-    
-    categoryStringValues="None"
-  
-  } else {
-    categoryStringValues = categoryStringValues.slice(0, -1); 
-  }
-  
-  if(categoryStringState==""){
-    
-    categoryStringState="None"
-  
-  } else {
-  
-  
-    categoryStringState = categoryStringState.slice(0, -1); 
-  }
-  
-  let glassValueStateButton= document.getElementById('lens_button').value
-  
-  if(glassValueStateButton==""){
-    
-    glassValueStateButton="None"
-  
-  }
-  console.log(paginationState)
   console.log(paginationStateSelected)
-  console.log(skillStringValues)
-  console.log(skillStringState)
-  console.log(categoryStringValues)
-  console.log(categoryStringState)
-  console.log(glassValueStateButton)
+
+  // let skillStringValues=''
+  // let skillStringState=''
   
-  url_part1="https://apiportalfreelancer.lat/contacts/contacts_normal/?"
-  url_part2="skills_string="+skillStringValues+"&"
-  url_part3="skills_state_string="+skillStringState+"&"
-  url_part4="category_string="+categoryStringValues+"&"
-  url_part5="category_state_string="+categoryStringState+"&"
-  url_part6="pagination_state="+paginationState+"&"
-  url_part7="pagination_value="+paginationStateSelected+"&"
-  url_part8="magic_word="+glassValueStateButton
+  // let checkboxArraySkills=document.getElementById('checkbox_container_skills').getElementsByTagName('input')
   
-  urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
+  // for (let i = 0; i < checkboxArraySkills.length; i++) {
   
-  console.log(urlFinal)
+  //       if (checkboxArraySkills[i].checked){
+  //       skillStringValues=skillStringValues+checkboxArraySkills[i].value+'.'
+  //       skillStringState=skillStringState+checkboxArraySkills[i].id+'.'
+  
+  //       }
+  
+  // }
+  
+  // if(skillStringValues==""){
+    
+  //   skillStringValues="None"
+  
+  // } else {
+  //   skillStringValues = skillStringValues.slice(0, -1); 
+  // }
+  
+  // if(skillStringState==""){
+    
+  //   skillStringState="None"
+  
+  // } else {
+  
+  //   skillStringState = skillStringState.slice(0, -1); 
+  
+  // }
+  
+  // let categoryStringValues=''
+  // let categoryStringState=''
+  
+  // let checkboxArrayCategories=document.getElementById('checkbox_container_categories').getElementsByTagName('input')
+  
+  // for (let i = 0; i < checkboxArrayCategories.length; i++) {
+  
+  //       if (checkboxArrayCategories[i].checked){
+  //       categoryStringValues=categoryStringValues+checkboxArrayCategories[i].value+'.'
+  //       categoryStringState=categoryStringState+checkboxArrayCategories[i].id+'.'
+  
+  //       }
+  
+  // }
+  
+  // if(categoryStringValues==""){
+    
+  //   categoryStringValues="None"
+  
+  // } else {
+  //   categoryStringValues = categoryStringValues.slice(0, -1); 
+  // }
+  
+  // if(categoryStringState==""){
+    
+  //   categoryStringState="None"
+  
+  // } else {
   
   
-  location.href =urlFinal
+  //   categoryStringState = categoryStringState.slice(0, -1); 
+  // }
+  
+  // let glassValueStateButton= document.getElementById('lens_button').value
+  
+  // if(glassValueStateButton==""){
+    
+  //   glassValueStateButton="None"
+  
+  // }
+  // console.log(paginationState)
+  // console.log(paginationStateSelected)
+  // console.log(skillStringValues)
+  // console.log(skillStringState)
+  // console.log(categoryStringValues)
+  // console.log(categoryStringState)
+  // console.log(glassValueStateButton)
+  
+  // url_part1="https://apiportalfreelancer.lat/contacts/contacts_normal/?"
+  // url_part2="skills_string="+skillStringValues+"&"
+  // url_part3="skills_state_string="+skillStringState+"&"
+  // url_part4="category_string="+categoryStringValues+"&"
+  // url_part5="category_state_string="+categoryStringState+"&"
+  // url_part6="pagination_state="+paginationState+"&"
+  // url_part7="pagination_value="+paginationStateSelected+"&"
+  // url_part8="magic_word="+glassValueStateButton
+  
+  // urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
+  
+  // console.log(urlFinal)
+  
+  
+  // location.href =urlFinal
   
   }
