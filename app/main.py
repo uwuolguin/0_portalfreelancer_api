@@ -110,7 +110,6 @@ def root(  request: Request,
                 conn.rollback()
             except:
                 pass
-
             try:
                 conn.close()
             except:
