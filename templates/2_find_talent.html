@@ -58,8 +58,8 @@
             {% for skill in skills %}
             <div class="input-checkbox">
                 <input
-                class="checkbox_identifier"
                 type="checkbox"
+                onclick= "lensButtonRequest()"
                 name={{skill.skill_key|e ~ "-skill"}}
                 value={{skill.skill_key|e }}
                 id={{skill.skill_key|e ~ "-skill"}}
@@ -79,8 +79,8 @@
             {% for category in categories %}
             <div class="input-checkbox">
                 <input
-                
                 type="checkbox"
+                onclick= "lensButtonRequest()"
                 name={{category.category_key|e ~ "-category"}}
                 value={{category.category_key|e }}
                 id={{category.category_key|e ~ "-category"}}
