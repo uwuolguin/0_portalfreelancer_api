@@ -26,17 +26,20 @@ from . import oath2
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
-    conn_talent_utils.close()
-    conn_talent.close()
-    conn_firm.close()
-    conn_blacklistemail.close()
-    conn_blacklistwords.close()
-    conn_contacts.close()
-    conn_changepassword.close()
-    conn_auth.close()
-    conn_complaints.close()
-    conn_categories.close()
-    conn_skills.close()
+    try:
+        conn_talent_utils.close()
+        conn_talent.close()
+        conn_firm.close()
+        conn_blacklistemail.close()
+        conn_blacklistwords.close()
+        conn_contacts.close()
+        conn_changepassword.close()
+        conn_auth.close()
+        conn_complaints.close()
+        conn_categories.close()
+        conn_skills.close()
+    except:
+        pass
 
 app= FastAPI(lifespan=lifespan)
 
@@ -82,6 +85,7 @@ def root(  request: Request,
 
     try:
         conn.close()
+        conn.
     except:
         pass
 
@@ -119,6 +123,9 @@ def root(  request: Request,
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
+    conn.close()
+
+
     Categories_List=[]
 
     for  category in categories:
@@ -128,5 +135,5 @@ def root(  request: Request,
 
 
     context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
-    conn.close()
+
     return templates.TemplateResponse("1_index.html",context)
