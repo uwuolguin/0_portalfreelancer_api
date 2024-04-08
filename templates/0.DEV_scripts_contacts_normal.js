@@ -1,5 +1,5 @@
 
-// history.pushState({}, null, "https://apiportalfreelancer.lat/contacts/contacts_normal/");
+history.pushState({}, null, "https://apiportalfreelancer.lat/contacts/contacts_normal/");
 
 function post_succesful_visible_2(response,id){
 
@@ -281,107 +281,107 @@ function lensButtonRequest(){
   // Pagiantion State General
    let paginationState= paginationState1+'.'+paginationState2+'.'+paginationState3+'.'+paginationState4+'.'+paginationState5+'.'+paginationState6+'.'+paginationState7+'.'+paginationState8+'.'+paginationState9+'.'+paginationState10
   
-  let paginationStateSelected= document.querySelector('.w3-button-m w3-button-active')
+  let paginationStateSelected= document.querySelector('.w3-button-active').innerHTML
 
   paginationStateSelected= parseInt(paginationStateSelected)
 
   console.log(paginationStateSelected)
 
-  // let skillStringValues=''
-  // let skillStringState=''
+  let skillStringValues=''
+  let skillStringState=''
   
-  // let checkboxArraySkills=document.getElementById('checkbox_container_skills').getElementsByTagName('input')
+  let checkboxArraySkills=document.getElementById('checkbox_container_skills').getElementsByTagName('input')
   
-  // for (let i = 0; i < checkboxArraySkills.length; i++) {
+  for (let i = 0; i < checkboxArraySkills.length; i++) {
   
-  //       if (checkboxArraySkills[i].checked){
-  //       skillStringValues=skillStringValues+checkboxArraySkills[i].value+'.'
-  //       skillStringState=skillStringState+checkboxArraySkills[i].id+'.'
+        if (checkboxArraySkills[i].checked){
+        skillStringValues=skillStringValues+checkboxArraySkills[i].value+'.'
+        skillStringState=skillStringState+checkboxArraySkills[i].id+'.'
   
-  //       }
+        }
   
-  // }
+  }
   
-  // if(skillStringValues==""){
+  if(skillStringValues==""){
     
-  //   skillStringValues="None"
+    skillStringValues="None"
   
-  // } else {
-  //   skillStringValues = skillStringValues.slice(0, -1); 
-  // }
+  } else {
+    skillStringValues = skillStringValues.slice(0, -1); 
+  }
   
-  // if(skillStringState==""){
+  if(skillStringState==""){
     
-  //   skillStringState="None"
+    skillStringState="None"
   
-  // } else {
+  } else {
   
-  //   skillStringState = skillStringState.slice(0, -1); 
+    skillStringState = skillStringState.slice(0, -1); 
   
-  // }
+  }
   
-  // let categoryStringValues=''
-  // let categoryStringState=''
+  let categoryStringValues=''
+  let categoryStringState=''
   
-  // let checkboxArrayCategories=document.getElementById('checkbox_container_categories').getElementsByTagName('input')
+  let checkboxArrayCategories=document.getElementById('checkbox_container_categories').getElementsByTagName('input')
   
-  // for (let i = 0; i < checkboxArrayCategories.length; i++) {
+  for (let i = 0; i < checkboxArrayCategories.length; i++) {
   
-  //       if (checkboxArrayCategories[i].checked){
-  //       categoryStringValues=categoryStringValues+checkboxArrayCategories[i].value+'.'
-  //       categoryStringState=categoryStringState+checkboxArrayCategories[i].id+'.'
+        if (checkboxArrayCategories[i].checked){
+        categoryStringValues=categoryStringValues+checkboxArrayCategories[i].value+'.'
+        categoryStringState=categoryStringState+checkboxArrayCategories[i].id+'.'
   
-  //       }
+        }
   
-  // }
+  }
   
-  // if(categoryStringValues==""){
+  if(categoryStringValues==""){
     
-  //   categoryStringValues="None"
+    categoryStringValues="None"
   
-  // } else {
-  //   categoryStringValues = categoryStringValues.slice(0, -1); 
-  // }
+  } else {
+    categoryStringValues = categoryStringValues.slice(0, -1); 
+  }
   
-  // if(categoryStringState==""){
+  if(categoryStringState==""){
     
-  //   categoryStringState="None"
+    categoryStringState="None"
   
-  // } else {
+  } else {
   
   
-  //   categoryStringState = categoryStringState.slice(0, -1); 
-  // }
+    categoryStringState = categoryStringState.slice(0, -1); 
+  }
   
-  // let glassValueStateButton= document.getElementById('lens_button').value
+  let glassValueStateButton= document.getElementById('lens_button').value
   
-  // if(glassValueStateButton==""){
+  if(glassValueStateButton==""){
     
-  //   glassValueStateButton="None"
+    glassValueStateButton="None"
   
-  // }
-  // console.log(paginationState)
-  // console.log(paginationStateSelected)
-  // console.log(skillStringValues)
-  // console.log(skillStringState)
-  // console.log(categoryStringValues)
-  // console.log(categoryStringState)
-  // console.log(glassValueStateButton)
+  }
+  console.log(paginationState)
+  console.log(paginationStateSelected)
+  console.log(skillStringValues)
+  console.log(skillStringState)
+  console.log(categoryStringValues)
+  console.log(categoryStringState)
+  console.log(glassValueStateButton)
   
-  // url_part1="https://apiportalfreelancer.lat/contacts/contacts_normal/?"
-  // url_part2="skills_string="+skillStringValues+"&"
-  // url_part3="skills_state_string="+skillStringState+"&"
-  // url_part4="category_string="+categoryStringValues+"&"
-  // url_part5="category_state_string="+categoryStringState+"&"
-  // url_part6="pagination_state="+paginationState+"&"
-  // url_part7="pagination_value="+paginationStateSelected+"&"
-  // url_part8="magic_word="+glassValueStateButton
+  url_part1="https://apiportalfreelancer.lat/contacts/contacts_normal/?"
+  url_part2="skills_string="+skillStringValues+"&"
+  url_part3="skills_state_string="+skillStringState+"&"
+  url_part4="category_string="+categoryStringValues+"&"
+  url_part5="category_state_string="+categoryStringState+"&"
+  url_part6="pagination_state="+paginationState+"&"
+  url_part7="pagination_value="+paginationStateSelected+"&"
+  url_part8="magic_word="+glassValueStateButton
   
-  // urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
+  urlFinal=url_part1+url_part2+url_part3+url_part4+url_part5+url_part6+url_part7+url_part8
   
-  // console.log(urlFinal)
+  console.log(urlFinal)
   
   
-  // location.href =urlFinal
+  location.href =urlFinal
   
   }
