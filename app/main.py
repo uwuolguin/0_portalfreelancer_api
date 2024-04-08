@@ -82,10 +82,7 @@ def root(  request: Request,
                       magic_word:Optional[str] = "None"
                       ):
     
-    try:
-        conn.rollback()
-    except:
-        pass
+
     try:
         conn.close()
     except:
