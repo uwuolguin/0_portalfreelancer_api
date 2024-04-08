@@ -9,7 +9,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Succesful Login"
-    document.location.href = "https://github.com/uwuolguin/portalfreelancer_api";
+    document.location.href = "https://apiportalfreelancer.lat/";
 
   } else {
     
