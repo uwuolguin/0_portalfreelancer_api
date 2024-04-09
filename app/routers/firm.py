@@ -173,15 +173,18 @@ def post_firm(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We are only receiving 50 login requests per day, sorry :( ")
 
 #################Validate Email is not a company###############
+    email_2=email.replace("'", "")
+    contact_email_2=contact_email.replace("'", "")
+
     validate_email=""" SELECT * FROM remove_firm_by_being_in_talent('%s');"""
-    cursor.execute(validate_email % ((email)))
+    cursor.execute(validate_email % ((email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
         conn_firm.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
 #################Validate Email is not a company###############
     validate_email=""" SELECT * FROM remove_firm_by_being_in_talent('%s');"""
-    cursor.execute(validate_email % ((contact_email)))
+    cursor.execute(validate_email % ((contact_email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
         conn_firm.close()
@@ -191,23 +194,25 @@ def post_firm(
 
 #################Validate Blacklist Email ###############
     validate_email=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email % ((email)))
+    cursor.execute(validate_email % ((email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
         conn_firm.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
     
     validate_email_2=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email_2 % ((contact_email)))
+    cursor.execute(validate_email_2 % ((contact_email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
         conn_firm.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
 
 #################Validate Blacklist Words ###############
+    full_name_2=full_name.replace("'", "")
+    email_template_to_send_2=email_template_to_send.replace("'", "")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word_v2('%s','%s');"""
-    cursor.execute(validate_word % ((full_name.replace(" ", "").lower()),(email_template_to_send.replace(" ", "").lower())))
+    cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(email_template_to_send_2.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
         conn_firm.close()
@@ -317,8 +322,10 @@ def update_firm(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We are only receiving 50 login requests per day, sorry :( ")
 
 #################Validate Email is not a company###############
+    contact_email_2=contact_email.replace("'", "")
+
     validate_email=""" SELECT * FROM remove_firm_by_being_in_talent('%s');"""
-    cursor.execute(validate_email % ((contact_email)))
+    cursor.execute(validate_email % ((contact_email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
         conn_firm.close()
@@ -326,16 +333,18 @@ def update_firm(
 #################Validate Blacklist Email ###############
     
     validate_email_2=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email_2 % ((contact_email)))
+    cursor.execute(validate_email_2 % ((contact_email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
         conn_firm.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
 
 #################Validate Blacklist Words ###############
+    full_name_2=full_name.replace("'", "")
+    email_template_to_send_2=email_template_to_send.replace("'", "")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word_v2('%s','%s');"""
-    cursor.execute(validate_word % ((full_name.replace(" ", "").lower()),(email_template_to_send.replace(" ", "").lower())))
+    cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(email_template_to_send_2.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
         conn_firm.close()
