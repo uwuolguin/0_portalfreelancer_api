@@ -18,15 +18,24 @@ def verify(plain_password, hashed_password):
 ###############################################################################
 #######CONECTION TO TALENT TABLE ######################################################################################
 
-while True:
+
+def getConnection():
+    
+
+    while True:
         try:
-                conn_talent_utils=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
-                cursor=conn_talent_utils.cursor()
-                break
+
+            conn_talent_utils=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
+
         except Exception as error:
-                print("Connecting to database failed")
-                print("Error:",error)
-                time.sleep(5)
+
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
+
+    return conn_talent_utils
+
 
 
 def validate_Image(id_var,file_var,endpoint):
@@ -41,7 +50,8 @@ def validate_Image(id_var,file_var,endpoint):
                 shutil.copyfileobj(file_var.file,buffer)
 
         img_source_2=settings.picture_directory+'/'+picture_name_user
-
+        conn_talent_utils=getConnection()
+        cursor=conn_talent_utils.cursor()
         try:
                 img = Image.open(img_source_2)
                 format = img.format
@@ -53,11 +63,14 @@ def validate_Image(id_var,file_var,endpoint):
                                         delete=""" SELECT delete_talent_by_id('%s');"""
                                         cursor.execute(delete % (id_var))
                                         conn_talent_utils.commit()
+
+
                                         
 
                                 except:
                                         pass
                         hola = 'fotoNoPng'
+                        conn_talent_utils.close()
                         return(hola)
                         
                 try:
@@ -90,6 +103,7 @@ def validate_Image(id_var,file_var,endpoint):
                    pass
 
                 hola = 'NoEsFoto'
+                conn_talent_utils.close()
                 return(hola)
         try:
                 faceCascPath = 'haarcascade_frontalface_default.xml'
@@ -109,6 +123,7 @@ def validate_Image(id_var,file_var,endpoint):
                         cursor.execute(update % (img_source_2,id_var))
                         conn_talent_utils.commit()
                         hola = 'fotoPng1Rostro'
+                        conn_talent_utils.close()
                         return(hola)
                 else:
                         if endpoint=='post':
@@ -122,6 +137,7 @@ def validate_Image(id_var,file_var,endpoint):
                                         pass
 
                         hola = 'fotoPngNo1Rostro'
+                        conn_talent_utils.close()
                         return(hola)
 
         except:
@@ -135,6 +151,7 @@ def validate_Image(id_var,file_var,endpoint):
                                 pass
 
                 hola = 'fotoPngNoReconocidaPorAlgoritmoML'
+                conn_talent_utils.close()
                 return(hola)
         
 
