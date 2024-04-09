@@ -22,28 +22,31 @@ router= APIRouter(
     tags=["Talent"]
 )
 
-while True:
-    try:
+def getConnection():
+    
 
-        conn_talent=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
-        cursor=conn_talent.cursor()
-        break
+    while True:
+        try:
 
-    except Exception as error:
+            conn_talent=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
 
-        print("Connecting to database failed")
-        print("Error:",error)
-        time.sleep(5)
+        except Exception as error:
+
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
+
+    return conn_talent
 
 @router.get("/talent_get_all",response_model=list[schemas.talentResponse])
 def get_all_talent(login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
 
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
 
     if login==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
@@ -57,6 +60,9 @@ def get_all_talent(login: str = Cookie(None)) -> Any:
     talent=cursor.fetchall()
     if not talent :
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    conn_talent.close()
+
     return talent
 
 
@@ -66,10 +72,10 @@ def get_all_talent(login: str = Cookie(None)) -> Any:
 def get_talent(id:int,login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
 
     if login==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
@@ -84,6 +90,9 @@ def get_talent(id:int,login: str = Cookie(None)) -> Any:
     talent=cursor.fetchone()
     if talent ==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
+    
+    conn_talent.close()
+
     return talent
 
 
@@ -92,10 +101,10 @@ def get_talent(id:int,login: str = Cookie(None)) -> Any:
 def get_id_by_email_talent_2(email:EmailStr,login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
 
     if login==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
@@ -110,6 +119,9 @@ def get_id_by_email_talent_2(email:EmailStr,login: str = Cookie(None)) -> Any:
     talent=cursor.fetchone()
     if talent ==None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with email: {str(email)} does not exist")
+    
+    conn_talent.close()
+
     return talent
 
 
@@ -136,10 +148,8 @@ def post_talent(
 
     os.chdir(settings.normal_directory)
     
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
 
     hashed_password=utils.hash(password)
     password=hashed_password
@@ -208,7 +218,9 @@ def post_talent(
     cursor.execute(id_2 % (str(email)))
     id=cursor.fetchone()
     for x in id.values():
-        id_data=x    
+        id_data=x   
+
+
 ###### PICTURE  LOGIC ############################################################
     resultado_validacion_foto=utils.validate_Image(id_var=id_data,file_var=file,endpoint='post')
     print(resultado_validacion_foto)

@@ -53,6 +53,8 @@ def login_function(
     cursor.execute(email_2 % (email))
     email_today=cursor.fetchone()
     if not(email_today ==None):
+
+        conn_auth.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "You can send 1 login attempt every two seconds max, sorry :(")
 ############################ INSERT RECORD ON LOGIN ATTEMP ######################
     email_4="""  SELECT insert_loginattempt('%s');"""
@@ -74,6 +76,7 @@ def login_function(
         superadmin=1
 
     if talent==None and firm ==None and superadmin== None:
+        conn_auth.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with email: {str(email)} does not exist")
     
     if not(firm==None):
@@ -87,6 +90,8 @@ def login_function(
         except:
              hola=not(password==firm_payload.get("firm_password"))
         if  hola:
+
+            conn_auth.close()
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BAD CREDENTIALS")
 
         token_data={'firm_id':firm.get("firm_id"),'firm_email':email,'role':role}
@@ -99,6 +104,7 @@ def login_function(
         cursor.execute(update_firm % (str(firm.get("firm_id"))) )
         conn_auth.commit()
 
+        conn_auth.close()
         return response
     
     if not(talent==None):
@@ -122,6 +128,7 @@ def login_function(
         cursor.execute(update_talent % (str(talent.get("talent_id"))) )
         conn_auth.commit()
 
+        conn_auth.close()
         return response
     
     if not(superadmin==None):
@@ -131,6 +138,8 @@ def login_function(
         content = {"message": "cookie set"}
         response = JSONResponse(content=content)
         response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+
+        conn_auth.close()
         return response
     
     conn_auth.close()
@@ -165,12 +174,18 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
 
 
     if login==None:
+            
+            conn_auth.close()
+
             context={'request': request}
             return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") == "firm":
+            
+            conn_auth.close()
+
             context={'request': request}
             return templates.TemplateResponse("8_del_up_firm.html",context)
     
@@ -180,6 +195,9 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
         skills=cursor.fetchall()
 
         if not skills :
+
+            conn_auth.close()
+
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
         
         
@@ -193,6 +211,9 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
         cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
         categories=cursor.fetchall()
         if not categories :
+
+            conn_auth.close()
+
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
         
         
@@ -201,6 +222,8 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
         for  category in categories:
             category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
             Categories_List.append(category_dict)
+
+        conn_auth.close()
 
         context={'request': request, 'categories':Categories_List,'skills':Skills_List}
         return templates.TemplateResponse("7_del_up_talent.html",context)
