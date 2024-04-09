@@ -49,16 +49,22 @@ def get_all_talent(login: str = Cookie(None)) -> Any:
 
 
     if login==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_free_user+""" """)
     talent=cursor.fetchall()
     if not talent :
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     conn_talent.close()
@@ -78,17 +84,24 @@ def get_talent(id:int,login: str = Cookie(None)) -> Any:
 
 
     if login==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
     id_2=""" SELECT * FROM get_by_id('%s');"""
     cursor.execute(id_2 % (str(id)))
     talent=cursor.fetchone()
     if talent ==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
     
     conn_talent.close()
@@ -107,17 +120,23 @@ def get_id_by_email_talent_2(email:EmailStr,login: str = Cookie(None)) -> Any:
 
 
     if login==None:
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
   
     id_2=""" SELECT * FROM get_id_by_email('%s');"""
     cursor.execute(id_2 % (str(email)))
     talent=cursor.fetchone()
     if talent ==None:
+                
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with email: {str(email)} does not exist")
     
     conn_talent.close()
@@ -160,6 +179,8 @@ def post_talent(
     email=email.replace(" ", "").lower()
 
     if email==settings.superadmin_email:
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
 
@@ -168,6 +189,8 @@ def post_talent(
     for x in users_today.values():
         user_today_value=x 
     if user_today_value >=50:
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We are only receiving 50 login requests per day, sorry :( ")
 
 #################Validate Blacklist Email ###############
@@ -176,6 +199,8 @@ def post_talent(
     cursor.execute(validate_email % ((email)))
     validate_0=cursor.fetchone()
     if validate_0 :
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
 
 #################Validate Email is not a company###############
@@ -183,6 +208,8 @@ def post_talent(
     cursor.execute(validate_email % ((email)))
     validate_0=cursor.fetchone()
     if validate_0 :
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
 
 #################Validate Blacklist Words ###############
@@ -191,19 +218,29 @@ def post_talent(
     cursor.execute(validate_word % ((full_name.replace(" ", "").lower()),(profession.replace(" ", "").lower()),(description.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
+            
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "THIS SITE DOES NOT ACCEPT BAD WORDS")
     
 #################Validate url contains words(linkedin,girhub,facebook,instagram) ###############
-    if not (str(github).startswith('https://github.com') ):   
+    if not (str(github).startswith('https://github.com') ):  
+            
+        conn_talent.close() 
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://github.com")
     
-    if not (str(linkedin).startswith('https://linkedin.com') ):   
+    if not (str(linkedin).startswith('https://linkedin.com') ):
+
+        conn_talent.close()   
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://linkedin.com")
 
     if not(str(facebook) == 'None') and not (str(facebook).startswith('https://facebook.com')):
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://facebook.com")
     
     if not(str(instagram) == 'None') and not (str(instagram).startswith('https://instagram.com')):
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://instagram.com")
     
 ###################CREATE USER#####################################################################
@@ -238,26 +275,30 @@ def post_talent(
         cursor.execute(delete % (id_data))
         conn_talent.commit()
 
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "The file format is not valid or the picture does not contain a clear human face")
 
-    
+    conn_talent.close()
 
 @router.delete("/talent_delete/id/",status_code=status.HTTP_204_NO_CONTENT)
 def delete_talent(login: str = Cookie(None)):
 
     os.chdir(settings.picture_directory)
 
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
 
     if login==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "talent":
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
     id=dict(credentials).get("talent_id")
@@ -276,12 +317,15 @@ def delete_talent(login: str = Cookie(None)):
     cursor.execute(id_2 % (str(id)))
     talent=cursor.fetchone()
     if talent ==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
 
     delete=""" SELECT delete_talent_by_id('%s');"""
     cursor.execute(delete % (id))
     conn_talent.commit()
 
+    conn_talent.close()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
@@ -308,17 +352,20 @@ def update_talent(
 
     os.chdir(settings.normal_directory)
 
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
         
     if login==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "talent":
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
     id=dict(credentials).get("talent_id")
@@ -336,6 +383,8 @@ def update_talent(
     for x in users_today.values():
         user_today_value=x 
     if user_today_value >=50:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We are only receiving 50 login requests per day, sorry :( ")
 ##########################################CHECK RECOR EXISTS ################################################################
 
@@ -343,6 +392,8 @@ def update_talent(
     cursor.execute(id_2 % (str(id)))
     talent=cursor.fetchone()
     if talent ==None:
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
 
 #################Validate Blacklist Words ###############
@@ -351,19 +402,29 @@ def update_talent(
     cursor.execute(validate_word % ((full_name.replace(" ", "").lower()),(profession.replace(" ", "").lower()),(description.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "THIS SITE DOES NOT ACCEPT BAD WORDS")
     
 #################Validate url contains words(linkedin,girhub,facebook,instagram) ###############
-    if not (str(github).startswith('https://github.com') ):   
+    if not (str(github).startswith('https://github.com') ):
+
+        conn_talent.close()   
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://github.com")
     
-    if not (str(linkedin).startswith('https://linkedin.com') ):   
+    if not (str(linkedin).startswith('https://linkedin.com') ):
+
+        conn_talent.close()   
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://linkedin.com")
 
     if not(str(facebook) == 'None') and not (str(facebook).startswith('https://facebook.com')):
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://facebook.com")
     
     if not(str(instagram) == 'None') and not (str(instagram).startswith('https://instagram.com')):
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "the string should start with https://instagram.com")
     
     
@@ -372,6 +433,8 @@ def update_talent(
     conn_talent.commit()
 
     if file  == None:
+
+            conn_talent.close()
             return Response(status_code=status.HTTP_201_CREATED,content='Data Uploaded With No Picture') 
     
 
@@ -388,13 +451,18 @@ def update_talent(
 
             copy(src_path, destination_path)
 
+            conn_talent.close()
             return Response(status_code=status.HTTP_201_CREATED,content='Data Uploaded and Default Profile Picture Assigned') 
 
         except:
             pass
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "The file format is not valid")
-    
+
+    conn_talent.close()
     return Response(status_code=status.HTTP_201_CREATED,content='Data and Profile Picture Updated') 
+
 
 ################################################# TEMPLATES ####################################################################
     
@@ -404,15 +472,16 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/signUpTalent/',response_class=HTMLResponse)
 def index(request: Request):
 
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
     skills=cursor.fetchall()
 
     if not skills :
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
@@ -426,6 +495,8 @@ def index(request: Request):
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
     categories=cursor.fetchall()
     if not categories :
+
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
@@ -436,24 +507,29 @@ def index(request: Request):
         Categories_List.append(category_dict)
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+
+    conn_talent.close()
     return templates.TemplateResponse("5_sign_up_talent.html",context)
 
 @router.get('/delUpTalent/',response_class=HTMLResponse)
 def index_delup(request: Request,login: str = Cookie(None)):
 
-    try:
-        conn_talent.rollback()
-    except:
-        pass
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
 
     if login==None:
             context={'request': request}
+
+            conn_talent.close()
             return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "talent":
             context={'request': request}
+
+            conn_talent.close()
             return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
     
 
@@ -462,6 +538,7 @@ def index_delup(request: Request,login: str = Cookie(None)):
     skills=cursor.fetchall()
 
     if not skills :
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
@@ -475,6 +552,7 @@ def index_delup(request: Request,login: str = Cookie(None)):
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
     categories=cursor.fetchall()
     if not categories :
+        conn_talent.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
@@ -485,4 +563,5 @@ def index_delup(request: Request,login: str = Cookie(None)):
         Categories_List.append(category_dict)
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+    conn_talent.close()
     return templates.TemplateResponse("7_del_up_talent.html",context)
