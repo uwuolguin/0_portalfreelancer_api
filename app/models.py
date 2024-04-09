@@ -61,7 +61,7 @@ class donations(Base):
 class complaints(Base):    
     __tablename__= "complaints"
     id= Column(BigInteger,primary_key=True,autoincrement=True)
-    email=Column(String(80),unique=True,nullable=False)
+    email=Column(String(80),nullable=False)
     email_sent=Column(String(1000),nullable=False)
     created_at= Column(TIMESTAMP(timezone=True), nullable=False,server_default=text('now()'),primary_key=True)
 
