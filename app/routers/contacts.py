@@ -18,44 +18,49 @@ router= APIRouter(
     tags=["Contacts"]
 )
 
+def getConnection():
+    
 
-while True:
-    try:
+    while True:
+        try:
 
-        conn_contacts=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
-        cursor=conn_contacts.cursor()
-        break
+            conn_contacts=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
 
-    except Exception as error:
+        except Exception as error:
 
-        print("Connecting to database failed")
-        print("Error:",error)
-        time.sleep(5)
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
 
-
+    return conn_contacts
 
 
 @router.get("/contacts_get_all",response_model=list[schemas.contactResponse])
 def get_all_contacts(login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_contacts.rollback()
-    except:
-        pass
+
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
 
     if login==None:
+
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_contacts+""" """)
     contact=cursor.fetchall()
     if not contact :
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    conn_contacts.close()
     return contact
 
 
@@ -65,24 +70,26 @@ def get_contact_firm(id:int,login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
 
-    try:
-        conn_contacts.rollback()
-    except:
-        pass
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
 
     if login==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
     id_2=""" SELECT * FROM contacts_get_by_id_firm('%s');"""
     cursor.execute(id_2 % (str(id)))
     firm=cursor.fetchall()
     if firm ==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
+    conn_contacts.close()
     return firm
 
 
@@ -91,17 +98,17 @@ def get_contact_talent(id:int,login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
 
-    try:
-        conn_contacts.rollback()
-    except:
-        pass
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
 
     if login==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
 
@@ -109,7 +116,9 @@ def get_contact_talent(id:int,login: str = Cookie(None)) -> Any:
     cursor.execute(id_2 % (str(id)))
     talent=cursor.fetchall()
     if talent ==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
+    conn_contacts.close()
     return talent
 
 @router.get("/contact_get_id/id_talent_firm/{id_talent}/{id_firm}",response_model=list[schemas.contactResponse4])
@@ -117,17 +126,17 @@ def get_contact_talent_firm(id_talent:int,id_firm:int,login: str = Cookie(None))
 
     os.chdir(settings.normal_directory)
 
-    try:
-        conn_contacts.rollback()
-    except:
-        pass
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
 
     if login==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
 
@@ -135,7 +144,9 @@ def get_contact_talent_firm(id_talent:int,id_firm:int,login: str = Cookie(None))
     cursor.execute(id_2 % (str(id_talent),str(id_firm)))
     talent_firm=cursor.fetchall()
     if talent_firm ==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id_talent} or {id_firm} does not exist")
+    conn_contacts.close()
     return talent_firm
 
 
@@ -146,17 +157,18 @@ def get_contact_talent_firm(id_talent:int,id_firm:int,login: str = Cookie(None))
 async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_contacts.rollback()
-    except:
-        pass
+
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
 
     if login==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "firm":
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
     id_firm=dict(credentials).get("firm_id")
@@ -167,6 +179,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
     for x in users_today.values():
         user_today_value=x 
     if user_today_value >=300:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We can send only 300 emails per day, sorry :(")
 
 
@@ -179,6 +192,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
     for x in users_today.values():
         user_today_value=x 
     if user_today_value >=1:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "Our Talent can only receive 1 email per day, and this user has already received an offer, sorry :(")
 
  
@@ -191,6 +205,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
     for x in users_today.values():
         user_today_value=x 
     if user_today_value >=1:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "You can send only 1 email per day, sorry :( ")
 
 ########################################################## EMAIL SENDING LOGIC ###############################################################################
@@ -221,6 +236,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
             # Send the email
             api_response = api_instance.send_transac_email(send_smtp_email)
             print(api_response)
+            conn_contacts.close()
             return {"message": "Email sent successfully!"}
         except ApiException as e:
             print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
@@ -230,6 +246,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
     cursor.execute(id_2 % (str(id_firm)))
     firm=cursor.fetchone()
     if firm ==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id_firm} does not exist")
     
     company_name=firm.get("firm_full_name")
@@ -244,6 +261,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
     cursor.execute(id_2 % (str(id_talent)))
     talent=cursor.fetchone()
     if talent ==None:
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id_talent} does not exist")
     
     talent_name=talent.get("talent_full_name")
@@ -276,7 +294,7 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 
     conn_contacts.commit()
 
-
+    conn_contacts.close()
     return {'Email Sent'}
 
 ################################################# TEMPLATES ####################################################################
@@ -319,13 +337,12 @@ def contacts_normal(  request: Request,
                       magic_word:Optional[str] = "None"
                       ):
 
-    try:
-        conn_contacts.rollback()
-    except:
-        pass
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
 
     if login==None:
             context={'request': request}
+            conn_contacts.close()
             return templates.TemplateResponse("4_log_in_contacts.html",context)
     
 
@@ -333,6 +350,7 @@ def contacts_normal(  request: Request,
     skills=cursor.fetchall()
 
     if not skills :
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
@@ -346,6 +364,7 @@ def contacts_normal(  request: Request,
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
     categories=cursor.fetchall()
     if not categories :
+        conn_contacts.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
     
     
@@ -583,4 +602,5 @@ def contacts_normal(  request: Request,
     paginationStateListInt=[eval(i) for i in pagination_state.split(".")]
 
     context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value}
+    conn_contacts.close()
     return templates.TemplateResponse("2_find_talent.html",context)
