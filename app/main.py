@@ -113,10 +113,6 @@ def root(  request: Request,
 
             time.sleep(1)
 
-            try:
-                conn.rollback()
-            except:
-                pass
             
             try:
                 conn.close()
