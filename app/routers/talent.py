@@ -193,8 +193,10 @@ def post_talent(
 
 #################Validate Blacklist Email ###############
 
+    email_2=email.replace("'","")
+
     validate_email=""" SELECT * FROM remove_user_by_black_list_email('%s');"""
-    cursor.execute(validate_email % ((email)))
+    cursor.execute(validate_email % ((email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
             
@@ -203,7 +205,7 @@ def post_talent(
 
 #################Validate Email is not a company###############
     validate_email=""" SELECT * FROM remove_talent_by_being_in_firm('%s');"""
-    cursor.execute(validate_email % ((email)))
+    cursor.execute(validate_email % ((email_2)))
     validate_0=cursor.fetchone()
     if validate_0 :
             
@@ -216,7 +218,7 @@ def post_talent(
     description_2=description.replace("'", "")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word('%s','%s','%s');"""
-    cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(profession_2.replace(" ", "").lower()),(description.replace(" ", "").lower())))
+    cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(profession_2.replace(" ", "").lower()),(description_2.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
             
@@ -398,9 +400,12 @@ def update_talent(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
 
 #################Validate Blacklist Words ###############
+    full_name_2=full_name.replace("'", "")
+    profession_2=profession.replace("'", "")
+    description_2=description.replace("'", "")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word('%s','%s','%s');"""
-    cursor.execute(validate_word % ((full_name.replace(" ", "").lower()),(profession.replace(" ", "").lower()),(description.replace(" ", "").lower())))
+    cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(profession_2.replace(" ", "").lower()),(description_2.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
 
