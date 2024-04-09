@@ -1,44 +1,18 @@
-from contextlib import asynccontextmanager
 from fastapi import FastAPI,status, HTTPException,Cookie,Request
 from .routers import contacts, firm, talent,complaints,donations,blacklistemail,blacklistwords,changepassword,auth,tableau,categories,skills
 from fastapi.middleware.cors import CORSMiddleware
-from .utils import conn_talent_utils
-from .routers.talent import conn_talent
-from .routers.firm import conn_firm
-from .routers.contacts import conn_contacts
-from .routers.blacklistemail import conn_blacklistemail
-from .routers.blacklistwords import conn_blacklistwords
-from .routers.changepassword import conn_changepassword
-from .routers.auth import conn_auth
-from .routers.complaints import conn_complaints
-from .routers.categories import conn_categories
-from .routers.skills import conn_skills
 from fastapi.staticfiles import StaticFiles
 from .config import settings
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
 from typing import Optional
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
 from . import oath2
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
-    conn_talent_utils.close()
-    conn_talent.close()
-    conn_firm.close()
-    conn_blacklistemail.close()
-    conn_blacklistwords.close()
-    conn_contacts.close()
-    conn_changepassword.close()
-    conn_auth.close()
-    conn_complaints.close()
-    conn_categories.close()
-    conn_skills.close()
 
-app= FastAPI(lifespan=lifespan)
+app= FastAPI
 
 origins = ["https://apiportalfreelancer.lat/"
 ]
@@ -50,18 +24,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(changepassword.router)
-app.include_router(contacts.router)
-app.include_router(talent.router)
-app.include_router(firm.router)
-app.include_router(donations.router)
-app.include_router(complaints.router)
-app.include_router(blacklistemail.router)
-app.include_router(blacklistwords.router)
+# app.include_router(changepassword.router)
+# app.include_router(contacts.router)
+# app.include_router(talent.router)
+# app.include_router(firm.router)
+# app.include_router(donations.router)
+# app.include_router(complaints.router)
+# app.include_router(blacklistemail.router)
+# app.include_router(blacklistwords.router)
 app.include_router(auth.router)
-app.include_router(tableau.router)
-app.include_router(categories.router)
-app.include_router(skills.router)
+# app.include_router(tableau.router)
+# app.include_router(categories.router)
+# app.include_router(skills.router)
 app.mount("/static", StaticFiles(directory=settings.picture_directory), name="static")
 
 
@@ -78,12 +52,6 @@ def root(  request: Request,
                       pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
-    
-
-    try:
-        conn.close()
-    except:
-        pass
 
     while True:
         try:
@@ -98,35 +66,53 @@ def root(  request: Request,
             print("Error:",error)
             time.sleep(5)
 
+    while True:
 
-    login_role_value="None"
-    try:
-        credentials=oath2.decode_access_token(login)
+        try:
+            login_role_value="None"
+            try:
+                credentials=oath2.decode_access_token(login)
 
-        if dict(credentials).get("role") == "superadmin":
-            login_role_value="superadmin"
-        else:
-            login_role_value="not_superadmin"
+                if dict(credentials).get("role") == "superadmin":
+                    login_role_value="superadmin"
+                else:
+                    login_role_value="not_superadmin"
+                
+                id_firm=dict(credentials).get("firm_id")
+
+            except:
+                pass
+
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+            categories=cursor.fetchall()
+            if not categories :
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            conn.close()
+
+
+            Categories_List=[]
+
+            for  category in categories:
+                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+                Categories_List.append(category_dict)
+
+            context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
+
+            return templates.TemplateResponse("1_index.html",context)
         
-        id_firm=dict(credentials).get("firm_id")
+        except:
 
-    except:
-        pass
+            time.sleep(1)
 
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
-    categories=cursor.fetchall()
-    if not categories :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Categories_List=[]
+            try:
+                conn.rollback()
+            except:
+                pass
+            try:
+                conn.close()
+            except:
+                pass
 
-    for  category in categories:
-        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
-        Categories_List.append(category_dict)
-    
-
-
-    context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
-    conn.close()
-    return templates.TemplateResponse("1_index.html",context)
+            return RedirectResponse("https://apiportalfreelancer.lat/")
