@@ -141,10 +141,6 @@ def post_talent(
     except:
         pass
 
-    try:
-        conn_talent.close()
-    except:
-        pass
     hashed_password=utils.hash(password)
     password=hashed_password
     github=str(github)
