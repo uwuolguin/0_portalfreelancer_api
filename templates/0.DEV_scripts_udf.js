@@ -47,6 +47,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("green_text")
     document.getElementById("succesful_post").classList.add("red_text")
     document.getElementById("succesful_post").innerHTML="Failed Login"
+    document.location.reload()
 
   }
 
@@ -55,6 +56,7 @@ function post_succesful_visible_2(response){
 function post_failed_visible(error){
   console.log(error.detail)
   document.getElementById("failed_post").classList.remove("hidden_div")
+  document.location.reload()
   
 }
 
