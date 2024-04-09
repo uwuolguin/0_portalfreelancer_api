@@ -53,12 +53,6 @@ def root(  request: Request,
                       pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
-    
-
-    try:
-        conn.close()
-    except:
-        pass
 
     while True:
         try:
