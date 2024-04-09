@@ -289,6 +289,8 @@ async def contacting_talent(id_talent:int,login: str = Cookie(None)):
 
 ################################################################ SAVE THE EMAIL SENDING    #############################################################################################
 
+    conn_contacts=getConnection()
+    cursor=conn_contacts.cursor()
     contacts_2="""  SELECT insert_contacts('%s','%s');"""
     cursor.execute(contacts_2 % (id_talent,id_firm))
 
