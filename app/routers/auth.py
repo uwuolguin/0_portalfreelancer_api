@@ -20,18 +20,21 @@ router= APIRouter(
     tags=["Auth"]
 )
 
-while True:
-    try:
+def getConnection():
 
-        conn_auth=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
-        cursor=conn_auth.cursor()
-        break
+    while True:
+        try:
 
-    except Exception as error:
+            conn_auth=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
 
-        print("Connecting to database failed")
-        print("Error:",error)
-        time.sleep(5)
+        except Exception as error:
+
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
+
+    return conn_auth
 
 @router.post("/login_talent_firm",status_code=status.HTTP_201_CREATED)
 def login_function(
@@ -39,10 +42,10 @@ def login_function(
     password:Annotated[str,BeforeValidator(schemas.check_long_str_80),Form()]
     ) -> Any:
     os.chdir(settings.normal_directory)
-    try:
-        conn_auth.rollback()
-    except:
-        pass
+
+    conn_auth=getConnection()
+    cursor=conn_auth.cursor()
+
 
 #######################YOU CAN LOG IN EVERY TWO SECONDS #########################
     email_2="""  SELECT * from log_in_attemp_2_seconds('%s');"""
@@ -129,6 +132,16 @@ def login_function(
         response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
         return response
     
+    try:
+        conn_auth.rollback()
+    except:
+        pass
+    try:
+        conn_auth.close()
+    except:
+        pass
+
+    
 @router.delete("/logout")
 async def logout(response: Response,):
     response.delete_cookie("login")
@@ -141,10 +154,6 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/logIn/',response_class=HTMLResponse)
 def indexLogIn(request: Request):
 
-    try:
-        conn_auth.rollback()
-    except:
-        pass
 
     context={'request': request}
     return templates.TemplateResponse("4_log_in.html",context)
@@ -152,21 +161,14 @@ def indexLogIn(request: Request):
 @router.get('/SigInRouter/',response_class=HTMLResponse)
 def SigInRoute(request: Request):
 
-    try:
-        conn_auth.rollback()
-    except:
-        pass
-
     context={'request': request}
     return templates.TemplateResponse("3_sign_up.html",context)
 
 @router.get('/settings_url_for_del_up/',response_class=HTMLResponse)
 def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
 
-    try:
-        conn_auth.rollback()
-    except:
-        pass
+    conn_auth=getConnection()
+    cursor=conn_auth.cursor()
 
 
     if login==None:
@@ -210,7 +212,14 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
         context={'request': request, 'categories':Categories_List,'skills':Skills_List}
         return templates.TemplateResponse("7_del_up_talent.html",context)
 
-
+    try:
+        conn_auth.rollback()
+    except:
+        pass
+    try:
+        conn_auth.close()
+    except:
+        pass
 
     context={'request': request}
     return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
