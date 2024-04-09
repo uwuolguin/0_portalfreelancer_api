@@ -277,6 +277,7 @@ def post_talent(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "The file format is not valid or the picture does not contain a clear human face")
 
     conn_talent.close()
+    return{"userPosted"}
 
 @router.delete("/talent_delete/id/",status_code=status.HTTP_204_NO_CONTENT)
 def delete_talent(login: str = Cookie(None)):
