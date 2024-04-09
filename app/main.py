@@ -1,18 +1,6 @@
-from contextlib import asynccontextmanager
 from fastapi import FastAPI,status, HTTPException,Cookie,Request
 from .routers import contacts, firm, talent,complaints,donations,blacklistemail,blacklistwords,changepassword,auth,tableau,categories,skills
 from fastapi.middleware.cors import CORSMiddleware
-from .utils import conn_talent_utils
-from .routers.talent import conn_talent
-from .routers.firm import conn_firm
-from .routers.contacts import conn_contacts
-from .routers.blacklistemail import conn_blacklistemail
-from .routers.blacklistwords import conn_blacklistwords
-from .routers.changepassword import conn_changepassword
-from .routers.auth import conn_auth
-from .routers.complaints import conn_complaints
-from .routers.categories import conn_categories
-from .routers.skills import conn_skills
 from fastapi.staticfiles import StaticFiles
 from .config import settings
 import psycopg2
@@ -23,25 +11,8 @@ from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
 from . import oath2
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
-    try:
-        conn_talent_utils.close()
-        conn_talent.close()
-        conn_firm.close()
-        conn_blacklistemail.close()
-        conn_blacklistwords.close()
-        conn_contacts.close()
-        conn_changepassword.close()
-        conn_auth.close()
-        conn_complaints.close()
-        conn_categories.close()
-        conn_skills.close()
-    except:
-        pass
 
-app= FastAPI(lifespan=lifespan)
+app= FastAPI
 
 origins = ["https://apiportalfreelancer.lat/"
 ]
@@ -53,18 +24,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(changepassword.router)
-app.include_router(contacts.router)
-app.include_router(talent.router)
-app.include_router(firm.router)
-app.include_router(donations.router)
-app.include_router(complaints.router)
-app.include_router(blacklistemail.router)
-app.include_router(blacklistwords.router)
+# app.include_router(changepassword.router)
+# app.include_router(contacts.router)
+# app.include_router(talent.router)
+# app.include_router(firm.router)
+# app.include_router(donations.router)
+# app.include_router(complaints.router)
+# app.include_router(blacklistemail.router)
+# app.include_router(blacklistwords.router)
 app.include_router(auth.router)
-app.include_router(tableau.router)
-app.include_router(categories.router)
-app.include_router(skills.router)
+# app.include_router(tableau.router)
+# app.include_router(categories.router)
+# app.include_router(skills.router)
 app.mount("/static", StaticFiles(directory=settings.picture_directory), name="static")
 
 
@@ -81,12 +52,6 @@ def root(  request: Request,
                       pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
-    
-
-    try:
-        conn.close()
-    except:
-        pass
 
     while True:
         try:
@@ -138,10 +103,16 @@ def root(  request: Request,
             return templates.TemplateResponse("1_index.html",context)
         
         except:
+
             time.sleep(1)
+
+            try:
+                conn.rollback()
+            except:
+                pass
             try:
                 conn.close()
             except:
                 pass
+
             return RedirectResponse("https://apiportalfreelancer.lat/")
-            pass
