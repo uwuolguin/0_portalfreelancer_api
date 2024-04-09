@@ -117,6 +117,7 @@ def login_function(
         except:
              hola=not(password==talent_payload.get("talent_password"))
         if  hola:
+            conn_auth.close()
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BAD CREDENTIALS")
         token_data={'talent_id':talent.get("talent_id"),'talent_email':email,'role':role}
         token=oath2.create_access_token(token_data)
