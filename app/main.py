@@ -25,7 +25,22 @@ from . import oath2
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    pass
+    yield
+    try:
+        conn_talent_utils.close()
+        conn_talent.close()
+        conn_firm.close()
+        conn_blacklistemail.close()
+        conn_blacklistwords.close()
+        conn_contacts.close()
+        conn_changepassword.close()
+        conn_auth.close()
+        conn_complaints.close()
+        conn_categories.close()
+        conn_skills.close()
+    except:
+        pass
+
 app= FastAPI(lifespan=lifespan)
 
 origins = ["https://apiportalfreelancer.lat/"
