@@ -22,27 +22,31 @@ router= APIRouter(
     tags=["ChangePassword"]
 )
 
-while True:
-    try:
 
-        conn_changepassword=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
-        cursor=conn_changepassword.cursor()
-        break
+def getConnection():
+    
 
-    except Exception as error:
+    while True:
+        try:
 
-        print("Connecting to database failed")
-        print("Error:",error)
-        time.sleep(5)
+            conn_changepassword=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
+
+        except Exception as error:
+
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
+    return conn_changepassword
+
 
 @router.post("/changepassword_part1")
 def changepassword_part1(email:schemas.email_html) -> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_changepassword.rollback()
-    except:
-        pass
+
+    conn_changepassword=getConnection()
+    cursor=conn_changepassword.cursor()
 
 #################################### YOU CAN  CHANGE YOUR PASSWORD 1 TIME PER DAY ################################################################
 
@@ -51,6 +55,7 @@ def changepassword_part1(email:schemas.email_html) -> Any:
     cursor.execute(email_2 % (email))
     email_today=cursor.fetchone()
     if not(email_today ==None):
+        conn_changepassword.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "You can send 1 petition per day, sorry :(")
 
 #################################### EMAIL HAS TO EXIST EITHER IN TALENT OR IN FIRM ################################################################
@@ -64,6 +69,7 @@ def changepassword_part1(email:schemas.email_html) -> Any:
     firm=cursor.fetchone()
 
     if talent==None and firm ==None:
+        conn_changepassword.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with email: {str(email)} does not exist")
 
    
@@ -106,6 +112,7 @@ def changepassword_part1(email:schemas.email_html) -> Any:
             # Send the email
             api_response = api_instance.send_transac_email(send_smtp_email)
             print(api_response)
+            conn_changepassword.close()
             return {"message": "Email sent successfully!"}
         except ApiException as e:
             print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
@@ -131,16 +138,18 @@ def changepassword_part1(email:schemas.email_html) -> Any:
     # Print the status of the email sending process
     print(email_response)
 
+    conn_changepassword.close()
     return {'Email Sent'}
 
 @router.post("/changepassword_part2")
 def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeValidator(schemas.check_long_str_80),Form()]) -> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_changepassword.rollback()
-    except:
-        pass
+
+    conn_changepassword=getConnection()
+    cursor=conn_changepassword.cursor()
+
+    
 #################################### YOU CAN  CHANGE YOUR PASSWORD 1 TIME PER DAY ################################################################
 
     email=email.replace(" ", "").lower()
@@ -149,6 +158,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
     cursor.execute(email_2 % (email))
     email_today=cursor.fetchone()
     if not(email_today ==None):
+        conn_changepassword.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "You can send 1 petition per day, sorry :(")
 #################################### CHECK THAT PART 1 HAS HAPPENED ################################################################
 
@@ -157,6 +167,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
     email_today=cursor.fetchone()
 
     if email_today.get("changepassword_password") != password:
+        conn_changepassword.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "BAD CREDENTIALS")
     
 #################################### EMAIL HAS TO EXIST EITHER IN TALENT OR IN FIRM ################################################################
@@ -170,6 +181,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
     firm=cursor.fetchone()
 
     if talent==None and firm ==None:
+        conn_changepassword.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with email: {str(email)} does not exist")
 
 
@@ -232,6 +244,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
             # Send the email
             api_response = api_instance.send_transac_email(send_smtp_email)
             print(api_response)
+            conn_changepassword.close()
             return {"message": "Email sent successfully!"}
         except ApiException as e:
             print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
@@ -257,6 +270,7 @@ def changepassword_part2(email:schemas.email_html,password:Annotated[str,BeforeV
     # Print the status of the email sending process
     print(email_response)
 
+    conn_changepassword.close()
     return {'Email Sent'}
 
 
@@ -268,22 +282,12 @@ templates= Jinja2Templates(directory="./templates")
     
 async def cp1(request:Request):
 
-    try:
-        conn_changepassword.rollback()
-
-    except:
-        pass
-
     context={'request': request}
     return templates.TemplateResponse("9_recover_password.html",context)
 
 @router.get('/changePasswordP2/',response_class=HTMLResponse)
 def cp2(request: Request):
 
-    try:
-        conn_changepassword.rollback()
-    except:
-        pass
 
     context={'request': request}
     return templates.TemplateResponse("10_recover_password_p2.html",context)
