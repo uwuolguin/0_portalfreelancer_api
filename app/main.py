@@ -113,7 +113,6 @@ def root(  request: Request,
 
             time.sleep(1)
 
-            
             try:
                 conn.close()
             except:
