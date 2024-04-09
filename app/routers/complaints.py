@@ -11,19 +11,24 @@ from pydantic.functional_validators import BeforeValidator
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-while True:
-    try:
 
-        conn_complaints=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
-        cursor=conn_complaints.cursor()
-        break
 
-    except Exception as error:
+def getConnection():
+    
 
-        print("Connecting to database failed")
-        print("Error:",error)
-        time.sleep(5)
+    while True:
+        try:
 
+            conn_complaints=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
+
+        except Exception as error:
+
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
+
+    return conn_complaints
 
 router= APIRouter(
     
@@ -37,23 +42,26 @@ router= APIRouter(
 def get_all_firm(login: str = Cookie(None)) -> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_complaints.rollback()
-    except:
-        pass
+
+    conn_complaints=getConnection()
+    cursor=conn_complaints.cursor()
 
     if login==None:
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") != "superadmin":
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_issues+""" """)
     complaint=cursor.fetchall()
     if not complaint :
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    conn_complaints.close()
     return complaint 
 
 
@@ -62,18 +70,19 @@ def get_all_firm(login: str = Cookie(None)) -> Any:
 def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_1000),Form()],login: str = Cookie(None))-> Any:
 
     os.chdir(settings.normal_directory)
-    try:
-        conn_complaints.rollback()
-    except:
-        pass
+
+    conn_complaints=getConnection()
+    cursor=conn_complaints.cursor()
 
     if login==None:
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     credentials=oath2.decode_access_token(login)
 
     
     if dict(credentials).get("role") != "talent" and dict(credentials).get("role") != "firm":
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
     if dict(credentials).get("role") == "talent":
@@ -90,6 +99,7 @@ def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_10
     cursor.execute(email_2 % (email))
     email_today=cursor.fetchone()
     if not(email_today ==None):
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "You can send 1 complaint per day")
 
     
@@ -99,6 +109,7 @@ def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_10
     for x in users_today.values():
         user_today_value=x 
     if user_today_value >=500:
+        conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We are only receiving 500 complaints per day")
 ###################CREATE USER#####################################################################
     email_uwu="""SELECT insert_complaints('%s','%s');"""
@@ -112,10 +123,6 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/complaints_html/',response_class=HTMLResponse)
 def complaints_html(request: Request,login: str = Cookie(None)):
 
-    try:
-        conn_complaints.rollback()
-    except:
-        pass
     
     if login==None:
             context={'request': request}
