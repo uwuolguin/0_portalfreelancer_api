@@ -141,6 +141,10 @@ def post_firm(
 
                  
                  )-> Any:
+    
+
+    full_name=full_name.replace("'","")
+    email_template_to_send=email_template_to_send.replace("'","")
 
     os.chdir(settings.normal_directory)
 
@@ -285,7 +289,10 @@ def update_firm(
                 instagram:Annotated[Url,Form(),UrlConstraints(max_length=1000, allowed_schemes=["https"]),],
                 login: str = Cookie(None), 
                  )-> Any:
-
+    
+    full_name=full_name.replace("'","")
+    email_template_to_send=email_template_to_send.replace("'","")
+    
     os.chdir(settings.normal_directory)
 
     conn_firm=getConnection()

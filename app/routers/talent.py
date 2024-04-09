@@ -164,6 +164,10 @@ def post_talent(
                  )-> Any:
 
     os.chdir(settings.normal_directory)
+
+    full_name=full_name.replace("'","")
+    profession=profession.replace("'","")
+    description=description.replace("'","")
     
     conn_talent=getConnection()
     cursor=conn_talent.cursor()
@@ -358,7 +362,11 @@ def update_talent(
     conn_talent=getConnection()
     cursor=conn_talent.cursor()
 
-        
+    full_name=full_name.replace("'","")
+    profession=profession.replace("'","")
+    description=description.replace("'","")
+    
+    
     if login==None:
 
         conn_talent.close()
