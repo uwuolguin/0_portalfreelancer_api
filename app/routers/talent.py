@@ -72,8 +72,6 @@ def get_all_talent(login: str = Cookie(None)) -> Any:
     return talent
 
 
-
-
 @router.get("/talent_get_id/id/{id}",response_model=schemas.talentResponse4)
 def get_talent(id:int,login: str = Cookie(None)) -> Any:
 
