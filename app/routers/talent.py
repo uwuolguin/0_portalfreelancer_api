@@ -211,9 +211,12 @@ def post_talent(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
 
 #################Validate Blacklist Words ###############
+    full_name_2=full_name.replace("'", "")
+    profession_2=profession.replace("'", "")
+    description_2=description.replace("'", "")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word('%s','%s','%s');"""
-    cursor.execute(validate_word % ((full_name.replace(" ", "").lower()),(profession.replace(" ", "").lower()),(description.replace(" ", "").lower())))
+    cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(profession_2.replace(" ", "").lower()),(description.replace(" ", "").lower())))
     validate_1=cursor.fetchone()
     if validate_1 :
             
