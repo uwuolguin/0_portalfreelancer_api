@@ -69,6 +69,8 @@ def get_all_firm(login: str = Cookie(None)) -> Any:
 @router.post("/complaint_post/",status_code=status.HTTP_201_CREATED)
 def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_1000),Form()],login: str = Cookie(None))-> Any:
 
+    email_sent=email_sent.replace("'","")
+
     os.chdir(settings.normal_directory)
 
     conn_complaints=getConnection()
