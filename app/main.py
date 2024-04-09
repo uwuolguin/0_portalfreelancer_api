@@ -1,18 +1,6 @@
-from contextlib import asynccontextmanager
 from fastapi import FastAPI,status, HTTPException,Cookie,Request
 from .routers import contacts, firm, talent,complaints,donations,blacklistemail,blacklistwords,changepassword,auth,tableau,categories,skills
 from fastapi.middleware.cors import CORSMiddleware
-from .utils import conn_talent_utils
-from .routers.talent import conn_talent
-from .routers.firm import conn_firm
-from .routers.contacts import conn_contacts
-from .routers.blacklistemail import conn_blacklistemail
-from .routers.blacklistwords import conn_blacklistwords
-from .routers.changepassword import conn_changepassword
-from .routers.auth import conn_auth
-from .routers.complaints import conn_complaints
-from .routers.categories import conn_categories
-from .routers.skills import conn_skills
 from fastapi.staticfiles import StaticFiles
 from .config import settings
 import psycopg2
@@ -124,6 +112,11 @@ def root(  request: Request,
         except:
 
             time.sleep(1)
+
+            try:
+                conn.rollback()
+            except:
+                pass
             
             try:
                 conn.close()
