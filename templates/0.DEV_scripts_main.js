@@ -42,6 +42,6 @@ function lensButtonRequest(){
 
     await logOut()
 
-    console.log("logged out")
+    location.reload()
 
   }
