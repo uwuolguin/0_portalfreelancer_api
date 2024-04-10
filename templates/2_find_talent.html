@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.4375">
     <title>Contacts</title>
     <link rel="stylesheet", href="https://apiportalfreelancer.lat/static/styles_index_no_log.css"/>
+    <link rel="icon" type="image/x-icon" href="https://apiportalfreelancer.lat/static/coffee.ico">
     <!-- <link rel="stylesheet", href="0.DEV_styles_index_no_log.css"/>  -->
 </head>
 <body style="min-width:1200px;">
@@ -14,11 +15,11 @@
     <ul class="ul_navbar">
         <li><a href="https://www.w3schools.com" class="logo">Portal Freelancer</a></li>
 
-        <li ><a href="https://www.w3schools.com" class="nav_a">Find Talent</a></li>
-        <li ><a href="https://www.w3schools.com" class="nav_a">Publish Yourself</a></li>
-        <li > <a href="https://www.w3schools.com" class="nav_a">Porpuse of the App</a></li>
-        <li ><a href="https://www.w3schools.com" class="nav_a">Report an Issue</a></li>
-        <li ><a href="https://www.w3schools.com" class="nav_a">Donate</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/contacts/contacts_normal/" class="nav_a">Find Talent</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/talent/signUpTalent/" class="nav_a">Publish Yourself</a></li>
+        <li > <a href="https://apiportalfreelancer.lat/" class="nav_a">Porpuse of the App</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/complaints/complaints_html/" class="nav_a">Report an Issue</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/" class="nav_a">Donate</a></li>
         <li >
             <form action="/action_page.php" method="get" id="form1" >
                 {% if magic_word == "None" %}
@@ -33,16 +34,50 @@
         </li>
 
         <li style="float: right;">
+
+            {% if login_role == "superadmin" %}
                 <div class="dropdown"> 
 
                     <img src="https://apiportalfreelancer.lat/static/user.svg">
                     <div class="content">
-                        <a href="">Settings</a>
+                        <a href="">Tableau</a>
                         <a href="">Log Out</a>
 
                     </div>
 
                 </div>
+            {% elif login_role == "talent" %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="https://apiportalfreelancer.lat/talent/delUpTalent/">Settings</a>
+                        <a href="#" onclick="reloadPageAfterLogOuT(); return false;">Log Out</a>
+
+                    </div>
+
+                </div>
+            {% elif login_role == "firm" %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="https://apiportalfreelancer.lat/firm/delUpFirm/">Settings</a>
+                        <a href="#" onclick="reloadPageAfterLogOuT(); return false;">Log Out</a>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+            <div class="div_nav_2">
+                <li style="float: right;"><a href="https://apiportalfreelancer.lat/auth/SigInRouter/" class="nav_b_2">Sign up</a></li>
+                <li style="float: right;"><a href="https://apiportalfreelancer.lat/auth/logIn/" class="nav_b_2">Log in</a></li>
+            </div>   
+
+            {% endif %}
+            
         </li>
 
         </ul>
