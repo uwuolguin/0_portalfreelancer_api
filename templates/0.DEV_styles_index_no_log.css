@@ -418,7 +418,7 @@ background-color:#023b0b ;
 
 .div_footer {
 
-    height:100%;
+    height:auto;
     background-color: black;
     display: inline-block;
     align-items: baseline;
