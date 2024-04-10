@@ -18,6 +18,6 @@ function lensButtonRequest(){
   console.log(urlFinal)
   
   
-  location.href =urlFinal
+  window.location.href =urlFinal
   
   }
