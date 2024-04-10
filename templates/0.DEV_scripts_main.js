@@ -19,5 +19,5 @@ function lensButtonRequest(){
   
   
   window.location.href =urlFinal
-  
+  return false;
   }
