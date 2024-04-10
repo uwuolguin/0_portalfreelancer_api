@@ -97,9 +97,9 @@ def root(  request: Request,
 
             for  category in categories:
 
-                url="https://apiportalfreelancer.lat/contacts/contacts_normal/?skills_string=None&skills_state_string=None&category_string=DevelopmentandIT&category_state_string=DevelopmentandIT-category&pagination_state=1.2.3.4.5.6.7.8.9.10&pagination_value=1&magic_word=None"
+                url="https://apiportalfreelancer.lat/contacts/contacts_normal/?skills_string=None&skills_state_string=None&category_string"+category.get("category").replace(' ','')+"&category_state_string="+category.get("category").replace(' ','')+"-category&pagination_state=1.2.3.4.5.6.7.8.9.10&pagination_value=1&magic_word=None"
 
-                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ',''),'url':url}
                 Categories_List.append(category_dict)
 
             context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
