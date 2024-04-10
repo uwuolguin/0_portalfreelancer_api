@@ -22,21 +22,26 @@ function lensButtonRequest(){
   return false;
   }
 
-  async function logOut(){
 
 
-    await fetch("https://apiportalfreelancer.lat/auth/logout", {
-      headers: {
-        Accept: "application/json"
-      },
-      method: "DELETE"
-    })
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
+  async function logOut() {
 
-    location.reload()
-
+      await fetch("https://apiportalfreelancer.lat/auth/logout/", {
+        headers: {
+          Accept: "application/json"
+        },
+        method: "DELETE"
+      }).then((response) => console.log(response)).catch((error) => console.log(error));
+    
+     }
 
   
+
+  async function reloadPageAfterLogOuT(){
+
+
+    await logOut()
+
+    console.log("logged out")
 
   }
