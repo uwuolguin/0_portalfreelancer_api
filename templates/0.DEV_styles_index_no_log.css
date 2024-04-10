@@ -418,33 +418,30 @@ background-color:#023b0b ;
 
 .div_footer {
 
-    height:auto;
+    height: 100px;
     background-color: black;
     display: inline-block;
-    align-items: baseline;
     width: 100%;
     min-width: 600px;
-    margin-top: 4vh;
-
+    margin-top: 50px;
 
 
 }
 
 .title_footer{
-    padding-top: 7vh;
+    padding-top: 30px;
     color: white;
     font-family: 'sans-serif';
-    font-size: 3.3vh;
+    font-size: 23px;
     font-weight: 550;
-    padding-left: 1.5vw;
+    padding-left: 10px;
     float: left;
 }
 
 .images_container_footer{
 
-    padding-top: 6vh;
-    padding-bottom: 12vh;
-    padding-right: 1.5vw;
+    padding-top: 20px;
+    padding-right: 10px;
     float: right;
 }
 
