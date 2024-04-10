@@ -84,7 +84,7 @@ def root(  request: Request,
             except:
                 pass
 
-            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" NOT (category = 'Other' )""")
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
             categories=cursor.fetchall()
             if not categories :
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
