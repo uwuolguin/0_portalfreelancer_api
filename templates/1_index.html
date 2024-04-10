@@ -79,9 +79,7 @@
     
     <div class="left_column_mid">
             {% for category in categories %}
-            {% if category.category|e != "Other" %}
             <a href="https://www.w3schools.com" class="nav_b_3">{{ category.category|e }}</a>  
-            {% endif %}
             {% endfor %}
     </div>
 
