@@ -347,6 +347,18 @@ def contacts_normal(  request: Request,
             conn_contacts.close()
             return templates.TemplateResponse("4_log_in_contacts.html",context)
     
+    try:
+        credentials=oath2.decode_access_token(login)
+
+        if dict(credentials).get("role") == "superadmin":
+            login_role_value="superadmin"
+        elif dict(credentials).get("role") == "firm":
+            login_role_value="firm"
+        else:
+            login_role_value="talent"
+    except:
+        pass
+
 
     cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
     skills=cursor.fetchall()
@@ -603,6 +615,6 @@ def contacts_normal(  request: Request,
 
     paginationStateListInt=[eval(i) for i in pagination_state.split(".")]
 
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value}
+    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value,'login_role':login_role_value}
     conn_contacts.close()
     return templates.TemplateResponse("2_find_talent.html",context)
