@@ -78,12 +78,9 @@
     </div>
     
     <div class="left_column_mid">
-            <a href="https://www.w3schools.com" class="nav_b_3">Development and IT</a>  
-            <a href="https://www.w3schools.com" class="nav_b_3">AI Services</a>  
-            <a href="https://www.w3schools.com" class="nav_b_3">Design and Creative</a>  
-            <a href="https://www.w3schools.com" class="nav_b_3">Sales and Marketing</a>    
-            <a href="https://www.w3schools.com" class="nav_b_3">Finance and Accounting</a>  
-            <a href="https://www.w3schools.com" class="nav_b_3">Engineering and Architecture</a>  
+            {% for category in categories %}
+            <a href="https://www.w3schools.com" class="nav_b_3">{{ category.category|e }}</a>  
+            {% endfor %}
     </div>
 
     <div class="right_column_mid">
