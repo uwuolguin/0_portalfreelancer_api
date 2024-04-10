@@ -26,7 +26,7 @@ function lensButtonRequest(){
 
   async function logOut() {
 
-      await fetch("https://apiportalfreelancer.lat/auth/logout/", {
+      await fetch("https://apiportalfreelancer.lat/auth/logout", {
         headers: {
           Accept: "application/json"
         },
