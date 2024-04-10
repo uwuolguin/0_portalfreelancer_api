@@ -43,12 +43,23 @@
                     </div>
 
                 </div>
-            {% elif login_role == "not_superadmin" %}
+            {% elif login_role == "talent" %}
                 <div class="dropdown"> 
 
                     <img src="https://apiportalfreelancer.lat/static/user.svg">
                     <div class="content">
                         <a href="https://apiportalfreelancer.lat/talent/delUpTalent/">Settings</a>
+                        <a href="">Log Out</a>
+
+                    </div>
+
+                </div>
+            {% elif login_role == "firm" %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="https://apiportalfreelancer.lat/firm/delUpFirm/">Settings</a>
                         <a href="">Log Out</a>
 
                     </div>

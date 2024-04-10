@@ -67,43 +67,43 @@ def root(  request: Request,
             print("Error:",error)
             time.sleep(5)
 
-    while True:
 
 
-            login_role_value="None"
-            try:
-                credentials=oath2.decode_access_token(login)
+    login_role_value="None"
+    try:
+        credentials=oath2.decode_access_token(login)
 
-                if dict(credentials).get("role") == "superadmin":
-                    login_role_value="superadmin"
-                else:
-                    login_role_value="not_superadmin"
-                
-                id_firm=dict(credentials).get("firm_id")
-
-            except:
-                pass
-
-            cursor.execute(""" select * from categories where category <>'Other';""")
-            categories=cursor.fetchall()
-            if not categories :
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-            
-            
-            conn.close()
+        if dict(credentials).get("role") == "superadmin":
+            login_role_value="superadmin"
+        elif dict(credentials).get("role") == "firm":
+            login_role_value="firm"
+        else:
+            login_role_value="talent"
 
 
-            Categories_List=[]
+    except:
+        pass
 
-            for  category in categories:
+    cursor.execute(""" select * from categories where category <>'Other';""")
+    categories=cursor.fetchall()
+    if not categories :
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+    
+    
+    conn.close()
 
-                url="https://apiportalfreelancer.lat/contacts/contacts_normal/?skills_string=None&skills_state_string=None&category_string"+category.get("category").replace(' ','')+"&category_state_string="+category.get("category").replace(' ','')+"-category&pagination_state=1.2.3.4.5.6.7.8.9.10&pagination_value=1&magic_word=None"
 
-                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ',''),'url':url}
-                Categories_List.append(category_dict)
+    Categories_List=[]
 
-            context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
+    for  category in categories:
 
-            return templates.TemplateResponse("1_index.html",context)
+        url="https://apiportalfreelancer.lat/contacts/contacts_normal/?skills_string=None&skills_state_string=None&category_string"+category.get("category").replace(' ','')+"&category_state_string="+category.get("category").replace(' ','')+"-category&pagination_state=1.2.3.4.5.6.7.8.9.10&pagination_value=1&magic_word=None"
+
+        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ',''),'url':url}
+        Categories_List.append(category_dict)
+
+    context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
+
+    return templates.TemplateResponse("1_index.html",context)
         
 
