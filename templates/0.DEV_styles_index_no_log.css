@@ -369,6 +369,7 @@ background-color:#023b0b ;
 .nav_b_3{
     padding-top: 45px;
     margin:20px 20px 20px 30px;
+    display: inline-block;
     text-align: center;
     height: 120px;
     width: 35%;
