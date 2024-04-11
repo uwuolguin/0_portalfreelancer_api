@@ -827,12 +827,10 @@ background-color:#023b0b ;
 .big_box_sign_up_3{
 
 
-    height: 500px;
+    height: 440px;
     width: 80%;
     margin: auto;
     margin-top:20px;
-    margin-bottom: 20px;
-    padding-top: 3vh;
 
 
 }
@@ -1323,6 +1321,13 @@ background-color:#06b821 ;
 
 
 }
+
+.big_box_sign_up_99_for_third_template{
+     width: 50%; margin: auto;text-align: center; font-family: 'sans-serif';font-size: 15px;white-space: nowrap;
+
+
+}
+
 
 .big_box_sign_up_99_2{
     margin: auto;text-align: center; font-family: 'sans-serif';font-size: 15px;
