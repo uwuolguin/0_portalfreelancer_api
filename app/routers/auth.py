@@ -170,4 +170,58 @@ def SigInRoute(request: Request):
     return templates.TemplateResponse("3_sign_up.html",context)
 
 
+@router.get('/settings_url_for_del_up/',response_class=HTMLResponse)
+def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
+
+    try:
+        conn_auth.rollback()
+    except:
+        pass
+
+
+    if login==None:
+            context={'request': request}
+            return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") == "firm":
+            context={'request': request}
+            return templates.TemplateResponse("8_del_up_firm.html",context)
+    
+    if dict(credentials).get("role") == "talent":
+
+        cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
+        skills=cursor.fetchall()
+
+        if not skills :
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+        
+        
+        Skills_List=[]
+
+        for  skill in skills:
+            skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
+            Skills_List.append(skill_dict)
+
+
+        cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+        categories=cursor.fetchall()
+        if not categories :
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+        
+        
+        Categories_List=[]
+
+        for  category in categories:
+            category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+            Categories_List.append(category_dict)
+
+        context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+        return templates.TemplateResponse("7_del_up_talent.html",context)
+
+
+
+    context={'request': request}
+    return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
     
