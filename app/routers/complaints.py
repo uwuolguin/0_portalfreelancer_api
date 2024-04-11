@@ -129,6 +129,20 @@ def complaints_html(request: Request,login: str = Cookie(None)):
     if login==None:
             context={'request': request}
             return templates.TemplateResponse("4_log_in_complaints.html",context)
+    try:
+        credentials=oath2.decode_access_token(login)
 
-    context={'request': request}
+        if dict(credentials).get("role") == "superadmin":
+            login_role_value="superadmin"
+        elif dict(credentials).get("role") == "firm":
+            login_role_value="firm"
+        else:
+            login_role_value="talent"
+
+
+    except:
+        pass
+
+
+    context={'request': request,'login_role':login_role_value}
     return templates.TemplateResponse("11_complaints.html",context)
