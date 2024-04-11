@@ -74,6 +74,8 @@ def login_function(
 
     if email== settings.superadmin_email and password==settings.superadmin_password:
         superadmin=1
+    else: 
+        superadmin=None
 
     if talent==None and firm ==None and superadmin== None:
         conn_auth.close()
