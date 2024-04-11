@@ -1,6 +1,3 @@
-
-history.pushState({}, null, "https://apiportalfreelancer.lat/contacts/contacts_normal/");
-
 function post_succesful_visible_2(response,id){
 
   let id_text = id.toString();
