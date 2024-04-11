@@ -13,36 +13,72 @@
     <!-- NAVIGATION BAR -->
 
     <ul class="ul_navbar">
-        <li><a href="https://www.w3schools.com" class="logo">Portal Freelancer</a></li>
+        <li><a href="https://apiportalfreelancer.lat/" class="logo">Portal Freelancer</a></li>
 
-        <li ><a href="https://www.w3schools.com" class="nav_a">Find Talent</a></li>
-        <li ><a href="https://www.w3schools.com" class="nav_a">Publish Yourself</a></li>
-        <li > <a href="https://www.w3schools.com" class="nav_a">Porpuse of the App</a></li>
-        <li ><a href="https://www.w3schools.com" class="nav_a">Report an Issue</a></li>
-        <li ><a href="https://www.w3schools.com" class="nav_a">Donate</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/contacts/contacts_normal/" class="nav_a">Find Talent</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/talent/signUpTalent/" class="nav_a">Publish Yourself</a></li>
+        <li > <a href="https://apiportalfreelancer.lat/" class="nav_a">Porpuse of the App</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/complaints/complaints_html/" class="nav_a">Report an Issue</a></li>
+        <li ><a href="https://apiportalfreelancer.lat/" class="nav_a">Donate</a></li>
         <li >
-            <form action="/action_page.php" method="get" id="form1" >
-                <input type="text" class="input" placeholder="Search for Professionals" name="buscar_profesionales" maxlength="200">
-                <button type="submit" form="form1" class="submission_button" >
+            <form  id="form1" >
+
+                <input type="text" class="input" placeholder="Search for Professionals" name="buscar_profesionales" maxlength="200" id="lens_button">
+
+                <button  type="button" class="submission_button"  onclick= "lensButtonRequest()">
                     <img src="https://apiportalfreelancer.lat/static/glass.svg" class="w3_image" onMouseOver="this.src='https://apiportalfreelancer.lat/static/glass_red.svg'" onMouseOut="this.src='https://apiportalfreelancer.lat/static/glass.svg'" alt="glass" >
                 </button>
             </form>
         </li>
 
         <li style="float: right;">
+
+            {% if login_role == "superadmin" %}
                 <div class="dropdown"> 
 
                     <img src="https://apiportalfreelancer.lat/static/user.svg">
                     <div class="content">
-                        <a href="">Settings</a>
+                        <a href="">Tableau</a>
                         <a href="">Log Out</a>
 
                     </div>
 
                 </div>
+            {% elif login_role == "talent" %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="https://apiportalfreelancer.lat/talent/delUpTalent/">Settings</a>
+                        <a href="#" onclick="reloadPageAfterLogOuT(); return false;">Log Out</a>
+
+                    </div>
+
+                </div>
+            {% elif login_role == "firm" %}
+                <div class="dropdown"> 
+
+                    <img src="https://apiportalfreelancer.lat/static/user.svg">
+                    <div class="content">
+                        <a href="https://apiportalfreelancer.lat/firm/delUpFirm/">Settings</a>
+                        <a href="#" onclick="reloadPageAfterLogOuT(); return false;">Log Out</a>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+            <div class="div_nav_2">
+                <li style="float: right;"><a href="https://apiportalfreelancer.lat/auth/SigInRouter/" class="nav_b_2">Sign up</a></li>
+                <li style="float: right;"><a href="https://apiportalfreelancer.lat/auth/logIn/" class="nav_b_2">Log in</a></li>
+            </div>   
+
+            {% endif %}
+            
         </li>
 
-        </ul>
+    </ul>
                 
 
  
