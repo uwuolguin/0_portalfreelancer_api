@@ -173,20 +173,19 @@ def SigInRoute(request: Request):
 @router.get('/settings_url_for_del_up/',response_class=HTMLResponse)
 def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
 
-    try:
-        conn_auth.rollback()
-    except:
-        pass
-
+    conn_auth=getConnection()
+    cursor=conn_auth.cursor()
 
     if login==None:
             context={'request': request}
+            conn_auth.close()
             return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
     
     credentials=oath2.decode_access_token(login)
 
     if dict(credentials).get("role") == "firm":
             context={'request': request}
+            conn_auth.close()
             return templates.TemplateResponse("8_del_up_firm.html",context)
     
     if dict(credentials).get("role") == "talent":
@@ -195,6 +194,7 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
         skills=cursor.fetchall()
 
         if not skills :
+            conn_auth.close()
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
         
         
@@ -208,6 +208,7 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
         cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
         categories=cursor.fetchall()
         if not categories :
+            conn_auth.close()
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
         
         
@@ -218,10 +219,12 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
             Categories_List.append(category_dict)
 
         context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+        conn_auth.close()
         return templates.TemplateResponse("7_del_up_talent.html",context)
 
 
 
     context={'request': request}
+    conn_auth.close()
     return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
     
