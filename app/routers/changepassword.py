@@ -282,12 +282,19 @@ templates= Jinja2Templates(directory="./templates")
     
 async def cp1(request:Request):
 
-    context={'request': request}
-    return templates.TemplateResponse("9_recover_password.html",context)
+    while True:
+        try:
+            context={'request': request}
+            return templates.TemplateResponse("9_recover_password.html",context)
+        except:
+            pass
 
 @router.get('/changePasswordP2/',response_class=HTMLResponse)
 def cp2(request: Request):
 
-
-    context={'request': request}
-    return templates.TemplateResponse("10_recover_password_p2.html",context)
+    while True:
+        try:
+            context={'request': request}
+            return templates.TemplateResponse("10_recover_password_p2.html",context)
+        except:
+            pass
