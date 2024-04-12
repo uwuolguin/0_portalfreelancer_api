@@ -338,283 +338,288 @@ def contacts_normal(  request: Request,
                       pagination_value:Optional[int] = 1, 
                       magic_word:Optional[str] = "None"
                       ):
+    
+    while True:
+        try:
+            conn_contacts=getConnection()
+            cursor=conn_contacts.cursor()
 
-    conn_contacts=getConnection()
-    cursor=conn_contacts.cursor()
+            if login==None:
+                    context={'request': request}
+                    conn_contacts.close()
+                    return templates.TemplateResponse("4_log_in_contacts.html",context)
+            
+            try:
+                credentials=oath2.decode_access_token(login)
 
-    if login==None:
-            context={'request': request}
+                if dict(credentials).get("role") == "superadmin":
+                    login_role_value="superadmin"
+                elif dict(credentials).get("role") == "firm":
+                    login_role_value="firm"
+                else:
+                    login_role_value="talent"
+            except:
+                pass
+
+
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
+            skills=cursor.fetchall()
+
+            if not skills :
+                conn_contacts.close()
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            Skills_List=[]
+
+            for  skill in skills:
+                skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
+                Skills_List.append(skill_dict)
+
+
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+            categories=cursor.fetchall()
+            if not categories :
+                conn_contacts.close()
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            Categories_List=[]
+
+            for  category in categories:
+                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+                Categories_List.append(category_dict)
+            
+        ###################################### Talent Cache #######################
+                
+            # credentials=oath2.decode_access_token(login)
+            # print(dict(credentials))
+
+            if skills_string !="None":
+                skills_string_list=skills_string.replace(' ','').lower().split('.')
+
+            if category_string !="None":
+                category_string_list=category_string.replace(' ','').lower().split('.')
+
+
+
+        ####################################3  SCENARIOS , they are 8  for now
+
+            if magic_word =="None" and skills_string=="None" and category_string == "None":
+
+                query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT DESC;"
+
+                cursor.execute(query_part_1)
+                talents=cursor.fetchall()#THIS IS A LIST
+
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+            if magic_word !="None" and skills_string=="None" and category_string == "None":
+
+                magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
+
+                query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ORDER by CREATED_AT DESC ;"
+
+                cursor.execute(query_part_1)
+                talents=cursor.fetchall() #THIS IS A LIST
+
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+            if magic_word =="None" and skills_string!="None" and category_string == "None":
+
+
+                talents=[]
+                id_alredy_used=[]
+                for i in skills_string_list:
+
+                    query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0 ORDER by CREATED_AT DESC ;"
+
+                    cursor.execute(query_part_1)
+                    talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+                    
+                    try:
+                    
+                        for x in talents_part:
+                            current_id=x.get("id")
+                            if current_id not in id_alredy_used:
+                                id_alredy_used.append(current_id)
+                                talents.append(x)
+                    
+                    except:
+                        pass
+
+                
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+
+            if magic_word =="None" and skills_string=="None" and category_string != "None":
+
+                
+                talents=[]
+                id_alredy_used=[]
+                for i in category_string_list:
+
+                    query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(categories,' ','')))>0 ORDER by CREATED_AT DESC ;"
+
+                    cursor.execute(query_part_1)
+                    talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+                    
+                    try:
+                    
+                        for x in talents_part:
+                            current_id=x.get("id")
+                            if current_id not in id_alredy_used:
+                                id_alredy_used.append(current_id)
+                                talents.append(x)
+                    
+                    except:
+                        pass
+
+                
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+            if magic_word !="None" and skills_string=="None" and category_string != "None":
+
+                magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
+                talents=[]
+                id_alredy_used=[]
+                for i in category_string_list:
+
+                    query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(categories,' ','')))>0 AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT DESC ;"
+
+                    cursor.execute(query_part_1)
+                    talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+                    
+                    try:
+                    
+                        for x in talents_part:
+                            current_id=x.get("id")
+                            if current_id not in id_alredy_used:
+                                id_alredy_used.append(current_id)
+                                talents.append(x)
+                    
+                    except:
+                        pass
+
+                
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+            if magic_word !="None" and skills_string!="None" and category_string == "None":
+
+                magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
+                talents=[]
+                id_alredy_used=[]
+                for i in skills_string_list:
+
+                    query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0 AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT DESC ;"
+
+                    cursor.execute(query_part_1)
+                    talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+                    
+                    try:
+                    
+                        for x in talents_part:
+                            current_id=x.get("id")
+                            if current_id not in id_alredy_used:
+                                id_alredy_used.append(current_id)
+                                talents.append(x)
+                    
+                    except:
+                        pass
+
+                
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+            if magic_word =="None" and skills_string!="None" and category_string != "None":
+
+
+                talents=[]
+                id_alredy_used=[]
+                for i in skills_string_list:
+
+                    for x in category_string_list: 
+
+                        query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0  AND position( '"+x+"' in LOWER(REPLACE(categories,' ','')))>0 ORDER by CREATED_AT DESC ;"
+
+                        cursor.execute(query_part_1)
+                        talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+                        
+                        try:
+                        
+                            for x in talents_part:
+                                current_id=x.get("id")
+                                if current_id not in id_alredy_used:
+                                    id_alredy_used.append(current_id)
+                                    talents.append(x)
+                        
+                        except:
+                            pass
+
+                
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+            if magic_word !="None" and skills_string!="None" and category_string != "None":
+
+                magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
+                talents=[]
+                id_alredy_used=[]
+                for i in skills_string_list:
+
+                    for x in category_string_list: 
+
+                        query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0  AND position( '"+x+"' in LOWER(REPLACE(categories,' ','')))>0  AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT DESC ;"
+
+                        cursor.execute(query_part_1)
+                        talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
+                        
+                        try:
+                        
+                            for x in talents_part:
+                                current_id=x.get("id")
+                                if current_id not in id_alredy_used:
+                                    id_alredy_used.append(current_id)
+                                    talents.append(x)
+                        
+                        except:
+                            pass
+
+                
+                talents=PAGINATE_A_LIST(talents,pagination_value)
+
+
+        ###############CRITICAL ERROR MANAGEMENT#################################################
+            if not talents :
+                    talents=[]
+        #####################################################################################################################
+            
+            Talents_List=[]
+
+            try:
+                for  talent in talents:
+                    
+
+                    facebook_c=talent.get("facebook")
+                    if facebook_c =='None':
+                        facebook_c=''
+
+                    instagram_c=talent.get("instagram")
+                    if instagram_c =='None':
+                        instagram_c =''
+            
+
+
+                    talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories")}
+
+                    Talents_List.append(talent_dict)
+            except:
+                pass
+
+
+            paginationStateListInt=[eval(i) for i in pagination_state.split(".")]
+
+            context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value,'login_role':login_role_value}
             conn_contacts.close()
-            return templates.TemplateResponse("4_log_in_contacts.html",context)
-    
-    try:
-        credentials=oath2.decode_access_token(login)
-
-        if dict(credentials).get("role") == "superadmin":
-            login_role_value="superadmin"
-        elif dict(credentials).get("role") == "firm":
-            login_role_value="firm"
-        else:
-            login_role_value="talent"
-    except:
-        pass
-
-
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
-    skills=cursor.fetchall()
-
-    if not skills :
-        conn_contacts.close()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Skills_List=[]
-
-    for  skill in skills:
-        skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
-        Skills_List.append(skill_dict)
-
-
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
-    categories=cursor.fetchall()
-    if not categories :
-        conn_contacts.close()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Categories_List=[]
-
-    for  category in categories:
-        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
-        Categories_List.append(category_dict)
-    
-###################################### Talent Cache #######################
-        
-    # credentials=oath2.decode_access_token(login)
-    # print(dict(credentials))
-
-    if skills_string !="None":
-        skills_string_list=skills_string.replace(' ','').lower().split('.')
-
-    if category_string !="None":
-        category_string_list=category_string.replace(' ','').lower().split('.')
-
-
-
-####################################3  SCENARIOS , they are 8  for now
-
-    if magic_word =="None" and skills_string=="None" and category_string == "None":
-
-        query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" ORDER by CREATED_AT DESC;"
-
-        cursor.execute(query_part_1)
-        talents=cursor.fetchall()#THIS IS A LIST
-
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-    if magic_word !="None" and skills_string=="None" and category_string == "None":
-
-        magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
-
-        query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" WHERE position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ORDER by CREATED_AT DESC ;"
-
-        cursor.execute(query_part_1)
-        talents=cursor.fetchall() #THIS IS A LIST
-
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-    if magic_word =="None" and skills_string!="None" and category_string == "None":
-
-
-        talents=[]
-        id_alredy_used=[]
-        for i in skills_string_list:
-
-            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0 ORDER by CREATED_AT DESC ;"
-
-            cursor.execute(query_part_1)
-            talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
-            
-            try:
-            
-                for x in talents_part:
-                    current_id=x.get("id")
-                    if current_id not in id_alredy_used:
-                        id_alredy_used.append(current_id)
-                        talents.append(x)
-            
-            except:
-                pass
-
-        
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-
-    if magic_word =="None" and skills_string=="None" and category_string != "None":
-
-        
-        talents=[]
-        id_alredy_used=[]
-        for i in category_string_list:
-
-            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(categories,' ','')))>0 ORDER by CREATED_AT DESC ;"
-
-            cursor.execute(query_part_1)
-            talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
-            
-            try:
-            
-                for x in talents_part:
-                    current_id=x.get("id")
-                    if current_id not in id_alredy_used:
-                        id_alredy_used.append(current_id)
-                        talents.append(x)
-            
-            except:
-                pass
-
-        
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-    if magic_word !="None" and skills_string=="None" and category_string != "None":
-
-        magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
-        talents=[]
-        id_alredy_used=[]
-        for i in category_string_list:
-
-            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(categories,' ','')))>0 AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT DESC ;"
-
-            cursor.execute(query_part_1)
-            talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
-            
-            try:
-            
-                for x in talents_part:
-                    current_id=x.get("id")
-                    if current_id not in id_alredy_used:
-                        id_alredy_used.append(current_id)
-                        talents.append(x)
-            
-            except:
-                pass
-
-        
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-    if magic_word !="None" and skills_string!="None" and category_string == "None":
-
-        magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
-        talents=[]
-        id_alredy_used=[]
-        for i in skills_string_list:
-
-            query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0 AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT DESC ;"
-
-            cursor.execute(query_part_1)
-            talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
-            
-            try:
-            
-                for x in talents_part:
-                    current_id=x.get("id")
-                    if current_id not in id_alredy_used:
-                        id_alredy_used.append(current_id)
-                        talents.append(x)
-            
-            except:
-                pass
-
-        
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-    if magic_word =="None" and skills_string!="None" and category_string != "None":
-
-
-        talents=[]
-        id_alredy_used=[]
-        for i in skills_string_list:
-
-            for x in category_string_list: 
-
-                query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0  AND position( '"+x+"' in LOWER(REPLACE(categories,' ','')))>0 ORDER by CREATED_AT DESC ;"
-
-                cursor.execute(query_part_1)
-                talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
-                
-                try:
-                
-                    for x in talents_part:
-                        current_id=x.get("id")
-                        if current_id not in id_alredy_used:
-                            id_alredy_used.append(current_id)
-                            talents.append(x)
-                
-                except:
-                    pass
-
-        
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-    if magic_word !="None" and skills_string!="None" and category_string != "None":
-
-        magic_word_c ="'"+(magic_word.replace(" ", "")).lower()+"'"
-        talents=[]
-        id_alredy_used=[]
-        for i in skills_string_list:
-
-            for x in category_string_list: 
-
-                query_part_1= "SELECT id,email,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories,created_at FROM "+settings.table_name_for_select_all_free_user+" where position( '"+i+"' in LOWER(REPLACE(skills,' ','')))>0  AND position( '"+x+"' in LOWER(REPLACE(categories,' ','')))>0  AND (position("+magic_word_c+" in LOWER(REPLACE(full_name,' ','')))>0  OR position("+magic_word_c+" in LOWER(REPLACE(profession,' ','')))>0 OR position("+magic_word_c+" in LOWER(REPLACE(description,' ','')))>0 ) ORDER by CREATED_AT DESC ;"
-
-                cursor.execute(query_part_1)
-                talents_part=cursor.fetchall()# LIST OF REALDICROW ELEMENTS
-                
-                try:
-                
-                    for x in talents_part:
-                        current_id=x.get("id")
-                        if current_id not in id_alredy_used:
-                            id_alredy_used.append(current_id)
-                            talents.append(x)
-                
-                except:
-                    pass
-
-        
-        talents=PAGINATE_A_LIST(talents,pagination_value)
-
-
-###############CRITICAL ERROR MANAGEMENT#################################################
-    if not talents :
-            talents=[]
-#####################################################################################################################
-    
-    Talents_List=[]
-
-    try:
-        for  talent in talents:
-            
-
-            facebook_c=talent.get("facebook")
-            if facebook_c =='None':
-                facebook_c=''
-
-            instagram_c=talent.get("instagram")
-            if instagram_c =='None':
-                instagram_c =''
-    
-
-
-            talent_dict={'id':str(talent.get("id")),'email':talent.get("email"),'full_name':talent.get("full_name"),'profession':talent.get("profession"),'rate':str(talent.get("rate")),'description':talent.get("description"),'github':talent.get("github"),'linkedin':talent.get("linkedin"),'instagram':instagram_c,'facebook':facebook_c,'skills':talent.get("skills"),'categories':talent.get("categories")}
-
-            Talents_List.append(talent_dict)
-    except:
-        pass
-
-
-    paginationStateListInt=[eval(i) for i in pagination_state.split(".")]
-
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value,'login_role':login_role_value}
-    conn_contacts.close()
-    return templates.TemplateResponse("2_find_talent.html",context)
+            return templates.TemplateResponse("2_find_talent.html",context)
+        except:
+            time.sleep(1)
+            pass
