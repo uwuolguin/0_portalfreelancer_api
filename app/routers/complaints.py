@@ -125,24 +125,29 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/complaints_html/',response_class=HTMLResponse)
 def complaints_html(request: Request,login: str = Cookie(None)):
 
-    
-    if login==None:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_complaints.html",context)
-    try:
-        credentials=oath2.decode_access_token(login)
+    while True:
+        try:
 
-        if dict(credentials).get("role") == "superadmin":
-            login_role_value="superadmin"
-        elif dict(credentials).get("role") == "firm":
-            login_role_value="firm"
-        else:
-            login_role_value="talent"
+            if login==None:
+                    context={'request': request}
+                    return templates.TemplateResponse("4_log_in_complaints.html",context)
+            try:
+                credentials=oath2.decode_access_token(login)
 
-
-    except:
-        pass
+                if dict(credentials).get("role") == "superadmin":
+                    login_role_value="superadmin"
+                elif dict(credentials).get("role") == "firm":
+                    login_role_value="firm"
+                else:
+                    login_role_value="talent"
 
 
-    context={'request': request,'login_role':login_role_value}
-    return templates.TemplateResponse("11_complaints.html",context)
+            except:
+                pass
+
+
+            context={'request': request,'login_role':login_role_value}
+            return templates.TemplateResponse("11_complaints.html",context)
+        except:
+            time.sleep(1)
+            pass

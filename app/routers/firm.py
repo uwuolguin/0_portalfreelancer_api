@@ -397,26 +397,36 @@ templates= Jinja2Templates(directory="./templates")
 @router.get('/signUpFirm/',response_class=HTMLResponse)
 def index(request: Request):
 
-
-    context={'request': request}
-    return templates.TemplateResponse("6_sign_up_firm.html",context)
+    while True:
+        try:
+            context={'request': request}
+            return templates.TemplateResponse("6_sign_up_firm.html",context)
+        except:
+            time.sleep(1)
+            pass
 
 @router.get('/delUpFirm/',response_class=HTMLResponse)
 def delup(request: Request,login: str = Cookie(None)):
 
+    while True:
+        try:
 
-    if login==None:
+            if login==None:
+                    context={'request': request}
+                    return templates.TemplateResponse("4_log_in_from_delupfirm.html",context)
+            
+            credentials=oath2.decode_access_token(login)
+
+            if dict(credentials).get("role") != "firm":
+                    context={'request': request}
+                    return templates.TemplateResponse("4_log_in_from_delupfirm.html",context)
+
             context={'request': request}
-            return templates.TemplateResponse("4_log_in_from_delupfirm.html",context)
-    
-    credentials=oath2.decode_access_token(login)
+            return templates.TemplateResponse("8_del_up_firm.html",context)
+        
+        except:
+            time.sleep(1)
+            pass
 
-    if dict(credentials).get("role") != "firm":
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in_from_delupfirm.html",context)
-
-    context={'request': request}
-    return templates.TemplateResponse("8_del_up_firm.html",context)
-    
 
 
