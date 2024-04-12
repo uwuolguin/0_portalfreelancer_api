@@ -485,97 +485,111 @@ templates= Jinja2Templates(directory="./templates")
 
 @router.get('/signUpTalent/',response_class=HTMLResponse)
 def index(request: Request):
+    while True:
+        try:
 
-    conn_talent=getConnection()
-    cursor=conn_talent.cursor()
-
-
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
-    skills=cursor.fetchall()
-
-    if not skills :
-
-        conn_talent.close()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Skills_List=[]
-
-    for  skill in skills:
-        skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
-        Skills_List.append(skill_dict)
+            conn_talent=getConnection()
+            cursor=conn_talent.cursor()
 
 
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
-    categories=cursor.fetchall()
-    if not categories :
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
+            skills=cursor.fetchall()
 
-        conn_talent.close()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Categories_List=[]
+            if not skills :
 
-    for  category in categories:
-        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
-        Categories_List.append(category_dict)
+                conn_talent.close()
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            Skills_List=[]
 
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+            for  skill in skills:
+                skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
+                Skills_List.append(skill_dict)
 
-    conn_talent.close()
-    return templates.TemplateResponse("5_sign_up_talent.html",context)
+
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+            categories=cursor.fetchall()
+            if not categories :
+
+                conn_talent.close()
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            Categories_List=[]
+
+            for  category in categories:
+                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+                Categories_List.append(category_dict)
+
+            context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+
+            conn_talent.close()
+            return templates.TemplateResponse("5_sign_up_talent.html",context)
+        except:
+            time.sleep(1)
+            pass
 
 @router.get('/delUpTalent/',response_class=HTMLResponse)
 def index_delup(request: Request,login: str = Cookie(None)):
 
-    conn_talent=getConnection()
-    cursor=conn_talent.cursor()
+    while True:
+
+        try:
 
 
-    if login==None:
-            context={'request': request}
+            conn_talent=getConnection()
+            cursor=conn_talent.cursor()
 
+
+            if login==None:
+                    context={'request': request}
+
+                    conn_talent.close()
+                    return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
+            
+            credentials=oath2.decode_access_token(login)
+
+            if dict(credentials).get("role") != "talent":
+                    context={'request': request}
+
+                    conn_talent.close()
+                    return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
+            
+
+
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
+            skills=cursor.fetchall()
+
+            if not skills :
+                conn_talent.close()
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            Skills_List=[]
+
+            for  skill in skills:
+                skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
+                Skills_List.append(skill_dict)
+
+
+            cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
+            categories=cursor.fetchall()
+            if not categories :
+                conn_talent.close()
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
+            
+            
+            Categories_List=[]
+
+            for  category in categories:
+                category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
+                Categories_List.append(category_dict)
+
+            context={'request': request, 'categories':Categories_List,'skills':Skills_List}
             conn_talent.close()
-            return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
-    
-    credentials=oath2.decode_access_token(login)
-
-    if dict(credentials).get("role") != "talent":
-            context={'request': request}
-
-            conn_talent.close()
-            return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
-    
-
-
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_skills+""" """)
-    skills=cursor.fetchall()
-
-    if not skills :
-        conn_talent.close()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Skills_List=[]
-
-    for  skill in skills:
-        skill_dict={'skill':skill.get("skill"),'skill_key':skill.get("skill").replace(' ','')}
-        Skills_List.append(skill_dict)
-
-
-    cursor.execute(""" SELECT * FROM """+settings.table_name_for_select_all_categories+""" """)
-    categories=cursor.fetchall()
-    if not categories :
-        conn_talent.close()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BBDD does not have any record")
-    
-    
-    Categories_List=[]
-
-    for  category in categories:
-        category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
-        Categories_List.append(category_dict)
-
-    context={'request': request, 'categories':Categories_List,'skills':Skills_List}
-    conn_talent.close()
-    return templates.TemplateResponse("7_del_up_talent.html",context)
+            return templates.TemplateResponse("7_del_up_talent.html",context)
+        
+        except:
+            time.sleep(1)
+            pass
