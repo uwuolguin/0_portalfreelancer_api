@@ -69,7 +69,7 @@ def get_all_firm(login: str = Cookie(None)) -> Any:
 @router.post("/complaint_post/",status_code=status.HTTP_201_CREATED)
 def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_1000),Form()],login: str = Cookie(None))-> Any:
 
-    email_sent=email_sent.replace("'","")
+    email_sent=email_sent.replace("'","#$%&")
 
     os.chdir(settings.normal_directory)
 
@@ -114,6 +114,7 @@ def post_firm(email_sent:Annotated[str,BeforeValidator(schemas.check_long_str_10
         conn_complaints.close()
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "We are only receiving 500 complaints per day")
 ###################CREATE USER#####################################################################
+    email_sent=email_sent.replace("#$%&","'")
     email_uwu="""SELECT insert_complaints('%s','%s');"""
     cursor.execute(email_uwu % (str(email),str(email_sent)))
     conn_complaints.commit()
