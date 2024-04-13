@@ -143,8 +143,8 @@ def post_firm(
                  )-> Any:
     
 
-    full_name=full_name.replace("'","")
-    email_template_to_send=email_template_to_send.replace("'","")
+    full_name=full_name.replace("'","''")
+    email_template_to_send=email_template_to_send.replace("'","''")
 
     os.chdir(settings.normal_directory)
 
@@ -212,8 +212,8 @@ def post_firm(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
 
 #################Validate Blacklist Words ###############
-    full_name_2=full_name.replace("'", "")
-    email_template_to_send_2=email_template_to_send.replace("'", "")
+    full_name_2=full_name.replace("'", "''")
+    email_template_to_send_2=email_template_to_send.replace("'", "''")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word_v2('%s','%s');"""
     cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(email_template_to_send_2.replace(" ", "").lower())))
@@ -290,8 +290,8 @@ def update_firm(
                 login: str = Cookie(None), 
                  )-> Any:
     
-    full_name=full_name.replace("'","")
-    email_template_to_send=email_template_to_send.replace("'","")
+    full_name=full_name.replace("'","''")
+    email_template_to_send=email_template_to_send.replace("'","''")
     
     os.chdir(settings.normal_directory)
 
@@ -347,8 +347,8 @@ def update_firm(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS BANNED")
 
 #################Validate Blacklist Words ###############
-    full_name_2=full_name.replace("'", "")
-    email_template_to_send_2=email_template_to_send.replace("'", "")
+    full_name_2=full_name.replace("'", "''")
+    email_template_to_send_2=email_template_to_send.replace("'", "''")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word_v2('%s','%s');"""
     cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(email_template_to_send_2.replace(" ", "").lower())))

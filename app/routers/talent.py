@@ -165,9 +165,9 @@ def post_talent(
 
     os.chdir(settings.normal_directory)
 
-    full_name=full_name.replace("'","")
-    profession=profession.replace("'","")
-    description=description.replace("'","")
+    full_name=full_name.replace("'","''")
+    profession=profession.replace("'","''")
+    description=description.replace("'","''")
     
     conn_talent=getConnection()
     cursor=conn_talent.cursor()
@@ -217,9 +217,9 @@ def post_talent(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail= "YOUR EMAIL IS ALREDY BEING USED")
 
 #################Validate Blacklist Words ###############
-    full_name_2=full_name.replace("'", "")
-    profession_2=profession.replace("'", "")
-    description_2=description.replace("'", "")
+    full_name_2=full_name.replace("'", "''")
+    profession_2=profession.replace("'", "''")
+    description_2=description.replace("'", "''")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word('%s','%s','%s');"""
     cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(profession_2.replace(" ", "").lower()),(description_2.replace(" ", "").lower())))
@@ -362,9 +362,9 @@ def update_talent(
     conn_talent=getConnection()
     cursor=conn_talent.cursor()
 
-    full_name=full_name.replace("'","")
-    profession=profession.replace("'","")
-    description=description.replace("'","")
+    full_name=full_name.replace("'","''")
+    profession=profession.replace("'","''")
+    description=description.replace("'","''")
     
     
     if login==None:
@@ -408,9 +408,9 @@ def update_talent(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
 
 #################Validate Blacklist Words ###############
-    full_name_2=full_name.replace("'", "")
-    profession_2=profession.replace("'", "")
-    description_2=description.replace("'", "")
+    full_name_2=full_name.replace("'", "''")
+    profession_2=profession.replace("'", "''")
+    description_2=description.replace("'", "''")
 
     validate_word=""" SELECT * FROM remove_user_by_black_list_word('%s','%s','%s');"""
     cursor.execute(validate_word % ((full_name_2.replace(" ", "").lower()),(profession_2.replace(" ", "").lower()),(description_2.replace(" ", "").lower())))
