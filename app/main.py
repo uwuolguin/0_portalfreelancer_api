@@ -110,3 +110,30 @@ def root(  request: Request,
             time.sleep(1)
             pass        
 
+@app.get('/purpose_html/',response_class=HTMLResponse)
+def complaints_html(request: Request,login: str = Cookie(None)):
+
+    while True:
+        try:
+
+            try:
+                credentials=oath2.decode_access_token(login)
+
+                if dict(credentials).get("role") == "superadmin":
+                    login_role_value="superadmin"
+                elif dict(credentials).get("role") == "firm":
+                    login_role_value="firm"
+                else:
+                    login_role_value="talent"
+
+
+            except:
+                login_role_value="None"
+                pass
+
+
+            context={'request': request,'login_role':login_role_value}
+            return templates.TemplateResponse("13_Purpose.html",context)
+        except:
+            time.sleep(1)
+            pass
