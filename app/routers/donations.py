@@ -45,6 +45,7 @@ def complaints_html(request: Request,login: str = Cookie(None)):
 
 
             except:
+                login_role_value="None"
                 pass
 
 
