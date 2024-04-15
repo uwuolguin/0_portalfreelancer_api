@@ -70,7 +70,12 @@
     align-items: baseline;
     padding-top: 30px;
   }
-
+.li_donation{
+    display: list-item;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+    float: none
+}
 
 .red_text{
     color: #aa0404;
