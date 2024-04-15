@@ -1,7 +1,18 @@
-from fastapi import  status, HTTPException, Depends, APIRouter
-from .. import models,schemas,utils
-from ..database import get_db
-from sqlalchemy.orm import Session
+from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Request
+from .. import schemas,oath2
+import psycopg2
+from psycopg2.extras import RealDictCursor
+from ..config import settings
+import time
+from typing import Any
+import os
+from typing_extensions import Annotated
+from pydantic.functional_validators import BeforeValidator
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+
+
 router= APIRouter(
     
     prefix="/donations",
@@ -16,34 +27,31 @@ async def root():
 
 ################################################# TEMPLATES ####################################################################
     
-# templates= Jinja2Templates(directory="./templates")
+templates= Jinja2Templates(directory="./templates")
 
-# @router.get('/complaints_html/',response_class=HTMLResponse)
-# def complaints_html(request: Request,login: str = Cookie(None)):
+@router.get('/donations_html/',response_class=HTMLResponse)
+def complaints_html(request: Request,login: str = Cookie(None)):
 
-#     while True:
-#         try:
+    while True:
+        try:
 
-#             if login==None:
-#                     context={'request': request}
-#                     return templates.TemplateResponse("4_log_in_complaints.html",context)
-#             try:
-#                 credentials=oath2.decode_access_token(login)
+            try:
+                credentials=oath2.decode_access_token(login)
 
-#                 if dict(credentials).get("role") == "superadmin":
-#                     login_role_value="superadmin"
-#                 elif dict(credentials).get("role") == "firm":
-#                     login_role_value="firm"
-#                 else:
-#                     login_role_value="talent"
+                if dict(credentials).get("role") == "superadmin":
+                    login_role_value="superadmin"
+                elif dict(credentials).get("role") == "firm":
+                    login_role_value="firm"
+                else:
+                    login_role_value="talent"
 
 
-#             except:
-#                 pass
+            except:
+                pass
 
 
-#             context={'request': request,'login_role':login_role_value}
-#             return templates.TemplateResponse("11_complaints.html",context)
-#         except:
-#             time.sleep(1)
-#             pass
+            context={'request': request,'login_role':login_role_value}
+            return templates.TemplateResponse("11_complaints.html",context)
+        except:
+            time.sleep(1)
+            pass
