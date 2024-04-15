@@ -84,6 +84,12 @@
     text-align: center;
 
 }
+.li_donation_a:hover{
+
+    color: rgb(2, 134, 2);
+
+
+}
 
 .red_text{
     color: #aa0404;
