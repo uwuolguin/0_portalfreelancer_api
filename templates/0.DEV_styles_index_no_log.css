@@ -78,6 +78,12 @@
     margin-bottom: 15px;
     font-size: 20px;
 }
+.li_donation_a{
+    display: inline;
+    color: black;
+    text-align: center;
+
+}
 
 .red_text{
     color: #aa0404;
