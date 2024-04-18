@@ -138,11 +138,11 @@
                             </li>
                             <li class="li_donation">Nginx mainly as a reverse proxy. Currently it is only allowing HTTP and HTTPS traffic, limiting the amount of requests per IP per second, establishing connection timeouts and limiting the amount of data you can upload in each request.
                             </li>
-                            <li class="li_donation">Certbot to obtain SSL certificates from Let's Encrypt and auto-enable HTTPS on the server.
+                            <li class="li_donation">Certbot to obtain SSL certificates from Let's Encrypt and  to enable HTTPS on the server.
                             </li>
-                            <li class="li_donation">Uvicorn as the binding element that handles the web connections from the browser or api client and then allows FastAPI to serve the actual request. Uvicorn listens on a socket, receives the connection, does a bit processing and hands the request over to FastAPI, according to the ASGI interface.
+                            <li class="li_donation">Uvicorn as the binding element that handles the web connections from the browser or api client, so FastAPI can serve the actual request. Uvicorn listens on a socket, receives the connection, does a bit processing and hands the request over to FastAPI.
                             </li>
-                            <li class="li_donation">Gunicorn as a process manager, listening on the port and the IP, transmiting the communication to the worker processes running the Uvicorn class, allowing the server to have multiple Uvicorn instances to handle the requests.
+                            <li class="li_donation">Gunicorn as a process manager of multiple Uvicorn instances to handle the requests.
                             </li>
                             <li class="li_donation">Opencv
                             </li>
