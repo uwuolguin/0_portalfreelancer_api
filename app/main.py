@@ -17,6 +17,8 @@ app= FastAPI()
 
 origins = ["https://apiportalfreelancer.lat/"
 ]
+# origins = ["*"
+# ]
 
 app.add_middleware(
     CORSMiddleware,
