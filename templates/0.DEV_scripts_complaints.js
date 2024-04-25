@@ -1,3 +1,11 @@
+// enter equals click in search
+document.getElementById("lens_button")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+        document.getElementById("lens_button_id_button").click();
+    }
+});
 
 function post_succesful_visible_2(response){
 
