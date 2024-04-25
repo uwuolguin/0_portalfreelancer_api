@@ -43,7 +43,7 @@ def complaints_html(request: Request,login: str = Cookie(None)):
 
             if login_role_value=="superadmin":
 
-                context={'request': request,'login_role':login_role_value}
+                context={'request': request}
                 return templates.TemplateResponse("14_tableau",context)
             else:
                                 
