@@ -33,7 +33,6 @@
 
         <li style="float: right;">
 
-            {% if login_role == "superadmin" %}
                 <div class="dropdown"> 
 
                     <img src="https://apiportalfreelancer.lat/static/user.svg">
@@ -44,38 +43,7 @@
                     </div>
 
                 </div>
-            {% elif login_role == "talent" %}
-                <div class="dropdown"> 
-
-                    <img src="https://apiportalfreelancer.lat/static/user.svg">
-                    <div class="content">
-                        <a href="https://apiportalfreelancer.lat/talent/delUpTalent/">Settings</a>
-                        <a href="#" onclick="reloadPageAfterLogOuT(); return false;">Log Out</a>
-
-                    </div>
-
-                </div>
-            {% elif login_role == "firm" %}
-                <div class="dropdown"> 
-
-                    <img src="https://apiportalfreelancer.lat/static/user.svg">
-                    <div class="content">
-                        <a href="https://apiportalfreelancer.lat/firm/delUpFirm/">Settings</a>
-                        <a href="#" onclick="reloadPageAfterLogOuT(); return false;">Log Out</a>
-
-                    </div>
-
-                </div>
-
-            {% else %}
-
-            <div class="div_nav_2">
-                <li style="float: right;"><a href="https://apiportalfreelancer.lat/auth/SigInRouter/" class="nav_b_2">Sign up</a></li>
-                <li style="float: right;"><a href="https://apiportalfreelancer.lat/auth/logIn/" class="nav_b_2">Log in</a></li>
-            </div>   
-
-            {% endif %}
-            
+       
         </li>
 
     </ul>
