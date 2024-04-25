@@ -1,4 +1,13 @@
+// enter equals click in search
+document.getElementById("lens_button")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.key === 'Enter') {
+        document.getElementById("lens_button_id_button").click();
+    }
+});
 
+// delete formula in URL
 history.pushState({}, null, "https://apiportalfreelancer.lat/contacts/contacts_normal/");
 
 function post_succesful_visible_2(response,id){
