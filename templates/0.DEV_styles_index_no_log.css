@@ -43,6 +43,18 @@
     background-color: rgb(11, 223, 78);
     color: white;
 }
+.ul_navbar_v2 {
+    margin-top: 50px;
+    height: 200px;
+    min-width: 1200px;
+    justify-content: center;
+    align-items: center;
+}
+.big_box_login_3_v2_v2 {
+
+    width: 250px;
+    margin-right: 50px;
+}
 .ul_navbar {
     height:100px;
     background-color: rgb(238, 245, 238);
