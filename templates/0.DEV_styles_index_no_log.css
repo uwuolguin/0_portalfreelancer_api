@@ -1022,6 +1022,17 @@ background-color:#06b821 ;
 
 
 }
+.form6_class{
+
+    display:block;
+    margin: auto;
+    border-radius: 10px;
+    border: 0.5px solid rgb(4, 137, 4);
+    background: white;
+    padding: 5px;
+
+
+}
 #form7{
 
     display:block;
@@ -1032,6 +1043,18 @@ background-color:#06b821 ;
 
 }
 #form6 input[type=text] {
+    width: 70%;
+    height: 20px;
+    border:0;
+    padding-left:1px ;
+    /* border: 1vh solid black; */
+    background: white;
+    text-align: left;
+    font-family: 'san-serif';
+    font-size: 12px;
+
+}
+.form6_class input[type=text] {
     width: 70%;
     height: 20px;
     border:0;
