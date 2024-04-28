@@ -341,7 +341,7 @@ def contacts_normal(  request: Request,
     
     while True:
         try:
-            time.sleep(0.5)
+            time.sleep(0.2)
             conn_contacts=getConnection()
             cursor=conn_contacts.cursor()
 
