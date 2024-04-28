@@ -9,7 +9,7 @@ import os
 # Import SendinBlue library
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 router= APIRouter(
@@ -621,5 +621,5 @@ def contacts_normal(  request: Request,
             conn_contacts.close()
             return templates.TemplateResponse("2_find_talent.html",context)
         except:
-            time.sleep(1)
+            return RedirectResponse("https://apiportalfreelancer.lat/contacts/contacts_normal/")
             pass
