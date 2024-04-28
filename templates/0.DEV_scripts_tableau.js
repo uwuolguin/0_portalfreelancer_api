@@ -36,32 +36,32 @@ function post_failed_visible(error){
   
 }
 
-async function postLogIn() {
+async function deleteBanFunction(type_input) {
+
+  if (type_input === 'talentDelete') {
+
+    btn= document.getElementById("button_tableau_delete_talent");
+    oFormObject = document.forms['form8'];
+    word=oFormObject.elements["talent_id"].value;
+  }
 
   document.getElementById("button_tableau_delete_talent").disabled = true;
   document.getElementById("button_tableau_delete_firm").disabled = true;
   document.getElementById("button_tableau_ban_email").disabled = true;
   document.getElementById("button_tableau_ban_word").disabled = true;
 
-  btn=document.querySelector(".submission_button_login");
   btn.classList.toggle("submission_button_login--loading");
 
-  oFormObject = document.forms['form7'];
 
-  email_sent=oFormObject.elements["email_sent"].value
-
-
-  const body = new FormData
-  body.append("email_sent",  email_sent)
+  url='https://apiportalfreelancer.lat/talent/talent_delete_by_admin/id/'+word
 
 
 
-  await fetch("https://apiportalfreelancer.lat/complaints/complaint_post/", {
-    body,
+  await fetch(url, {
     headers: {
     Accept: "application/json"
     },
-    method: "POST"
+    method: "DELETE"
   })
   .then((response) => post_succesful_visible_2(response))
   .catch((error) => post_failed_visible(error));
@@ -82,6 +82,7 @@ async function postLogIn() {
 
 
 } 
+
 function lensButtonRequest(){
 
 
@@ -107,7 +108,7 @@ function lensButtonRequest(){
 
 
 
-  async function logOut() {
+async function logOut() {
 
       await fetch("https://apiportalfreelancer.lat/auth/logout", {
         headers: {
@@ -120,8 +121,7 @@ function lensButtonRequest(){
 
   
 
-  async function reloadPageAfterLogOuT(){
-
+async function reloadPageAfterLogOuT(){
 
     await logOut()
 
