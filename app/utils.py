@@ -71,6 +71,11 @@ def validate_Image(id_var,file_var,endpoint):
                                         pass
                         hola = 'fotoNoPng'
                         conn_talent_utils.close()
+                        try:
+                               img.close()
+                        except:
+                               pass
+
                         return(hola)
                         
                 try:
@@ -104,6 +109,12 @@ def validate_Image(id_var,file_var,endpoint):
 
                 hola = 'NoEsFoto'
                 conn_talent_utils.close()
+
+                try:
+                        img.close()
+                except:
+                        pass
+                        
                 return(hola)
         try:
                 faceCascPath = 'haarcascade_frontalface_default.xml'
@@ -124,6 +135,12 @@ def validate_Image(id_var,file_var,endpoint):
                         conn_talent_utils.commit()
                         hola = 'fotoPng1Rostro'
                         conn_talent_utils.close()
+
+                        try:
+                               img.close()
+                        except:
+                               pass
+                        
                         return(hola)
                 else:
                         if endpoint=='post':
@@ -138,6 +155,13 @@ def validate_Image(id_var,file_var,endpoint):
 
                         hola = 'fotoPngNo1Rostro'
                         conn_talent_utils.close()
+
+                        try:
+                               img.close()
+                        except:
+                               pass
+                        
+
                         return(hola)
 
         except:
@@ -152,6 +176,13 @@ def validate_Image(id_var,file_var,endpoint):
 
                 hola = 'fotoPngNoReconocidaPorAlgoritmoML'
                 conn_talent_utils.close()
+                
+                try:
+                        img.close()
+                except:
+                        pass
+                        
+
                 return(hola)
         
 
