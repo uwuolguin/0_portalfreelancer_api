@@ -9,34 +9,29 @@ document.getElementById("lens_button")
 
 async function deleteBanFunction(type_input) {
 
-  if (type_input === 'talentDelete') {
-
-    btn= document.getElementById("button_tableau_delete_talent");
-    oFormObject = document.forms['form8'];
-    word=oFormObject.elements["talent_id"].value;
-  }
-
   document.getElementById("button_tableau_delete_talent").disabled = true;
   document.getElementById("button_tableau_delete_firm").disabled = true;
   document.getElementById("button_tableau_ban_email").disabled = true;
   document.getElementById("button_tableau_ban_word").disabled = true;
 
-  btn.classList.toggle("submission_button_login--loading");
 
 
-  url='https://apiportalfreelancer.lat/talent/talent_delete_by_admin/id/'+word
+  if (type_input === 'talentDelete') {
 
-
-
-  await fetch(url, {
-    headers: {
-    Accept: "application/json"
-    },
-    method: "DELETE"
-  })
-  .then((response) => console.log(response))
-  .catch((error) => console.log(error));
-
+    btn= document.getElementById("button_tableau_delete_talent");
+    btn.classList.toggle("submission_button_login--loading");
+    oFormObject = document.forms['form8'];
+    word=oFormObject.elements["talent_id"].value;
+    url='https://apiportalfreelancer.lat/talent/talent_delete_by_admin/id/'+word
+    await fetch(url, {
+      headers: {
+      Accept: "application/json"
+      },
+      method: "DELETE"
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+  }
 
   btn.classList.remove("submission_button_login--loading");
 
