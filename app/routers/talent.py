@@ -593,3 +593,46 @@ def index_delup(request: Request,login: str = Cookie(None)):
         except:
             time.sleep(1)
             pass
+@router.delete("/talent_delete_by_admin/id/{id}",status_code=status.HTTP_204_NO_CONTENT)
+def delete_talent(id:int,login: str = Cookie(None)):
+
+    os.chdir(settings.picture_directory)
+
+    conn_talent=getConnection()
+    cursor=conn_talent.cursor()
+
+
+    if login==None:
+
+        conn_talent.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") != "superadmin":
+
+        conn_talent.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+
+    img_source=settings.picture_directory+'/'+str(id)+'.png'
+    try:
+        os.remove(img_source)
+    except:
+        pass
+    
+    os.chdir(settings.normal_directory)
+
+    id_2=""" SELECT * FROM get_by_id('%s');"""
+    cursor.execute(id_2 % (str(id)))
+    talent=cursor.fetchone()
+    if talent ==None:
+
+        conn_talent.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
+
+    delete=""" SELECT delete_talent_by_id('%s');"""
+    cursor.execute(delete % (id))
+    conn_talent.commit()
+
+    conn_talent.close()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

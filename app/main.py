@@ -15,7 +15,7 @@ from . import oath2
 
 app= FastAPI()
 
-origins = ["https://apiportalfreelancer.lat/"
+origins = ["https://apiportalfreelancer.lat/","https://10ax.online.tableau.com/"
 ]
 # origins = ["*"
 # ]
