@@ -1334,6 +1334,13 @@ background-color:#06b821 ;
     outline: none;
   }
 
+.form6_class input:focus::placeholder {
+    color: transparent;
+  }
+
+.form6_class input:focus {
+    outline: none;
+  }  
 
 #form7 input:focus::placeholder {
     color: transparent;
