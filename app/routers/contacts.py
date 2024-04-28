@@ -622,5 +622,4 @@ def contacts_normal(  request: Request,
             conn_contacts.close()
             return templates.TemplateResponse("2_find_talent.html",context)
         except:
-            return RedirectResponse("https://apiportalfreelancer.lat/contacts/contacts_normal/")
             pass
