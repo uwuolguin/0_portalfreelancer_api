@@ -47,7 +47,7 @@ def complaints_html(request: Request,login: str = Cookie(None)):
             time.sleep(1)
             pass
 
-@router.get('/tableau_html_test/')
+@router.get('/tableau_html_create_web_hook/')
 def complaints_html():
 
     testTableau()

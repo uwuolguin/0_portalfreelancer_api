@@ -7,7 +7,12 @@ import os
 import shutil
 from PIL import Image
 import cv2 
+# Import SendinBlue library
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
+#Tableau
 import tableauserverclient as TSC
+
 ###############################################################################
 pwd_context= CryptContext(schemes=["bcrypt"],deprecated=["auto"])
 
@@ -192,11 +197,62 @@ def validate_Image(id_var,file_var,endpoint):
 
 
 def testTableau():
+        try:
+               
+                tableau_auth = TSC.PersonalAccessTokenAuth('pene', settings.tableau_token_password, site_id=settings.tableau_token_sitename)
 
-        tableau_auth = TSC.PersonalAccessTokenAuth(settings.tableau_token_name, settings.tableau_token_password, site_id=settings.tableau_token_sitename)
+                server = TSC.Server(settings.tableau_token_server, use_server_version=True)
 
-        server = TSC.Server(settings.tableau_token_server, use_server_version=True)
+                with server.auth.sign_in(tableau_auth):
+                        webhooks = server.webhooks.get()
+                        print(webhooks)
+        except:
+                ########################################################## EMAIL SENDING LOGIC ###############################################################################
+                # Create a SendinBlue API configuration
+                configuration = sib_api_v3_sdk.Configuration()
 
-        with server.auth.sign_in(tableau_auth):
-                webhooks = server.webhooks.get()
-                print(webhooks)
+                # Replace "<your brevo api key here>" with your actual SendinBlue API key
+                configuration.api_key['api-key'] = settings.api_password_for_email_password_cahnges
+
+                # Initialize the SendinBlue API instance
+                api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+
+                # Define the email sender function
+                def send_email(subject, html, to_address=None, receiver_username=None):
+                        # SendinBlue mailing parameters
+                        subject = subject
+                        sender = {"name": settings.api_name_for_email_password_cahnges, "email": settings.cloud_platform_user_for_email_password_changes}
+                        html_content = html
+
+                        # Define the recipient(s)
+                        # You can add multiple email accounts to which you want to send the mail in this list of dicts
+                        to = [{"email": to_address, "name": receiver_username}]
+
+                        # Create a SendSmtpEmail object
+                        send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, html_content=html_content, sender=sender, subject=subject)
+
+                        try:
+                        # Send the email
+                                api_response = api_instance.send_transac_email(send_smtp_email)
+                                print(api_response)
+
+                                return {"message": "Email sent successfully!"}
+                        except ApiException as e:
+                                print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
+
+                
+
+                title = "The Tableau Token has expired"
+                html = f"<h2>{title}</h2>"
+
+                subject = "The Tableau Token has expired"
+                to_address = settings.superadmin_email
+                receiver_username = 'User'
+                print("Sending mail...")
+
+                # Send the email and store the response
+                email_response = send_email(subject, html, to_address, receiver_username)
+
+                # Print the status of the email sending process
+                print(email_response)
+                return {'Email Sent'}
