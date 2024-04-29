@@ -430,3 +430,33 @@ def delup(request: Request,login: str = Cookie(None)):
 
 
 
+@router.delete("/firm_delete_by_admin/id/{id}",status_code=status.HTTP_204_NO_CONTENT)
+def delete_firm(id:int,login: str = Cookie(None)):
+    
+    os.chdir(settings.normal_directory)
+
+    conn_firm=getConnection()
+    cursor=conn_firm.cursor()
+
+    if login==None:
+        conn_firm.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") != "superadmin":
+        conn_firm.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
+    id_2=""" SELECT * FROM firm_get_by_id('%s');"""
+    cursor.execute(id_2 % (str(id)))
+    firm=cursor.fetchone()
+    if firm ==None:
+        conn_firm.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BBDD with id: {id} does not exist")
+
+    delete=""" SELECT delete_firm_by_id('%s');"""
+    cursor.execute(delete % (id))
+    conn_firm.commit()
+    conn_firm.close()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
