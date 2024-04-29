@@ -192,8 +192,10 @@ def validate_Image(id_var,file_var,endpoint):
 
 
 def testTableau():
-        tableau_auth = TSC.TableauAuth(settings.tableau_token_name, settings.tableau_token_password, settings.tableau_token_sitename)
-        server = TSC.Server(settings.tableau_token_server)
+
+        tableau_auth = TSC.PersonalAccessTokenAuth(settings.tableau_token_name, settings.tableau_token_password, site_id=settings.tableau_token_sitename)
+        
+        server = TSC.Server('https://SERVER_URL', use_server_version=True)
 
         with server.auth.sign_in(tableau_auth):
                 all_datasources, pagination_item = server.datasources.get()
