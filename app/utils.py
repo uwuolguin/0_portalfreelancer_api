@@ -207,6 +207,7 @@ def testTableau():
                         webhooks = server.webhooks.get()
                         print(webhooks)
         except:
+                print('hola')
                 ########################################################## EMAIL SENDING LOGIC ###############################################################################
                 # Create a SendinBlue API configuration
                 configuration = sib_api_v3_sdk.Configuration()
