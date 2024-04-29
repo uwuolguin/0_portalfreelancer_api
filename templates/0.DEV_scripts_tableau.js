@@ -72,6 +72,29 @@ async function deleteBanFunction(type_input) {
     .catch((error) => console.log(error));
   }
 
+  if (type_input === 'banWord') {
+
+    btn= document.getElementById("button_tableau_ban_word");
+    btn.classList.toggle("submission_button_login--loading");
+    oFormObject = document.forms['form11'];
+    word=oFormObject.elements["banWord"].value;
+
+    const body = new FormData
+    body.append("words", word)
+
+    url='https://apiportalfreelancer.lat/blacklistwords/'
+    
+    await fetch(url, {
+      body,
+      headers: {
+      Accept: "application/json"
+      },
+      method: "POST"
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+  }
+
 
   btn.classList.remove("submission_button_login--loading");
 
