@@ -199,7 +199,7 @@ def validate_Image(id_var,file_var,endpoint):
 def testTableau():
         try:
                
-                tableau_auth = TSC.PersonalAccessTokenAuth('pene', settings.tableau_token_password, site_id=settings.tableau_token_sitename)
+                tableau_auth = TSC.PersonalAccessTokenAuth(settings.tableau_token_name, settings.tableau_token_password, site_id=settings.tableau_token_sitename)
 
                 server = TSC.Server(settings.tableau_token_server, use_server_version=True)
 
