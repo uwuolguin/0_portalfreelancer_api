@@ -32,6 +32,22 @@ async function deleteBanFunction(type_input) {
     .then((response) => console.log(response))
     .catch((error) => console.log(error));
   }
+  if (type_input === 'firmDelete') {
+
+    btn= document.getElementById("button_tableau_delete_firm");
+    btn.classList.toggle("submission_button_login--loading");
+    oFormObject = document.forms['form9'];
+    word=oFormObject.elements["firm_id"].value;
+    url='https://apiportalfreelancer.lat/firm/firm_delete_by_admin/id/'+word
+    await fetch(url, {
+      headers: {
+      Accept: "application/json"
+      },
+      method: "DELETE"
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+  }
 
   btn.classList.remove("submission_button_login--loading");
 
