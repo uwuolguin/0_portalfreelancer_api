@@ -32,6 +32,8 @@ class Settings(BaseSettings):
     token_seconds:int
     superadmin_email:str
     superadmin_password:str
+    tableau_token_name:str
+    tableau_token_password:str
     class Config:
         env_file= ".env"
 
