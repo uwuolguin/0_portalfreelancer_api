@@ -1,15 +1,9 @@
-from fastapi import  status, HTTPException,APIRouter,Form,Cookie,Request
-from .. import schemas,oath2
-import psycopg2
-from psycopg2.extras import RealDictCursor
-from ..config import settings
+from fastapi import  APIRouter,Cookie,Request
+from .. import oath2
 import time
-from typing import Any
-import os
-from typing_extensions import Annotated
-from pydantic.functional_validators import BeforeValidator
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from ..utils import testTableau
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -52,3 +46,10 @@ def complaints_html(request: Request,login: str = Cookie(None)):
         except:
             time.sleep(1)
             pass
+
+@router.get('/tableau_html_test/')
+def complaints_html():
+
+    testTableau()
+
+    return 'test'

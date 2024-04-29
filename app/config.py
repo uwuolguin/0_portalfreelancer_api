@@ -34,6 +34,8 @@ class Settings(BaseSettings):
     superadmin_password:str
     tableau_token_name:str
     tableau_token_password:str
+    tableau_token_sitename:str
+    tableau_token_server:str
     class Config:
         env_file= ".env"
 
