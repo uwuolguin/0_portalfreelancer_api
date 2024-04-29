@@ -198,6 +198,5 @@ def testTableau():
         server = TSC.Server(settings.tableau_token_server, use_server_version=True)
 
         with server.auth.sign_in(tableau_auth):
-                all_datasources, pagination_item = server.datasources.get()
-                print("\nThere are {} datasources on site: ".format(pagination_item.total_available))
-                print([datasource.name for datasource in all_datasources])
+                webhooks = server.webhooks.get()
+                print(webhooks)
