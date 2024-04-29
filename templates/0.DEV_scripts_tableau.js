@@ -49,6 +49,30 @@ async function deleteBanFunction(type_input) {
     .catch((error) => console.log(error));
   }
 
+  if (type_input === 'banEmail') {
+
+    btn= document.getElementById("button_tableau_ban_email");
+    btn.classList.toggle("submission_button_login--loading");
+    oFormObject = document.forms['form10'];
+    word=oFormObject.elements["banEmail"].value;
+
+    const body = new FormData
+    body.append("email", word)
+
+    url='https://apiportalfreelancer.lat/blacklistemail/'
+    
+    await fetch(url, {
+      body,
+      headers: {
+      Accept: "application/json"
+      },
+      method: "POST"
+    })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
+  }
+
+
   btn.classList.remove("submission_button_login--loading");
 
   document.getElementById("button_tableau_delete_talent").disabled = false;
