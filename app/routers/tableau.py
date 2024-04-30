@@ -1,4 +1,4 @@
-from fastapi import  APIRouter,Cookie,Request
+from fastapi import  APIRouter,Cookie,Request,status
 from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
@@ -15,7 +15,7 @@ router= APIRouter(
 
 
 @router.get('/tableau_html_panel/',response_class=HTMLResponse)
-def complaints_html(request: Request,login: str = Cookie(None)):
+def tableau_html(request: Request,login: str = Cookie(None)):
 
     while True:
 
@@ -47,9 +47,16 @@ def complaints_html(request: Request,login: str = Cookie(None)):
             time.sleep(1)
             pass
 
-@router.get('/tableau_html_create_web_hook/')
-def complaints_html():
+@router.get('/tableau_html_create_web_hook/',status_code=status.HTTP_201_CREATED)
+def tableau_create_web_hook(login: str = Cookie(None)):
 
-    testTableau()
+    credentials=oath2.decode_access_token(login)
 
-    return 'test'
+    if dict(credentials).get("role") == "superadmin":
+
+        testTableau()
+
+        return 'test'
+    
+    else:
+        return

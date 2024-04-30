@@ -191,24 +191,11 @@ def validate_Image(id_var,file_var,endpoint):
 
                 return(hola)
         
+########SEND EMAIL TO ADMIN
 
-##############################TABLEAU################################################
-
-
-
-def testTableau():
-        try:
-               
-                tableau_auth = TSC.PersonalAccessTokenAuth('pene', settings.tableau_token_password, site_id=settings.tableau_token_sitename)
-
-                server = TSC.Server(settings.tableau_token_server, use_server_version=True)
-
-                with server.auth.sign_in(tableau_auth):
-                        webhooks = server.webhooks.get()
-                        print(webhooks)
-        except:
-                print('hola')
-                ########################################################## EMAIL SENDING LOGIC ###############################################################################
+def send_email_to_admin(text_to_send):
+                
+               ########################################################## EMAIL SENDING LOGIC ###############################################################################
                 # Create a SendinBlue API configuration
                 configuration = sib_api_v3_sdk.Configuration()
 
@@ -243,10 +230,10 @@ def testTableau():
 
                 
 
-                title = "The Tableau Token has expired"
+                title = text_to_send
                 html = f"<h2>{title}</h2>"
 
-                subject = "The Tableau Token has expired"
+                subject = text_to_send
                 to_address = settings.superadmin_email
                 receiver_username = 'User'
                 print("Sending mail...")
@@ -257,3 +244,17 @@ def testTableau():
                 # Print the status of the email sending process
                 print(email_response)
                 return {'Email Sent'}
+##############################TABLEAU################################################
+def testTableau():
+        try:
+               
+                tableau_auth = TSC.PersonalAccessTokenAuth('pne', settings.tableau_token_password, site_id=settings.tableau_token_sitename)
+
+                server = TSC.Server(settings.tableau_token_server, use_server_version=True)
+
+                with server.auth.sign_in(tableau_auth):
+                        webhooks = server.webhooks.get()
+                        print(webhooks)
+        except:
+                send_email_to_admin('The Tableau Token has EXPIRED!!!!')
+ 
