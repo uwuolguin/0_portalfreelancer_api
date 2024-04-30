@@ -10,8 +10,7 @@ import cv2
 # Import SendinBlue library
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
-#Tableau
-import tableauserverclient as TSC
+import requests
 
 ###############################################################################
 pwd_context= CryptContext(schemes=["bcrypt"],deprecated=["auto"])
@@ -247,14 +246,22 @@ def send_email_to_admin(text_to_send):
 ##############################TABLEAU################################################
 def testTableau():
         try:
-               
-                tableau_auth = TSC.PersonalAccessTokenAuth('pne', settings.tableau_token_password, site_id=settings.tableau_token_sitename)
 
-                server = TSC.Server(settings.tableau_token_server, use_server_version=True)
+                data = {
+	        "credentials": {
+		"personalAccessTokenName": settings.tableau_token_name,
+		"personalAccessTokenSecret": settings.tableau_token_password,
+		"site": {
+			"contentUrl": settings.tableau_token_sitename
+		        }
+	                        }
+                }
 
-                with server.auth.sign_in(tableau_auth):
-                        webhooks = server.webhooks.get()
-                        print(webhooks)
+                api_url = "https://10ay.online.tableau.com/api/3.22/auth/signin"
+
+                all_users = requests.get(url=api_url,json=data,headers = {"Content-Type" : "application/json"}).json()
+                print(all_users)
+
         except:
                 send_email_to_admin('The Tableau Token has EXPIRED!!!!')
  

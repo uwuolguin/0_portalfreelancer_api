@@ -1,4 +1,4 @@
-from fastapi import  APIRouter,Cookie,Request,status
+from fastapi import  APIRouter,Cookie,Request,status,HTTPException
 from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
@@ -59,4 +59,4 @@ def tableau_create_web_hook(login: str = Cookie(None)):
         return 'test'
     
     else:
-        return
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
