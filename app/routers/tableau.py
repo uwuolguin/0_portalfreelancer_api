@@ -3,7 +3,7 @@ from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from ..utils import testTableau
+from ..utils import tableauAuthentification
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -54,9 +54,12 @@ def tableau_create_web_hook(login: str = Cookie(None)):
 
     if dict(credentials).get("role") == "superadmin":
 
-        testTableau()
+        authentification_response=tableauAuthentification()
 
-        return 'test'
+        if authentification_response["access_token_value"] == "fail":
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+        
+        return authentification_response["access_token_value"] 
     
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")

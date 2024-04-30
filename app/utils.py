@@ -11,6 +11,7 @@ import cv2
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 import requests
+import re
 
 ###############################################################################
 pwd_context= CryptContext(schemes=["bcrypt"],deprecated=["auto"])
@@ -244,7 +245,7 @@ def send_email_to_admin(text_to_send):
                 print(email_response)
                 return {'Email Sent'}
 ##############################TABLEAU################################################
-def testTableau():
+def tableauAuthentification():
         try:
 
                 data = {
@@ -257,11 +258,22 @@ def testTableau():
 	                        }
                 }
 
-                api_url = "https://10ay.online.tableau.com/api/3.22/auth/signin"
+                api_url = "https://10ax.online.tableau.com/api/3.22/auth/signin"
 
-                all_users = requests.get(url=api_url,json=data,headers = {"Content-Type" : "application/json"}).json()
-                print(all_users)
+                all_users = requests.post(url=api_url,json=data,headers = {"Content-Type" : "application/json"})
 
+                response = all_users.text
+                access_token = re.search('''credentials token="(.*)" estimatedTimeToExpiration=''', response)
+                siteid=re.search('''site id="(.*)" contentUrl=''', response)
+
+                access_token_text=access_token.group(1)
+                siteid_text=siteid.group(1)
+
+                print(all_users.text)
+                print(access_token_text)
+                print(siteid_text)
+
+                return {"access_token_value":access_token_text,"siteid_value":siteid_text}
         except:
                 send_email_to_admin('The Tableau Token has EXPIRED!!!!')
- 
+                return {"access_token_value":"fail","siteid_value":"fail"}
