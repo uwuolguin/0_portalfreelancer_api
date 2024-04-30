@@ -280,7 +280,7 @@ def tableauAllJobs(siteid,token):
                 
                 api_url = "https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/jobs"
 
-                all_jobs = requests.post(url=api_url,headers = {"X-tableau-auth" : token})
+                all_jobs = requests.get(url=api_url,headers = {"X-tableau-auth" : token})
 
                 response = all_jobs.text
 
