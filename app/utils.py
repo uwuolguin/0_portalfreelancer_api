@@ -274,3 +274,17 @@ def tableauAuthentification():
         except:
                 send_email_to_admin('The Tableau Token has EXPIRED!!!!')
                 return {"access_token_value":"fail","siteid_value":"fail"}
+def tableauAllJobs(siteid,token):
+        # try:
+
+                
+                api_url = "https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/jobs"
+
+                all_jobs = requests.post(url=api_url,headers = {"X-tableau-auth" : token})
+
+                response = all_jobs.text
+
+                return response
+        # except:
+        #         send_email_to_admin('The Tableau Token has EXPIRED!!!!')
+        #         return {"access_token_value":"fail","siteid_value":"fail"}

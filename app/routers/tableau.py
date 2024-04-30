@@ -3,7 +3,7 @@ from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from ..utils import tableauAuthentification
+from ..utils import tableauAuthentification,tableauAllJobs
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -59,7 +59,9 @@ def tableau_query_all_jobs(login: str = Cookie(None)):
         if authentification_response["access_token_value"] == "fail":
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
         
-        return authentification_response["access_token_value"] 
+        response=tableauAllJobs(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] )
+
+        return  response
     
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
