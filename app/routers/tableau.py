@@ -47,8 +47,8 @@ def tableau_html(request: Request,login: str = Cookie(None)):
             time.sleep(1)
             pass
 
-@router.get('/tableau_html_create_web_hook/',status_code=status.HTTP_201_CREATED)
-def tableau_create_web_hook(login: str = Cookie(None)):
+@router.get('/tableau_html_check_refresh_job/',status_code=status.HTTP_201_CREATED)
+def tableau_check_refresh_job(login: str = Cookie(None)):
 
     credentials=oath2.decode_access_token(login)
 
