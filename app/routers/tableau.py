@@ -14,6 +14,37 @@ router= APIRouter(
 )
 
 
+
+@router.post('/tableau_webhook_fail_refresh_destination/',status_code=status.HTTP_201_CREATED)
+def tableau_create_webhook():
+
+    send_email_to_admin('refresh of extraction failed')
+
+    return 'refresh of extraction failed'
+
+
+
+@router.post('/tableau_create_webhook/',status_code=status.HTTP_201_CREATED)
+def tableau_create_webhook(request: Request,login: str = Cookie(None)):
+
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") == "superadmin":
+
+        authentification_response=tableauAuthentification()
+
+        if authentification_response["access_token_value"] == "fail":
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+        
+        response=tableauAllDatasources(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] )
+
+        context={'request': request,'response':response}
+        return templates.TemplateResponse("15_tableau_datasource.html",context)
+    
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+
+
 @router.get('/tableau_html_panel/',response_class=HTMLResponse)
 def tableau_html(request: Request,login: str = Cookie(None)):
 
@@ -47,7 +78,7 @@ def tableau_html(request: Request,login: str = Cookie(None)):
             time.sleep(1)
             pass
 
-@router.get('/tableau_html_query_all_datasources/',status_code=status.HTTP_201_CREATED)
+@router.get('/tableau_html_query_all_datasources/',response_class=HTMLResponse)
 def tableau_query_all_datasources(request: Request,login: str = Cookie(None)):
 
     credentials=oath2.decode_access_token(login)

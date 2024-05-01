@@ -301,7 +301,42 @@ def tableauAllDatasources(siteid,token):
                        createdat=createdat.split()[0][:-1]
 
 
-                       datasource_text="name="+name+" "+" "+"id="+id+" "+" "+"siteid="+site_id+" "+" "+"createdAt:"+createdat+";"
+                       datasource_text="name="+name+" "+"**"+" "+"id="+id+" "+"**"+" "+"siteid="+site_id+" "+"**"+" "+"createdAt:"+createdat+";"
+                       datasource_list.append(datasource_text)
+
+                return datasource_list
+        except:
+                 send_email_to_admin('Could not get Datasources')
+                 return 'Could not get Datasources'
+
+def tableauCreateWebhook(siteid,token):
+        try:
+                
+                api_url = "https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/datasources"
+
+                all_datasources = requests.get(url=api_url,headers = {"X-tableau-auth" : token})
+
+                response = all_datasources.text
+
+                datasources=re.search('''<datasources>(.*)</datasources>''', response)
+
+                datasources=datasources.group(1)
+
+                datasource=datasources.split("</datasource>")
+                
+
+                datasource_list=[]
+
+                for i in range(len(datasource)-1):
+                       id=re.findall(''' id="(.*)" isCertified''' ,datasource[i])[0]
+                       name=re.findall(''' name="(.*)" size''' ,datasource[i])[0]
+                       site_id=re.findall('''><project id="(.*)" name="''' ,datasource[i])[0]
+                       site_id=site_id.split()[0][:-1]
+                       createdat=re.findall(''' createdAt="(.*)''' ,datasource[i])[0]
+                       createdat=createdat.split()[0][:-1]
+
+
+                       datasource_text="name="+name+" "+"**"+" "+"id="+id+" "+"**"+" "+"siteid="+site_id+" "+"**"+" "+"createdAt:"+createdat+";"
                        datasource_list.append(datasource_text)
 
                 return datasource_list
