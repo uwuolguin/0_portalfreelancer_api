@@ -274,17 +274,31 @@ def tableauAuthentification():
         except:
                 send_email_to_admin('The Tableau Token has EXPIRED!!!!')
                 return {"access_token_value":"fail","siteid_value":"fail"}
-def tableauAllJobs(siteid,token):
-        # try:
-
+def tableauAllDatasources(siteid,token):
+        try:
                 
-                api_url = "https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/jobs"
+                api_url = "https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/datasources"
 
-                all_jobs = requests.get(url=api_url,headers = {"X-tableau-auth" : token})
+                all_datasources = requests.get(url=api_url,headers = {"X-tableau-auth" : token})
 
-                response = all_jobs.text
+                response = all_datasources.text
 
-                return response
-        # except:
-        #         send_email_to_admin('The Tableau Token has EXPIRED!!!!')
-        #         return {"access_token_value":"fail","siteid_value":"fail"}
+                datasources=re.search('''<datasources>(.*)</datasources>''', response)
+
+                datasources=datasources.group(1)
+
+                datasource=datasources.split("</datasource>")
+
+                list_of_datasources=[]
+
+                for i in range(len(datasource)-1):
+                       id=re.findall(''' id="(.*)" isCertified''' ,datasource[i])[0]
+                       name=re.findall(''' name="(.*)" size''' ,datasource[i])[0]
+                       datasource_dict={"name":name,"id":id}
+                       print(datasource_dict)
+                       list_of_datasources.append(datasource_dict)
+
+                return list_of_datasources
+        except:
+                 send_email_to_admin('Could not get Datasources')
+                 return 'Could not get Datasources'
