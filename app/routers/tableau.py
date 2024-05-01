@@ -48,7 +48,7 @@ def tableau_html(request: Request,login: str = Cookie(None)):
             pass
 
 @router.get('/tableau_html_query_all_datasources/',status_code=status.HTTP_201_CREATED)
-def tableau_query_all_datasources(login: str = Cookie(None)):
+def tableau_query_all_datasources(request: Request,login: str = Cookie(None)):
 
     credentials=oath2.decode_access_token(login)
 
@@ -61,7 +61,8 @@ def tableau_query_all_datasources(login: str = Cookie(None)):
         
         response=tableauAllDatasources(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] )
 
-        return  response
+        context={'request': request,'response':response}
+        return templates.TemplateResponse("15_tableau_datasource.html",context)
     
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")

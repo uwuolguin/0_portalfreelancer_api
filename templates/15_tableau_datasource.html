@@ -13,7 +13,7 @@
 
     <!-- NAVIGATION BAR -->
 
-    <ul class="ul_navbar">
+<ul class="ul_navbar">
         <li><a href="https://apiportalfreelancer.lat/" class="logo">Portal Freelancer</a></li>
 
         <li ><a href="https://apiportalfreelancer.lat/contacts/contacts_normal/" class="nav_a">Find Talent</a></li>
@@ -46,72 +46,12 @@
                 </div>
        
         </li>
+</ul>   
 
-    </ul>
-                
+<div>
+    {{ response}}
+</div>
 
-    <tableau-viz id='tableau-viz' src='https://10ax.online.tableau.com/t/portalfreelancer/views/ControlPanel/Dashboard8' width='1000' height='650' toolbar='bottom' ></tableau-viz>
-
-<!--  -->
-<ul class="ul_navbar_v2">
-
-    <li >
-        <div class="big_box_login_3_v2_v2">
-            <form  id="form8" class="form6_class" >
-                <div class="log_in_bottom_2">
-                    <input type="text" class="input" name="talent_id" maxlength="80" required>
-                </div>
-                <button type="button" onclick= "deleteBanFunction('talentDelete')" class="submission_button_login" id="button_tableau_delete_talent" style="width: 200px;"  >
-                    <span class="submission_button_login__text"> Delete Talent</span>
-                </button>
-
-            </form>
-        </div>
-    </li>
-
-    <li >
-        <div class="big_box_login_3_v2_v2">
-            <form  id="form9" class="form6_class" >
-                <div class="log_in_bottom_2">
-                    <input type="text" class="input"  name="firm_id" maxlength="80" required>
-                </div>
-                <button type="button" onclick= "deleteBanFunction('firmDelete')"class="submission_button_login" id="button_tableau_delete_firm" style="width: 200px;"  >
-                    <span class="submission_button_login__text"> Delete Firm</span>
-                </button>
-
-            </form>
-        </div>
-    </li>
-
-    <li >
-        <div class="big_box_login_3_v2_v2">
-            <form  id="form10" class="form6_class" >
-                <div class="log_in_bottom_2">
-                    <input type="text" class="input"  name="banEmail" maxlength="80" required>
-                </div>
-                <button type="button" onclick= "deleteBanFunction('banEmail')" class="submission_button_login" id="button_tableau_ban_email" style="width: 200px;"  >
-                    <span class="submission_button_login__text"> Ban Email</span>
-                </button>
-
-            </form>
-        </div>
-    </li>
-
-    <li >
-        <div class="big_box_login_3_v2_v2">
-            <form  id="form11" class="form6_class" >
-                <div class="log_in_bottom_2">
-                    <input type="text" class="input"  name="banWord" maxlength="80" required>
-                </div>
-                <button type="button" onclick="deleteBanFunction('banWord')" class="submission_button_login" id="button_tableau_ban_word" style="width: 200px;"  >
-                    <span class="submission_button_login__text"> Ban Word</span>
-                </button>
-
-            </form>
-        </div>
-    </li>    
-  
-</ul>
         <!-- MID SECTION -->
         <div class="div_footer" style="min-width:1200px;margin-top: 0;">
 

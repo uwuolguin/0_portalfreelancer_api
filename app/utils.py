@@ -289,16 +289,15 @@ def tableauAllDatasources(siteid,token):
 
                 datasource=datasources.split("</datasource>")
 
-                list_of_datasources=[]
+                datasource_text=""
 
                 for i in range(len(datasource)-1):
                        id=re.findall(''' id="(.*)" isCertified''' ,datasource[i])[0]
                        name=re.findall(''' name="(.*)" size''' ,datasource[i])[0]
-                       datasource_dict={"name":name,"id":id}
-                       print(datasource_dict)
-                       list_of_datasources.append(datasource_dict)
+                       
+                       datasource_text=name+"="+id+";"+datasource_text
 
-                return list_of_datasources
+                return datasource_text
         except:
                  send_email_to_admin('Could not get Datasources')
                  return 'Could not get Datasources'
