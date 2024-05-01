@@ -3,7 +3,7 @@ from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from ..utils import tableauAuthentification,tableauAllDatasources
+from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin
 
 templates= Jinja2Templates(directory="./templates")
 
