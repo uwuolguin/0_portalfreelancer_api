@@ -301,7 +301,7 @@ def tableauAllDatasources(siteid,token):
                        createdat=createdat.split()[0][:-1]
 
 
-                       datasource_text="name:"+name+"== id:"+id+" && siteid:"+site_id+" && createdAt:"+createdat+";"
+                       datasource_text="name="+name+" "+" "+"id="+id+" "+" "+"siteid="+site_id+" "+" "+"createdAt:"+createdat+";"
                        datasource_list.append(datasource_text)
 
                 return datasource_list
