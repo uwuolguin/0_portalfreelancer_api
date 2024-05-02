@@ -12,23 +12,11 @@ router= APIRouter(
     prefix="/tableau",
     tags=["Tableau"]
 )
-
-
-
-@router.post('/tableau_webhook_fail_refresh_destination/',status_code=status.HTTP_201_CREATED)
-def tableau_create_webhook(resource_name="Test"):
-
-    send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
-
-    return status.HTTP_201_CREATED
-
-
-
-@router.post('/tableau_create_webhook/',status_code=status.HTTP_201_CREATED)
+@router.get('/tableau_create_webhook/')
 def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Request,login: str = Cookie(None)):
 
-    credentials=oath2.decode_access_token(login)
     try:
+        credentials=oath2.decode_access_token(login)
 
         if dict(credentials).get("role") == "superadmin":
 
@@ -46,6 +34,43 @@ def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Req
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+
+
+@router.post('/tableau_create_webhook/',status_code=status.HTTP_201_CREATED)
+def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Request,login: str = Cookie(None)):
+
+    try:
+        credentials=oath2.decode_access_token(login)
+
+        if dict(credentials).get("role") == "superadmin":
+
+            authentification_response=tableauAuthentification()
+
+            if authentification_response["access_token_value"] == "fail":
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+            
+            response=tableauCreateWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookName=webhookname,webhook_url=webhookUrl,event=event)
+
+            
+            return response
+        
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    except:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+
+
+@router.post('/tableau_webhook_fail_refresh_destination/',status_code=status.HTTP_201_CREATED)
+def tableau_create_webhook(resource_name="Test"):
+
+    send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
+
+    return status.HTTP_201_CREATED
+
+
+
+
+
 @router.get('/tableau_html_panel/',response_class=HTMLResponse)
 def tableau_html(request: Request,login: str = Cookie(None)):
 
