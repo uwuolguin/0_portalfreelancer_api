@@ -316,8 +316,7 @@ def tableauCreateWebhook(siteid,token,webhookName):
 
                 webhook_url="https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/"
 
-                payload = "<tsRequest>\n  <webhook name=\" "+ webhookName  +"\">\n    <webhook-source>\n      <DatasourceRefreshFailed />\n    </webhook-source>\n    <webhook-destination>\n      <webhook-destination-http method=\"POST\" url=\""+ webhook_url  +"\" />\n    </webhook-destination>\n  </webhook>\n</tsRequest>"
-
+                payload = "<tsRequest>\r\n  <webhook name=\"webhook-name\" event="+'''\"'''+"DatasourceRefreshFailed"+'''\" >\r\n    <webhook-destination>\r\n      <webhook-destination-http method=\"POST\" url='''+'''\"'''+webhook_url+'''\" />\r\n    </webhook-destination>\r\n  </webhook>\r\n</tsRequest>"'''
 
                 headers = {
                 'X-Tableau-Auth': token,
