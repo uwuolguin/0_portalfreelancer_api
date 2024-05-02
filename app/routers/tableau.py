@@ -3,7 +3,7 @@ from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook
+from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook,tableauListWebhook
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -25,7 +25,7 @@ def tableau_list_webhooks(login: str = Cookie(None)):
             if authentification_response["access_token_value"] == "fail":
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
             
-            response=tableauCreateWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookName=webhookname,webhook_url=webhookUrl,event=event)
+            response=tableauListWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"])
 
             
             return response
