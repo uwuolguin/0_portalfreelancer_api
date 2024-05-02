@@ -25,7 +25,7 @@ def tableau_create_webhook(resource_name="Test"):
 
 
 @router.post('/tableau_create_webhook/',status_code=status.HTTP_201_CREATED)
-def tableau_create_webhook(webhookname:str,request: Request,login: str = Cookie(None)):
+def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Request,login: str = Cookie(None)):
 
     credentials=oath2.decode_access_token(login)
 
@@ -36,7 +36,7 @@ def tableau_create_webhook(webhookname:str,request: Request,login: str = Cookie(
         if authentification_response["access_token_value"] == "fail":
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
         
-        response=tableauCreateWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookName=webhookname)
+        response=tableauCreateWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookName=webhookname,webhook_url=webhookUrl,event=event)
 
         
         return response
