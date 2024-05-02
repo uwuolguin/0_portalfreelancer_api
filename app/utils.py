@@ -268,7 +268,7 @@ def tableauAuthentification():
 
                 access_token_text=access_token.group(1)
                 siteid_text=siteid.group(1)
-
+                print({"access_token_value":access_token_text,"siteid_value":siteid_text})
 
                 return {"access_token_value":access_token_text,"siteid_value":siteid_text}
         except:
