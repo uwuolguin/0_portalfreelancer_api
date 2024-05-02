@@ -324,7 +324,7 @@ def tableauCreateWebhook(siteid,token,webhookName):
                                 "url": webhook_url,
                                 }
                         },
-                        "event": "DatasourceRefreshFailed",
+                        "event": "DatasourceRefreshStarted",
                         "name": webhookName
                         }
                         }
