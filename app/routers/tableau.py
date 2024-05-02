@@ -3,7 +3,7 @@ from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin
+from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -16,9 +16,9 @@ router= APIRouter(
 
 
 @router.post('/tableau_webhook_fail_refresh_destination/',status_code=status.HTTP_201_CREATED)
-def tableau_create_webhook():
+def tableau_create_webhook(resource_name:str):
 
-    send_email_to_admin('refresh of extraction failed')
+    send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
 
     return 'refresh of extraction failed'
 
