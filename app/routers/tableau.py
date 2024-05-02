@@ -12,8 +12,8 @@ router= APIRouter(
     prefix="/tableau",
     tags=["Tableau"]
 )
-@router.get('/tableau_create_webhook/')
-def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Request,login: str = Cookie(None)):
+@router.get('/tableau_list_webhooks/')
+def tableau_list_webhooks(login: str = Cookie(None)):
 
     try:
         credentials=oath2.decode_access_token(login)
@@ -37,7 +37,7 @@ def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Req
 
 
 @router.post('/tableau_create_webhook/',status_code=status.HTTP_201_CREATED)
-def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Request,login: str = Cookie(None)):
+def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,login: str = Cookie(None)):
 
     try:
         credentials=oath2.decode_access_token(login)

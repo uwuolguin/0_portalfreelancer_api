@@ -341,3 +341,21 @@ def tableauCreateWebhook(siteid,token,webhookName,webhook_url,event):
         except:
                  send_email_to_admin('Could not create Webhook')
                  return 'Could not create Webhook'
+def tableauListWebhook(siteid,token):
+        try:
+                
+                url ="https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/webhooks"
+                                
+                data={}
+
+                headers = {
+                'X-Tableau-Auth': token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+                }
+                response = requests.request("GET", url, headers=headers, json=data)
+
+                return response.text
+        except:
+                 send_email_to_admin('Could not List Webhooks')
+                 return 'Could not list Webhook'
