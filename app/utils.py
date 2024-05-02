@@ -309,7 +309,7 @@ def tableauAllDatasources(siteid,token):
                  send_email_to_admin('Could not get Datasources')
                  return 'Could not get Datasources'
 
-def tableauCreateWebhook(siteid,token):
+def tableauCreateWebhook(siteid,token,webhookName):
         try:
                 
                 url ="https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/webhooks"
@@ -317,15 +317,15 @@ def tableauCreateWebhook(siteid,token):
                 data = {
                 "webhook": {
                 "webhook-source": {
-                "{{webhook-event}}": {}
+                "DatasourceRefreshFailed": {}
                 },
                 "webhook-destination": {
                 "webhook-destination-http": {
                         "method": "POST",
-                        "url": "{{webhook-url}}"
+                        "url": "https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/"
                 }
                 },
-                "name": "{{webhook-name}}"
+                "name": webhookName
                 }
                 }
 
@@ -338,7 +338,7 @@ def tableauCreateWebhook(siteid,token):
 
                 response = requests.request("POST", url, headers=headers, json=data)
 
-                return 'Webhook Created'
+                return response.text
         except:
-                 send_email_to_admin('Could not get Datasources')
-                 return 'Could not get Datasources'
+                 send_email_to_admin('Could not create Webhook')
+                 return 'Could not create Webhook'
