@@ -314,7 +314,7 @@ def tableauCreateWebhook(siteid,token,webhookName):
                 
                 url ="https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/webhooks"
 
-                webhook_url="https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/"
+                webhook_url="https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination"
 
                 data={
                         "webhook": {
