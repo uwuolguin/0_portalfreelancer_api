@@ -28,23 +28,24 @@ def tableau_create_webhook(resource_name="Test"):
 def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,request: Request,login: str = Cookie(None)):
 
     credentials=oath2.decode_access_token(login)
+    try:
 
-    if dict(credentials).get("role") == "superadmin":
+        if dict(credentials).get("role") == "superadmin":
 
-        authentification_response=tableauAuthentification()
+            authentification_response=tableauAuthentification()
 
-        if authentification_response["access_token_value"] == "fail":
+            if authentification_response["access_token_value"] == "fail":
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+            
+            response=tableauCreateWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookName=webhookname,webhook_url=webhookUrl,event=event)
+
+            
+            return response
+        
+        else:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
-        
-        response=tableauCreateWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookName=webhookname,webhook_url=webhookUrl,event=event)
-
-        
-        return response
-    
-    else:
+    except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
-
-
 @router.get('/tableau_html_panel/',response_class=HTMLResponse)
 def tableau_html(request: Request,login: str = Cookie(None)):
 
