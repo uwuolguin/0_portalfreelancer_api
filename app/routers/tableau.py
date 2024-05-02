@@ -16,7 +16,7 @@ router= APIRouter(
 
 
 @router.post('/tableau_webhook_fail_refresh_destination/',status_code=status.HTTP_201_CREATED)
-def tableau_create_webhook(resource_name:str):
+def tableau_create_webhook(resource_name="Test"):
 
     send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
 
