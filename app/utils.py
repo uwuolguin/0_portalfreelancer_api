@@ -314,30 +314,20 @@ def tableauCreateWebhook(siteid,token,webhookName):
                 
                 url ="https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/webhooks"
 
-                data = {
-                "webhook": {
-                "webhook-source": {
-                "DatasourceRefreshFailed": {}
-                },
-                "webhook-destination": {
-                "webhook-destination-http": {
-                        "method": "POST",
-                        "url": "https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/"
-                }
-                },
-                "name": webhookName
-                }
-                }
+                webhook_url="https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/"
 
-                
+                payload = "<tsRequest>\n  <webhook name=\" "+ webhookName  +"\">\n    <webhook-source>\n      <DatasourceRefreshFailed />\n    </webhook-source>\n    <webhook-destination>\n      <webhook-destination-http method=\"POST\" url=\""+ webhook_url  +"\" />\n    </webhook-destination>\n  </webhook>\n</tsRequest>"
+
+
                 headers = {
-                'X-tableau-auth' : token,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'X-Tableau-Auth': token,
+                'Content-Type': 'application/xml',
+                'Accept': 'application/xml'
                 }
 
-                response = requests.request("POST", url, headers=headers, json=data)
+                response = requests.request("POST", url, headers=headers, data=payload)
 
+                print(response.text)
                 return response.text
         except:
                  send_email_to_admin('Could not create Webhook')
