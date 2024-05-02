@@ -20,7 +20,7 @@ def tableau_create_webhook(resource_name="Test"):
 
     send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
 
-    return 'refresh of extraction failed'
+    return status.HTTP_201_CREATED
 
 
 
