@@ -359,12 +359,18 @@ def tableauListWebhook(siteid,token):
 
                 webhook_list=webhooks.split("webhook-source:webhook-source-event-")
 
+                webhook_list_html=[]
+
                 for i in range(len(webhook_list)-1):
-                       id= re.findall(''',id:(.*)''' ,webhook_list[i+1])[0]
-                       print(id) 
+                       id= re.findall(''',id:(.*),name:''' ,webhook_list[i+1])[0]
+                       name=re.findall(''',name:(.*),event:''' ,webhook_list[i+1])[0].split(',name:')[1]
+                       print(name)
 
 
-                return webhook_list
+                       webhook_test="name="+name+" "+"**"+" "+"id="+id+";"
+                       webhook_list_html.append(webhook_test)
+                
+                return webhook_list_html
         except:
                  send_email_to_admin('Could not List Webhooks')
                  return 'Could not list Webhook'

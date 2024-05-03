@@ -12,28 +12,7 @@ router= APIRouter(
     prefix="/tableau",
     tags=["Tableau"]
 )
-@router.get('/tableau_list_webhooks/')
-def tableau_list_webhooks(login: str = Cookie(None)):
 
-    try:
-        credentials=oath2.decode_access_token(login)
-
-        if dict(credentials).get("role") == "superadmin":
-
-            authentification_response=tableauAuthentification()
-
-            if authentification_response["access_token_value"] == "fail":
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
-            
-            response=tableauListWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"])
-
-            
-            return response
-        
-        else:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
-    except:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
 
 @router.post('/tableau_create_webhook/',status_code=status.HTTP_201_CREATED)
@@ -122,4 +101,28 @@ def tableau_query_all_datasources(request: Request,login: str = Cookie(None)):
         return templates.TemplateResponse("15_tableau_datasource.html",context)
     
     else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
+@router.get('/tableau_list_webhooks/',response_class=HTMLResponse)
+def tableau_list_webhooks(request: Request,login: str = Cookie(None)):
+
+    try:
+        credentials=oath2.decode_access_token(login)
+
+        if dict(credentials).get("role") == "superadmin":
+
+            authentification_response=tableauAuthentification()
+
+            if authentification_response["access_token_value"] == "fail":
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+            
+            response=tableauListWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"])
+
+            
+            context={'request': request,'response':response}
+            return templates.TemplateResponse("15_tableau_datasource.html",context)
+        
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
