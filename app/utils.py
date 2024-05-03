@@ -355,7 +355,9 @@ def tableauListWebhook(siteid,token):
                 }
                 response = requests.request("GET", url, headers=headers, json=data)
 
-                return response.text
+                webhooks=(response.text).replace("\\","").replace('''"''', "").replace("{","").replace("}","")
+
+                return webhooks
         except:
                  send_email_to_admin('Could not List Webhooks')
                  return 'Could not list Webhook'
