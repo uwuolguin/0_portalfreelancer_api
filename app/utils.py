@@ -357,6 +357,10 @@ def tableauListWebhook(siteid,token):
 
                 webhooks=(response.text).replace("\\","").replace('''"''', "").replace("{","").replace("}","")
 
+                webhook_list=re.findall('''webhook-source:webhook-source-event-(.*),statusChangeReason''' ,webhooks)
+
+                print (webhook_list)
+
                 return webhooks
         except:
                  send_email_to_admin('Could not List Webhooks')
