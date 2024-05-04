@@ -394,3 +394,23 @@ def tableauDeleteWebhook(siteid,token,webhookId):
         except:
                  send_email_to_admin('Could not delete Webhook')
                  return 'Could not delete Webhook'
+        
+def tableauTestWebhook(siteid,token,webhookId):
+        try:
+                
+                url ="https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/webhooks/"+webhookId+"/test"
+
+
+                data={}
+
+                headers = {
+                'X-Tableau-Auth': token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+                }
+                response = requests.request("GET", url, headers=headers, json=data)
+
+                return response.text
+        except:
+                 send_email_to_admin('Could not test Webhook')
+                 return 'Could not test Webhook'
