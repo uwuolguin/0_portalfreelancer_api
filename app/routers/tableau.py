@@ -3,7 +3,7 @@ from .. import oath2
 import time
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook,tableauListWebhook
+from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook,tableauListWebhook,tableauDeleteWebhook
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -37,7 +37,30 @@ def tableau_create_webhook(webhookname:str,webhookUrl:str,event:str,login: str =
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
 
+@router.delete('/tableau_delete_webhook/',status_code=status.HTTP_204_NO_CONTENT)
+def tableau_delete_webhook(webhookId:str,login: str = Cookie(None)):
+
+    try:
+        credentials=oath2.decode_access_token(login)
+
+        if dict(credentials).get("role") == "superadmin":
+
+            authentification_response=tableauAuthentification()
+
+            if authentification_response["access_token_value"] == "fail":
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+            
+            response=tableauDeleteWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] ,webhookId=webhookId)
+
+            
+            return response
+        
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    except:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
 
 
 @router.post('/tableau_webhook_fail_refresh_destination/',status_code=status.HTTP_201_CREATED)

@@ -374,3 +374,23 @@ def tableauListWebhook(siteid,token):
         except:
                  send_email_to_admin('Could not List Webhooks')
                  return 'Could not list Webhook'
+        
+def tableauDeleteWebhook(siteid,token,webhookId):
+        try:
+                
+                url ="https://10ax.online.tableau.com/api/3.22/sites/"+siteid+"/webhooks/"+webhookId
+
+
+                data={}
+
+                headers = {
+                'X-Tableau-Auth': token,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+                }
+                response = requests.request("DELETE", url, headers=headers, json=data)
+
+                return response.text
+        except:
+                 send_email_to_admin('Could not delete Webhook')
+                 return 'Could not delete Webhook'
