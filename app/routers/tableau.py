@@ -113,11 +113,11 @@ def tableau_create_webhook(resource_name="Test"):
     conn_tableau=getConnection()
     cursor=conn_tableau.cursor()
     
-    cursor.execute(""" select count(tableau_url) from public.tableau_failed_refreshed where last_updated_at + interval '1 day' >=NOW() :: TIMESTAMP WITH TIME ZONE and tableau_url = 'failed_refreshed_webhook'; """)
+    cursor.execute(""" select count(tableau_url) as counter from public.tableau_failed_refreshed where last_updated_at + interval '1 day' >=NOW() :: TIMESTAMP WITH TIME ZONE and tableau_url = 'failed_refreshed_webhook'; """)
     
     counter=complaint=cursor.fetchone()
     
-    if counter<3:
+    if counter.get("counter")<3:
 
         send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
         
