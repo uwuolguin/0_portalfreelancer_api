@@ -21,7 +21,6 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
 
     op.create_table('tableau_failed_refreshed',
-    sa.PrimaryKeyConstraint('tableau_url'),
     sa.Column('tableau_url',sa.String(10000)),
     sa.Column('last_updated_at',sa.TIMESTAMP(timezone=True),nullable=False,server_default=text('now()'))
 
