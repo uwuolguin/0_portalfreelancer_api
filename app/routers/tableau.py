@@ -121,7 +121,7 @@ def tableau_create_webhook(resource_name="Test"):
 
         send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
         
-        cursor.execute(""" INSERT INTO public.tableau_failed_refreshed (tableau_url) VALUES (failed_refreshed_webhook); """)
+        cursor.execute(""" INSERT INTO public.tableau_failed_refreshed (tableau_url) VALUES ('failed_refreshed_webhook'); """)
 
         conn_tableau.commit()
 
