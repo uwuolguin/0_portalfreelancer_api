@@ -115,7 +115,7 @@ def tableau_create_webhook(resource_name="Test"):
     
     cursor.execute(""" select count(tableau_url) as counter from public.tableau_failed_refreshed where last_updated_at + interval '1 day' >=NOW() :: TIMESTAMP WITH TIME ZONE and tableau_url = 'failed_refreshed_webhook'; """)
     
-    counter=complaint=cursor.fetchone()
+    counter=cursor.fetchone()
     
     if counter.get("counter")<3:
 
