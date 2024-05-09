@@ -20,6 +20,6 @@ def test_login_page():
     response = client.get('auth/logIn/')
     assert response.status_code == 200
 
-def test_login_page():
+def test_sing_in_router_page():
     response = client.get('auth/SigInRouter/')
     assert response.status_code == 200
