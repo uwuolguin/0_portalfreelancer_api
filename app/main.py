@@ -134,8 +134,8 @@ def complaints_html(request: Request,login: str = Cookie(None)):
                 pass
 
 
-            context={'request': request,'login_role':login_role_value}
-            return templates.TemplateResponse("13_Purpose.html",context)
+            context={'login_role':login_role_value}
+            return templates.TemplateResponse(request=request,name="13_Purpose.html",context=context)
         except:
             time.sleep(1)
             pass
