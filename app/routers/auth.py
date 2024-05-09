@@ -171,8 +171,7 @@ def SigInRoute(request: Request):
 
     while True:
         try:
-            context={'request': request}
-            return templates.TemplateResponse("3_sign_up.html",context)
+            return templates.TemplateResponse(request=request,name="3_sign_up.html")
         except:
             time.sleep(1)
             pass
@@ -188,7 +187,6 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
             cursor=conn_auth.cursor()
 
             if login==None:
-                    context={'request': request}
                     conn_auth.close()
                     return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
             
