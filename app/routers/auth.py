@@ -160,8 +160,8 @@ templates= Jinja2Templates(directory="./templates")
 def indexLogIn(request: Request):
     while True:
         try:
-            context={'request': request}
-            return templates.TemplateResponse("4_log_in.html",context)
+            
+            return templates.TemplateResponse(request=request,name="4_log_in.html")
         except:
             time.sleep(1)
             pass
