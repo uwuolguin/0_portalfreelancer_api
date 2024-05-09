@@ -107,7 +107,7 @@ def root(  request: Request,
 
             context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
 
-            return templates.TemplateResponse("1_index.html",context)
+            return templates.TemplateResponse(context,"1_index.html")
         except:
             time.sleep(1)
             pass        
