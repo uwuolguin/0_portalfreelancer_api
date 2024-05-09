@@ -19,3 +19,7 @@ def test_purpose_page():
 def test_login_page():
     response = client.get('auth/logIn/')
     assert response.status_code == 200
+
+def test_login_page():
+    response = client.get('auth/SigInRouter/')
+    assert response.status_code == 200
