@@ -188,14 +188,13 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
 
             if login==None:
                     conn_auth.close()
-                    return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
+                    return templates.TemplateResponse(request=request,name="4_log_in for_settings_del_up.html")
             
             credentials=oath2.decode_access_token(login)
 
             if dict(credentials).get("role") == "firm":
-                    context={'request': request}
                     conn_auth.close()
-                    return templates.TemplateResponse("8_del_up_firm.html",context)
+                    return templates.TemplateResponse(request=request,name="8_del_up_firm.html")
             
             if dict(credentials).get("role") == "talent":
 
@@ -227,15 +226,15 @@ def redirect_del_up_firm_talent(request: Request,login: str = Cookie(None)):
                     category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
                     Categories_List.append(category_dict)
 
-                context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+                context={'categories':Categories_List,'skills':Skills_List}
                 conn_auth.close()
-                return templates.TemplateResponse("7_del_up_talent.html",context)
+                return templates.TemplateResponse(request=request,name="7_del_up_talent.html",context=context)
 
 
 
             context={'request': request}
             conn_auth.close()
-            return templates.TemplateResponse("4_log_in for_settings_del_up.html",context)
+            return templates.TemplateResponse(request=request,name="4_log_in for_settings_del_up.html")
         
         except:
             pass
