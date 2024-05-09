@@ -105,7 +105,7 @@ def root(  request: Request,
                 category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ',''),'url':url}
                 Categories_List.append(category_dict)
 
-            context={'request': request, 'categories':Categories_List,'login_role':login_role_value}
+            context={ 'categories':Categories_List,'login_role':login_role_value}
 
             return templates.TemplateResponse(request=request,name="1_index.html",context=context)
         except:
