@@ -35,8 +35,8 @@ def test_settings_url_for_del_up_page():
 @pytest.mark.parametrize("email,password,expected",[
 
     (settings.superadmin_email,settings.superadmin_password,{"message": "cookie set" }),
-    ('portalfreelancerlatsecpass@gmail.com','hola',{"message": "cookie set" }),
-
+    (settings.cloud_platform_user_for_email_password_changes,settings.test_password_cloud,{"message": "cookie set" }),
+    (settings.cloud_platform_user_for_email_sending,settings.test_password_api,{"message": "cookie set" }),
 ])
 def test_create_login_http_only_cookie(email,password,expected):
     response = client.post(
