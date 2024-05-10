@@ -41,6 +41,7 @@ def getConnection():
 def login_function(
     email: Annotated[EmailStr,Form(),BeforeValidator(schemas.check_long_str_80)],
     password:Annotated[str,BeforeValidator(schemas.check_long_str_80),Form()]
+
     ) -> Any:
     
     os.chdir(settings.normal_directory)
