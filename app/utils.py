@@ -16,7 +16,8 @@ import re
 ###############################################################################
 
 def hash(password: str):
-        return bcrypt.hashpw(password, settings.salt)
+        salt = bcrypt.gensalt() 
+        return bcrypt.hashpw(password=password.encode('utf-8'), salt=salt)
 
 def verify(plain_password, hashed_password):
         return bcrypt.checkpw.verify(plain_password,hashed_password)

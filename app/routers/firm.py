@@ -143,6 +143,8 @@ def post_firm(
                  )-> Any:
     
 
+    
+    
     full_name=full_name.replace("'","''")
     email_template_to_send=email_template_to_send.replace("'","''")
 
@@ -152,7 +154,7 @@ def post_firm(
     cursor=conn_firm.cursor()
 
     hashed_password=utils.hash(password)
-    password=hashed_password
+    password=hashed_password.decode('utf-8')
     
     linkedin=str(linkedin)
     instagram=str(instagram)
