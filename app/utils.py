@@ -12,7 +12,8 @@ import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 import requests
 import re
-
+from fastapi.responses import JSONResponse
+from oath2 import create_access_token
 ###############################################################################
 
 def hash(password: str):
@@ -46,6 +47,26 @@ def getConnection():
     return conn_talent_utils
 
 
+#####################CREATE ACCESS COOKIE FOR TESTING
+def create_cookie_token_access_for_testing(email='portalfreelancer@gmail.com'):
+
+        conn_talent_utils=getConnection()
+        cursor=conn_talent_utils.cursor()
+
+        id_3=""" SELECT * FROM firm_get_id_by_email('%s');"""
+        cursor.execute(id_3 % (str(email)))
+        firm=cursor.fetchone()
+
+        token_data={'firm_id':firm.get("firm_id"),'firm_email':email,'role':'firm'}
+        token=create_access_token(token_data)
+        content = {"message": "cookie set"}
+        response = JSONResponse(content=content)
+        response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+
+
+        conn_talent_utils.close()
+        return response
+##############IMAGE MANAGEMENT LOGIC
 
 def validate_Image(id_var,file_var,endpoint):
 

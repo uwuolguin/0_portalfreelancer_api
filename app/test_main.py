@@ -30,7 +30,7 @@ def test_settings_url_for_del_up_page():
     response = client.get('auth/settings_url_for_del_up/')
     assert response.status_code == 200
 
-            ############################ Testing the html endpoints
+            ############################ Testing the normal endpoints
 
 @pytest.mark.parametrize("email,password,expected",[
 
@@ -39,6 +39,7 @@ def test_settings_url_for_del_up_page():
     (settings.cloud_platform_user_for_email_sending,settings.test_password_api,{"message": "cookie set" }),
 ])
 def test_create_login_http_only_cookie(email,password,expected):
+
     response = client.post(
         "/auth/login_talent_firm",
         
@@ -53,3 +54,4 @@ def test_create_login_http_only_cookie(email,password,expected):
     )
     assert response.status_code == 200
     assert response.json() == expected
+    

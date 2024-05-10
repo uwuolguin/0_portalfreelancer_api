@@ -33,4 +33,3 @@ def decode_access_token(token:str):
         payload_data= schemas.responseTokenInputSuperAdmin(superadmin_id=payload.get("superadmin_id"),superadmin_email=payload.get("superadmin_email"),role=payload.get("role"),exp=payload.get("exp"))
 
     return payload_data
- 
