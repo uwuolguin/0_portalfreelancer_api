@@ -313,8 +313,8 @@ def update_firm(
     id=dict(credentials).get("firm_id")
 
 
-    hashed_password= utils.hash(password)
-    password=hashed_password
+    hashed_password=utils.hash(password)
+    password=hashed_password.decode('utf-8')
     linkedin=str(linkedin)
     instagram=str(instagram)
     contact_email=contact_email.replace(" ", "").lower()

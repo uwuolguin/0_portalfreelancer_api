@@ -173,7 +173,7 @@ def post_talent(
     cursor=conn_talent.cursor()
 
     hashed_password=utils.hash(password)
-    password=hashed_password
+    password=hashed_password.decode('utf-8')
     github=str(github)
     linkedin=str(linkedin)
     instagram=str(instagram)
@@ -382,7 +382,7 @@ def update_talent(
     id=dict(credentials).get("talent_id")
 
     hashed_password=utils.hash(password)
-    password=hashed_password
+    password=hashed_password.decode('utf-8')
     github=str(github)
     linkedin=str(linkedin)
     instagram=str(instagram)
