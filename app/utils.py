@@ -1,4 +1,4 @@
-from passlib.context import CryptContext
+import bcrypt
 import time
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -14,13 +14,12 @@ import requests
 import re
 
 ###############################################################################
-pwd_context= CryptContext(schemes=["bcrypt"],deprecated=["auto"])
 
 def hash(password: str):
-        return pwd_context.hash(password)
+        return bcrypt.hashpw(password, settings.salt)
 
 def verify(plain_password, hashed_password):
-        return pwd_context.verify(plain_password,hashed_password)
+        return bcrypt.checkpw.verify(plain_password,hashed_password)
 ###############################################################################
 #######CONECTION TO TALENT TABLE ######################################################################################
 

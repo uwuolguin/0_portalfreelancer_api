@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     tableau_token_server:str
     test_password_cloud:str
     test_password_api:str
+    salt:str
     class ConfigDict:
         env_file= ".env"
 
