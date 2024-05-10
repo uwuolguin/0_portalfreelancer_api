@@ -20,7 +20,10 @@ def hash(password: str):
         return bcrypt.hashpw(password=password.encode('utf-8'), salt=salt)
 
 def verify(plain_password, hashed_password):
-        return bcrypt.checkpw.verify(plain_password,hashed_password)
+        plain_password=bytes(plain_password, 'utf-8')
+        hashed_password=bytes(hashed_password, 'utf-8')
+        
+        return bcrypt.checkpw(plain_password,hashed_password)
 ###############################################################################
 #######CONECTION TO TALENT TABLE ######################################################################################
 
