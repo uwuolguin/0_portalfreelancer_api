@@ -12,8 +12,7 @@ import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 import requests
 import re
-from fastapi.responses import JSONResponse
-from oath2 import create_access_token
+from .oath2 import create_access_token
 ###############################################################################
 
 def hash(password: str):
@@ -48,24 +47,43 @@ def getConnection():
 
 
 #####################CREATE ACCESS COOKIE FOR TESTING
-def create_cookie_token_access_for_testing(email='portalfreelancer@gmail.com'):
+def create_cookie_token_access_for_testing(email):
+
 
         conn_talent_utils=getConnection()
         cursor=conn_talent_utils.cursor()
 
-        id_3=""" SELECT * FROM firm_get_id_by_email('%s');"""
-        cursor.execute(id_3 % (str(email)))
-        firm=cursor.fetchone()
+        if email==settings.superadmin_email:
 
-        token_data={'firm_id':firm.get("firm_id"),'firm_email':email,'role':'firm'}
-        token=create_access_token(token_data)
-        content = {"message": "cookie set"}
-        response = JSONResponse(content=content)
-        response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+                token_data={'superadmin_id':1,'superadmin_email':email,'role':"superadmin"}
+                token=create_access_token(token_data)
+
+                conn_talent_utils.close()
+                return token
 
 
-        conn_talent_utils.close()
-        return response
+        if email==settings.cloud_platform_user_for_email_password_changes:
+
+                id_2=""" SELECT * FROM get_id_by_email('%s');"""
+                cursor.execute(id_2 % (str(email)))
+                talent=cursor.fetchone()
+
+                token_data={'talent_id':talent.get("talent_id"),'talent_email':email,'role':'talent'}
+                token=create_access_token(token_data)
+
+                conn_talent_utils.close()
+                return token
+        if email==settings.cloud_platform_user_for_email_sending:
+
+                id_3=""" SELECT * FROM firm_get_id_by_email('%s');"""
+                cursor.execute(id_3 % (str(email)))
+                firm=cursor.fetchone()
+
+                token_data={'firm_id':firm.get("firm_id"),'firm_email':email,'role':'firm'}
+                token=create_access_token(token_data)
+
+                conn_talent_utils.close()
+                return token
 ##############IMAGE MANAGEMENT LOGIC
 
 def validate_Image(id_var,file_var,endpoint):
