@@ -1,7 +1,5 @@
 from app.main import app
 from starlette.testclient import TestClient
-from app.config import settings
-import pytest
 from app.utils import create_cookie_token_access_for_testing
 
 
