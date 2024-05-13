@@ -310,7 +310,7 @@ def tableauAuthentification():
 
                 access_token_text=access_token.group(1)
                 siteid_text=siteid.group(1)
-                print({"access_token_value":access_token_text,"siteid_value":siteid_text})
+
 
                 return {"access_token_value":access_token_text,"siteid_value":siteid_text}
         except:
@@ -399,18 +399,17 @@ def tableauListWebhook(siteid,token):
 
                 webhooks=(response.text).replace("\\","").replace('''"''', "").replace("{","").replace("}","")
 
-                webhook_list=webhooks.split("webhook-source:webhook-source-event-")
+                webhook_list_html=[]  
 
-                webhook_list_html=[]
+                webhook_split_list=webhooks.split("owner:id")            
+                
+                for i in range(len(webhook_split_list)-1):
 
-                for i in range(len(webhook_list)-1):
-                       id= re.findall(''',id:(.*),name:''' ,webhook_list[i+1])[0]
-                       name=re.findall(''',name:(.*),event:''' ,webhook_list[i+1])[0].split(',name:')[1]
-                       print(name)
-
-
-                       webhook_test="name="+name+" "+"**"+" "+"id="+id+";"
-                       webhook_list_html.append(webhook_test)
+                        id_=(webhook_split_list[i+1].split(",")[2])
+                        name_=(webhook_split_list[i+1].split(",")[3])
+                        webhook_test=name_+" "+"**"+" "+id_+";"
+                        webhook_list_html.append(webhook_test)
+                
                 
                 return webhook_list_html
         except:

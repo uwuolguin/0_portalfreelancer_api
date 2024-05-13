@@ -155,13 +155,12 @@ def tableau_html(request: Request,login: str = Cookie(None)):
                 pass
 
             if login_role_value=="superadmin":
-
-                context={'request': request}
-                return templates.TemplateResponse("14_tableau.html",context)
+            
+                return templates.TemplateResponse(request=request,name="14_tableau.html")
+            
             else:
-                                
-                context={'request': request}
-                return templates.TemplateResponse("4_log_in.html",context)
+
+                return templates.TemplateResponse(request=request,name="4_log_in.html")
         except:
             time.sleep(1)
             pass
@@ -180,8 +179,8 @@ def tableau_query_all_datasources(request: Request,login: str = Cookie(None)):
         
         response=tableauAllDatasources(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"] )
 
-        context={'request': request,'response':response}
-        return templates.TemplateResponse("15_tableau_datasource.html",context)
+        context={'response':response}
+        return templates.TemplateResponse(request=request,name="15_tableau_datasource.html",context=context)
     
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
@@ -202,8 +201,8 @@ def tableau_list_webhooks(request: Request,login: str = Cookie(None)):
             response=tableauListWebhook(siteid=authentification_response["siteid_value"] ,token=authentification_response["access_token_value"])
 
             
-            context={'request': request,'response':response}
-            return templates.TemplateResponse("15_tableau_datasource.html",context)
+            context={'response':response}
+            return templates.TemplateResponse(request=request,name="15_tableau_datasource.html",context=context)
         
         else:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
