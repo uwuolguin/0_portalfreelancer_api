@@ -2,11 +2,33 @@ from app.main import app
 from starlette.testclient import TestClient
 from app.config import settings
 from app.utils import create_cookie_token_access_for_testing
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import time
+
+
+
+def getConnection():
+    
+
+    while True:
+        try:
+
+            conn_test_complaint=psycopg2.connect(host=settings.database_hostname,database=settings.database_name,user=settings.database_username,password=settings.database_password,cursor_factory=RealDictCursor)
+            break
+
+        except Exception as error:
+
+            print("Connecting to database failed")
+            print("Error:",error)
+            time.sleep(5)
+
+    return conn_test_complaint
+
+
 
 
 client = TestClient(app=app)
-
-
 
 ####################################### Testing the HTML endpoints in the complaints.py file
 
@@ -44,6 +66,15 @@ def test_get_all_complaints():
 
 
 def test_post_complaints():
+    SQL_STATEMENT="select * FROM public.complaints where created_at = (select max(created_at) from public.complaints) AND email = '"+settings.cloud_platform_user_for_email_sending+"';"
+    
+    conn_test=getConnection()
+    cursor=conn_test.cursor()
+
+    cursor.execute(SQL_STATEMENT)
+
+    conn_test.commit()
+    conn_test.close()
 
     login_cookie=create_cookie_token_access_for_testing(email=settings.cloud_platform_user_for_email_sending)
 
