@@ -66,15 +66,19 @@ def test_get_all_complaints():
 
 
 def test_post_complaints():
-    SQL_STATEMENT="select * FROM public.complaints where created_at = (select max(created_at) from public.complaints) AND email = '"+settings.cloud_platform_user_for_email_sending+"';"
-    
-    conn_test=getConnection()
-    cursor=conn_test.cursor()
 
-    cursor.execute(SQL_STATEMENT)
+    try:
+        SQL_STATEMENT="DELETE FROM public.complaints where created_at = (select max(created_at) from public.complaints) AND email = '"+settings.cloud_platform_user_for_email_sending+"';"
+        
+        conn_test=getConnection()
+        cursor=conn_test.cursor()
 
-    conn_test.commit()
-    conn_test.close()
+        cursor.execute(SQL_STATEMENT)
+
+        conn_test.commit()
+        conn_test.close()
+    except:
+        pass
 
     login_cookie=create_cookie_token_access_for_testing(email=settings.cloud_platform_user_for_email_sending)
 
