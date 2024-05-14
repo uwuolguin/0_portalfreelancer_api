@@ -42,3 +42,23 @@ def test_get_all_complaints():
     )
     assert response.status_code == 200
 
+
+def test_post_complaints():
+
+    login_cookie=create_cookie_token_access_for_testing(email=settings.cloud_platform_user_for_email_password_changes)
+
+    client.cookies={"login": login_cookie}
+
+    response = client.post(
+        url="https://apiportalfreelancer.lat/complaints/complaint_post/",
+        
+        headers= {"Accept": "application/json",
+                  "Content-Type": "application/x-www-form-urlencoded"
+                 },
+        data= {'email_sent': 'hola',
+               
+        }
+
+    )
+
+    assert response.status_code == 201
