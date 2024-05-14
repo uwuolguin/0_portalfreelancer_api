@@ -45,7 +45,7 @@ def test_get_all_complaints():
 
 def test_post_complaints():
 
-    login_cookie=create_cookie_token_access_for_testing(email=settings.cloud_platform_user_for_email_password_changes)
+    login_cookie=create_cookie_token_access_for_testing(email=settings.cloud_platform_user_for_email_sending)
 
     client.cookies={"login": login_cookie}
 
