@@ -618,8 +618,8 @@ def contacts_normal(  request: Request,
 
             paginationStateListInt=[eval(i) for i in pagination_state.split(".")]
 
-            context={'request': request, 'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value,'login_role':login_role_value}
+            context={'categories':Categories_List,'skills':Skills_List,'talents':Talents_List,'skillState':skills_state_string,'categoryState':category_state_string,'magic_word':magic_word,'paginationState':paginationStateListInt,'paginationValue':pagination_value,'login_role':login_role_value}
             conn_contacts.close()
-            return templates.TemplateResponse("2_find_talent.html",context)
+            return templates.TemplateResponse(request=request,name="2_find_talent.html",context=context)
         except:
             pass
