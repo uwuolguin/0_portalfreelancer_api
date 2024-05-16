@@ -125,7 +125,7 @@ def test_post_complaints():
             id_talent=cursor.fetchone().get("id")
 
             
-            SQL_STATEMENT='''DELETE FROM public.contacts where created_at = (select max(created_at) from public.contacts) and firm_id = '''+str(id_firm) +''' and talent_id= '''+str(id_talent)+''';'''
+            SQL_STATEMENT='''DELETE FROM public.contacts where created_at = (select max(created_at) from public.contacts where firm_id = '''+str(id_firm) +''' and talent_id= '''+str(id_talent)+''') and firm_id = '''+str(id_firm) +''' and talent_id= '''+str(id_talent)+''';'''
             
             cursor.execute(SQL_STATEMENT)
 

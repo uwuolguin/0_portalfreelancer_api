@@ -68,8 +68,10 @@ def test_get_all_complaints():
 def test_post_complaints():
 
     try:
-        SQL_STATEMENT="DELETE FROM public.complaints where created_at = (select max(created_at) from public.complaints) AND email = '"+settings.cloud_platform_user_for_email_sending+"';"
+        SQL_STATEMENT="DELETE FROM public.complaints where created_at = (select max(created_at) from public.complaints where email ='"+settings.cloud_platform_user_for_email_sending+"') AND email = '"+settings.cloud_platform_user_for_email_sending+"';"
         
+        print(SQL_STATEMENT)
+
         conn_test=getConnection()
         cursor=conn_test.cursor()
 

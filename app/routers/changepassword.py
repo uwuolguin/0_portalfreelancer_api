@@ -284,8 +284,8 @@ async def cp1(request:Request):
 
     while True:
         try:
-            context={'request': request}
-            return templates.TemplateResponse("9_recover_password.html",context)
+            
+            return templates.TemplateResponse(request=request,name="9_recover_password.html")
         except:
             pass
 
@@ -294,7 +294,7 @@ def cp2(request: Request):
 
     while True:
         try:
-            context={'request': request}
-            return templates.TemplateResponse("10_recover_password_p2.html",context)
+            
+            return templates.TemplateResponse(request=request,name="10_recover_password_p2.html")
         except:
             pass
