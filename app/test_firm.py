@@ -188,5 +188,41 @@ def test_post_update_delete_firm():
     assert response_delete.status_code == 204
 
 
+def test_delete_firm_by_admin():
 
+    ###POST
+    
+    response_post = client.post(
+        "https://apiportalfreelancer.lat/firm/firm_post/",
+        
+        headers= {"Accept": "application/json",
+                  "Content-Type": "application/x-www-form-urlencoded"
+                 },
+        data= {'email': 'delete_for_testing_admin@gmail.com',
+               'password':'test',
+               'full_name':'test',
+               'contact_email':'delete_for_testing@gmail.com',
+               'contact_phone':123456789,
+               'email_template_to_send':'test',
+               'linkedin':'https://linkedin.com/',
+               'instagram':'https://instagram.com/',
 
+        }
+
+    )
+    assert response_post.status_code == 201
+
+    try:
+
+            conn_test=getConnection()
+            cursor=conn_test.cursor()
+
+            SQL_STATEMENT_FIRM_ID="SELECT id FROM public.firm where email ='delete_for_testing_admin@gmail.com';" 
+
+            cursor.execute(SQL_STATEMENT_FIRM_ID)
+
+            id_firm=cursor.fetchone().get("id")
+
+            conn_test.close()
+    except:
+            pass
