@@ -401,8 +401,8 @@ def index(request: Request):
 
     while True:
         try:
-            context={'request': request}
-            return templates.TemplateResponse("6_sign_up_firm.html",context)
+
+            return templates.TemplateResponse(request=request,name="6_sign_up_firm.html")
         except:
             time.sleep(1)
             pass
@@ -414,17 +414,17 @@ def delup(request: Request,login: str = Cookie(None)):
         try:
 
             if login==None:
-                    context={'request': request}
-                    return templates.TemplateResponse("4_log_in_from_delupfirm.html",context)
+                    
+                    return templates.TemplateResponse(request=request,name="4_log_in_from_delupfirm.html")
             
             credentials=oath2.decode_access_token(login)
 
             if dict(credentials).get("role") != "firm":
-                    context={'request': request}
-                    return templates.TemplateResponse("4_log_in_from_delupfirm.html",context)
+                    
+                    return templates.TemplateResponse(request=request,name="4_log_in_from_delupfirm.html")
 
-            context={'request': request}
-            return templates.TemplateResponse("8_del_up_firm.html",context)
+            
+            return templates.TemplateResponse(request=request,name="8_del_up_firm.html")
         
         except:
             time.sleep(1)
