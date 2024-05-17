@@ -106,11 +106,44 @@ def test_get_firm_id():
     )
     assert response.status_code == 200
 
+def test_get_firm_email():
 
-# def test_post_changepassword_p1_p2():
+    
+    login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
 
+    client.cookies={"login": login_cookie}
 
+    response = client.get(
+        url="https://apiportalfreelancer.lat/firm/firm_email_validated_2/"+settings.cloud_platform_user_for_email_sending,
         
+        headers= {"Accept": "application/json",
+                 },
+
+    )
+    assert response.status_code == 200
+
+def test_post_update_delete_firm():
+
+    response_post = client.post(
+        "https://apiportalfreelancer.lat/firm/firm_post/",
+        
+        headers= {"Accept": "application/json",
+                  "Content-Type": "application/x-www-form-urlencoded"
+                 },
+        data= {'email': 'delete_for_testing@gmail.com',
+               'password':'test',
+               'full_name':'test',
+               'contact_email':'delete_for_testing@gmail.com',
+               'contact_phone':123456789,
+               'email_template_to_send':'test',
+               'linkedin':'https://linkedin.com/',
+               'instagram':'https://instagram.com/',
+
+
+        }
+
+    )
+    assert response_post.status_code == 201
 #         conn_test=getConnection()
 #         cursor=conn_test.cursor()
         
