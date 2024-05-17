@@ -522,10 +522,10 @@ def index(request: Request):
                 category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
                 Categories_List.append(category_dict)
 
-            context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+            context={'categories':Categories_List,'skills':Skills_List}
 
             conn_talent.close()
-            return templates.TemplateResponse("5_sign_up_talent.html",context)
+            return templates.TemplateResponse(request=request,name="5_sign_up_talent.html",context=context)
         except:
             time.sleep(1)
             pass
@@ -543,18 +543,16 @@ def index_delup(request: Request,login: str = Cookie(None)):
 
 
             if login==None:
-                    context={'request': request}
 
                     conn_talent.close()
-                    return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
+                    return templates.TemplateResponse(request=request,name="4_log_in_from_deluptalent.html")
             
             credentials=oath2.decode_access_token(login)
 
             if dict(credentials).get("role") != "talent":
-                    context={'request': request}
 
                     conn_talent.close()
-                    return templates.TemplateResponse("4_log_in_from_deluptalent.html",context)
+                    return templates.TemplateResponse(request=request,name="4_log_in_from_deluptalent.html")
             
 
 
@@ -586,9 +584,9 @@ def index_delup(request: Request,login: str = Cookie(None)):
                 category_dict={'category':category.get("category"),'category_key':category.get("category").replace(' ','')}
                 Categories_List.append(category_dict)
 
-            context={'request': request, 'categories':Categories_List,'skills':Skills_List}
+            context={'categories':Categories_List,'skills':Skills_List}
             conn_talent.close()
-            return templates.TemplateResponse("7_del_up_talent.html",context)
+            return templates.TemplateResponse(request=request,name="7_del_up_talent.html",context=context)
         
         except:
             time.sleep(1)
