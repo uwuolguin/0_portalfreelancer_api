@@ -226,3 +226,14 @@ def test_delete_firm_by_admin():
             conn_test.close()
     except:
             pass
+    login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
+
+    client.cookies={"login": login_cookie}
+
+    response_delete = client.delete(
+        url="https://apiportalfreelancer.lat/firm/firm_delete_by_admin/id/"+str(id_firm),
+        
+        headers= {"Accept": "*/*",
+                 },
+    )
+    assert response_delete.status_code == 204
