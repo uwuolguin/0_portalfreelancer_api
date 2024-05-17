@@ -124,6 +124,8 @@ def test_get_firm_email():
 
 def test_post_update_delete_firm():
 
+    ###POST
+    
     response_post = client.post(
         "https://apiportalfreelancer.lat/firm/firm_post/",
         
@@ -144,94 +146,47 @@ def test_post_update_delete_firm():
 
     )
     assert response_post.status_code == 201
-#         conn_test=getConnection()
-#         cursor=conn_test.cursor()
+
+    ####PUT
+    
+    login_cookie=create_cookie_token_access_for_testing(email="delete_for_testing@gmail.com")
+
+    print("login cookie: "+login_cookie)
+
+    client.cookies={"login": login_cookie}
+
+    url_input="https://apiportalfreelancer.lat/firm/firm_put/"
+
+    response_put = client.put(
+         
+        url=url_input,
+
+        headers= {"Accept": "application/json",
+                  "Content-Type": "application/x-www-form-urlencoded"
+                 },
+        data= {'password':'test',
+               'full_name':'test_has_changed',
+               'contact_email':'delete_for_testing@gmail.com',
+               'contact_phone':123456789,
+               'email_template_to_send':'test',
+               'linkedin':'https://linkedin.com/',
+               'instagram':'https://instagram.com/',
+
+
+        }
+
+    )
+    assert response_put.status_code == 201
+
+    ######DELETE
+    response_delete = client.delete(
+        url="https://apiportalfreelancer.lat/firm/firm_delete/id/",
         
-#         SQL_STATEMENT="DELETE FROM public.changepassword where created_at = (select max(created_at) from public.changepassword where origin='part1' and origin='part1' and email='"+settings.cloud_platform_user_for_email_sending+"') and origin='part1' and email='"+settings.cloud_platform_user_for_email_sending+"';"
-        
-#         cursor.execute(SQL_STATEMENT)
-
-#         conn_test.commit()
-#         conn_test.close()
-
-        
-
-#         response_p1 = client.post(
-#             "/changepassword/changepassword_part1",
-            
-#             headers= {"Accept": "application/json",
-#                     "Content-Type": "application/x-www-form-urlencoded"
-#                     },
-#             data= {'email': settings.cloud_platform_user_for_email_sending,
+        headers= {"Accept": "*/*",
+                 },
+    )
+    assert response_delete.status_code == 204
 
 
-#             }
-
-#         )
-
-#         try:
-
-#             conn_test=getConnection()
-#             cursor=conn_test.cursor()
-
-#             SQL_STATEMENT_FIRM_PASSWORD="SELECT PASSWORD FROM public.changepassword where created_at = (select max(created_at) from public.changepassword where origin='part1' and origin='part1' and email='"+settings.cloud_platform_user_for_email_sending+"') and origin='part1' and email='"+settings.cloud_platform_user_for_email_sending+"';"
-
-
-#             cursor.execute(SQL_STATEMENT_FIRM_PASSWORD)
-#             password_firm=cursor.fetchone().get("password")
-
-#             conn_test.commit()
-#             conn_test.close()
-        
-        
-#         except:
-#             pass
-
-#         try:
-#             conn_test=getConnection()
-#             cursor=conn_test.cursor()
-            
-#             SQL_STATEMENT='''DELETE FROM public.changepassword where created_at = (select max(created_at) from public.changepassword where origin='part2') and origin='part2' and email='''+"'"+settings.cloud_platform_user_for_email_sending+"'"+''';'''
-            
-#             cursor.execute(SQL_STATEMENT)
-#             conn_test.commit()
-#             conn_test.close()
-#         except:
-#              pass
-        
-
-#         response_p2 = client.post(
-#             "/changepassword/changepassword_part2",
-            
-#             headers= {"Accept": "application/json",
-#                     "Content-Type": "application/x-www-form-urlencoded"
-#                     },
-#             data= {'email': settings.cloud_platform_user_for_email_sending,
-#                    'password':password_firm
-
-
-#             }
-
-#         )
-
-
-#         try:
-#             conn_test=getConnection()
-#             cursor=conn_test.cursor()
-            
-#             password_mod=hash(settings.test_password_api).decode('utf-8')
-
-#             SQL_STATEMENT="UPDATE public.firm SET password = '"+password_mod+"' WHERE email = '"+settings.cloud_platform_user_for_email_sending+"';"
-            
-#             cursor.execute(SQL_STATEMENT)
-
-
-#             conn_test.commit()
-#             conn_test.close()
-#         except:
-#              pass
-        
-#         assert response_p1.status_code == 200
-#         assert response_p2.status_code == 200
 
 

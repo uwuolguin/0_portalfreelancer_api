@@ -73,7 +73,7 @@ def create_cookie_token_access_for_testing(email):
 
                 conn_talent_utils.close()
                 return token
-        if email==settings.cloud_platform_user_for_email_sending:
+        if email==settings.cloud_platform_user_for_email_sending or email=="delete_for_testing@gmail.com":
 
                 id_3=""" SELECT * FROM firm_get_id_by_email('%s');"""
                 cursor.execute(id_3 % (str(email)))
@@ -84,6 +84,8 @@ def create_cookie_token_access_for_testing(email):
 
                 conn_talent_utils.close()
                 return token
+
+
 ##############IMAGE MANAGEMENT LOGIC
 
 def validate_Image(id_var,file_var,endpoint):
