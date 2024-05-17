@@ -61,20 +61,20 @@ def test_get_talent_deluptalent_html():
 
 ####################################### Testing the endpoints in the talent.py file
 
-# def test_get_all_firm():
+def test_get_all_talent():
 
-#     login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
+    login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
 
-#     client.cookies={"login": login_cookie}
+    client.cookies={"login": login_cookie}
 
-#     response = client.get(
-#         url="https://apiportalfreelancer.lat/firm/firm_get_all",
+    response = client.get(
+        url="https://apiportalfreelancer.lat/talent/talent_get_all",
         
-#         headers= {"Accept": "application/json",
-#                  },
+        headers= {"Accept": "application/json",
+                 },
 
-#     )
-#     assert response.status_code == 200
+    )
+    assert response.status_code == 200
 
 # def test_get_firm_id():
 
