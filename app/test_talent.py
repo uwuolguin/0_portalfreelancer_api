@@ -126,7 +126,7 @@ def test_post_update_delete_talent():
 
     os.chdir(settings.picture_directory)
 
-
+    picture=open('example1.png', 'rb')
     response_post = client.post(
         "https://apiportalfreelancer.lat/talent/talent_post/",
         
@@ -147,13 +147,17 @@ def test_post_update_delete_talent():
 
         },
 
-        files={'file': open('example2.png', 'rb')}
+        files={'file': picture}
 
     )
+    
+    picture.close()
 
     os.chdir(settings.normal_directory)
 
     assert response_post.status_code == 201
+
+    
 
 #     ####PUT
     
