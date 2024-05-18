@@ -5,8 +5,7 @@ from app.utils import create_cookie_token_access_for_testing,hash
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
-
-
+import os
 
 def getConnection():
     
@@ -76,76 +75,84 @@ def test_get_all_talent():
     )
     assert response.status_code == 200
 
-# def test_get_firm_id():
+def test_get_talent_id():
 
-#     try:
+    try:
 
-#             conn_test=getConnection()
-#             cursor=conn_test.cursor()
+            conn_test=getConnection()
+            cursor=conn_test.cursor()
 
-#             SQL_STATEMENT_FIRM_ID="SELECT id FROM public.firm where email ='"+settings.cloud_platform_user_for_email_sending+"';" 
+            SQL_STATEMENT_TALENT_ID="SELECT id FROM public.talent where email ='"+settings.cloud_platform_user_for_email_password_changes+"';"   
 
-#             cursor.execute(SQL_STATEMENT_FIRM_ID)
+            cursor.execute(SQL_STATEMENT_TALENT_ID)
+            id_talent=cursor.fetchone().get("id")
 
-#             id_firm=cursor.fetchone().get("id")
+            conn_test.close()
+    except:
+            pass
 
-#             conn_test.close()
-#     except:
-#             pass
+    login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
 
-#     login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
+    client.cookies={"login": login_cookie}
 
-#     client.cookies={"login": login_cookie}
-
-#     response = client.get(
-#         url="https://apiportalfreelancer.lat/firm/firm_get_id/id/"+str(id_firm),
+    response = client.get(
+        url="https://apiportalfreelancer.lat/talent/talent_get_id/id/"+str(id_talent),
         
-#         headers= {"Accept": "application/json",
-#                  },
+        headers= {"Accept": "application/json",
+                 },
 
-#     )
-#     assert response.status_code == 200
+    )
+    assert response.status_code == 200
 
-# def test_get_firm_email():
+def test_get_talent_email():
 
     
-#     login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
+    login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
 
-#     client.cookies={"login": login_cookie}
+    client.cookies={"login": login_cookie}
 
-#     response = client.get(
-#         url="https://apiportalfreelancer.lat/firm/firm_email_validated_2/"+settings.cloud_platform_user_for_email_sending,
+    response = client.get(
+        url="https://apiportalfreelancer.lat/talent/email_validated_2/"+settings.cloud_platform_user_for_email_password_changes,
         
-#         headers= {"Accept": "application/json",
-#                  },
+        headers= {"Accept": "application/json",
+                 },
 
-#     )
-#     assert response.status_code == 200
+    )
+    assert response.status_code == 200
 
-# def test_post_update_delete_firm():
+def test_post_update_delete_talent():
 
-#     ###POST
-    
-#     response_post = client.post(
-#         "https://apiportalfreelancer.lat/firm/firm_post/",
-        
-#         headers= {"Accept": "application/json",
-#                   "Content-Type": "application/x-www-form-urlencoded"
-#                  },
-#         data= {'email': 'delete_for_testing@gmail.com',
-#                'password':'test',
-#                'full_name':'test',
-#                'contact_email':'delete_for_testing@gmail.com',
-#                'contact_phone':123456789,
-#                'email_template_to_send':'test',
-#                'linkedin':'https://linkedin.com/',
-#                'instagram':'https://instagram.com/',
+    ###POST
 
+    os.chdir(settings.picture_directory)
 
-#         }
+    with open("example1.png", "wb") as f:
+        response_post = client.post(
+            "https://apiportalfreelancer.lat/firm/firm_post/",
+            
+            headers= {"Accept": "application/json",
+                    "Content-Type": "multipart/form-data"
+                    },
+            data= {
+                 'email': 'delete_for_testing_talent@gmail.com',
+                'password':'test',
+                'full_name':'test',
+                'profession':'test',
+                'rate':123,
+                'description':'test',
+                'linkedin':'https://linkedin.com/',
+                'github':'https://github.com/',
+                'instagram':'https://instagram.com/',
+                'facebook':'https://facebook.com/',
+                'skills':'test',
+                'categories':'test',
 
-#     )
-#     assert response_post.status_code == 201
+            },
+            files={"file": f
+                   },
+
+        )
+        assert response_post.status_code == 201
 
 #     ####PUT
     
