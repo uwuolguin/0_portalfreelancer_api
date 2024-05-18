@@ -126,33 +126,34 @@ def test_post_update_delete_talent():
 
     os.chdir(settings.picture_directory)
 
-    with open("example1.png", "wb") as f:
-        response_post = client.post(
-            "https://apiportalfreelancer.lat/firm/firm_post/",
-            
-            headers= {"Accept": "application/json",
-                    "Content-Type": "multipart/form-data"
-                    },
-            data= {
-                 'email': 'delete_for_testing_talent@gmail.com',
-                'password':'test',
-                'full_name':'test',
-                'profession':'test',
-                'rate':123,
-                'description':'test',
-                'linkedin':'https://linkedin.com/',
-                'github':'https://github.com/',
-                'instagram':'https://instagram.com/',
-                'facebook':'https://facebook.com/',
-                'skills':'test',
-                'categories':'test',
 
-            },
-            files={"file": f
-                   },
+    response_post = client.post(
+        "https://apiportalfreelancer.lat/talent/talent_post/",
+        
 
-        )
-        assert response_post.status_code == 201
+        data= {
+            'email': 'delete_for_testing_talent@gmail.com',
+            'password':'test',
+            'full_name':'test',
+            'profession':'test',
+            'rate':123,
+            'description':'test',
+            'linkedin':'https://linkedin.com/',
+            'github':'https://github.com/',
+            'instagram':'https://instagram.com/',
+            'facebook':'https://facebook.com/',
+            'skills':'test',
+            'categories':'test',
+
+        },
+
+        files={'file': open('example2.png', 'rb')}
+
+    )
+
+    os.chdir(settings.normal_directory)
+
+    assert response_post.status_code == 201
 
 #     ####PUT
     
