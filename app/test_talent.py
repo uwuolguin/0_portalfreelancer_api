@@ -126,7 +126,8 @@ def test_post_update_delete_talent():
 
     os.chdir(settings.picture_directory)
 
-    picture=open('example1.png', 'rb')
+    picture=open('example2.png', 'rb')
+
     response_post = client.post(
         "https://apiportalfreelancer.lat/talent/talent_post/",
         
