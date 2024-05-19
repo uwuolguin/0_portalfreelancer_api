@@ -62,7 +62,7 @@ def create_cookie_token_access_for_testing(email):
                 return token
 
 
-        if email==settings.cloud_platform_user_for_email_password_changes:
+        if email==settings.cloud_platform_user_for_email_password_changes  or email=="delete_for_testing_talent@gmail.com":
 
                 id_2=""" SELECT * FROM get_id_by_email('%s');"""
                 cursor.execute(id_2 % (str(email)))

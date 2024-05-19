@@ -129,7 +129,7 @@ def test_post_update_delete_talent():
     picture=open('example2.png', 'rb')
 
     response_post = client.post(
-        "https://apiportalfreelancer.lat/talent/talent_post/",
+        "/talent/talent_post/",
         
 
         data= {
@@ -156,8 +156,34 @@ def test_post_update_delete_talent():
 
     os.chdir(settings.normal_directory)
 
-    assert response_post.status_code == 201
+    login_cookie=create_cookie_token_access_for_testing(email="delete_for_testing_talent@gmail.com")
 
+    client.cookies={"login": login_cookie}
+
+    response_put = client.put(
+         
+        "/talent/talent_put/",
+        
+        data= {
+
+            'password':'test',
+            'full_name':'test_talent_changed',
+            'profession':'test',
+            'rate':123,
+            'description':'test',
+            'linkedin':'https://linkedin.com/',
+            'github':'https://github.com/',
+            'instagram':'https://instagram.com/',
+            'facebook':'https://facebook.com/',
+            'skills':'test',
+            'categories':'test',
+
+        },
+
+    )
+
+    assert response_post.status_code == 201
+    assert response_put.status_code == 201
     
 
 #     ####PUT
