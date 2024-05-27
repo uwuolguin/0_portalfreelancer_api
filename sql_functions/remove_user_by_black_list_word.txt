@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION remove_user_by_black_list_word(
+	full_name character varying,
+	profession character varying,
+	description character varying)
+    RETURNS TABLE(blacklistwords_words character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        words
+    FROM
+        blacklistwords
+    WHERE
+   position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(full_name,' ','')))>0 OR position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(description,' ','')))>0  OR position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(profession,' ','')))>0;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION get_by_blacklistword_v2(
+
+word_ VARCHAR
+
+)
+
+     RETURNS TABLE(blacklistwords_words character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	blacklistwords.words
+     FROM
+         blacklistwords
+     WHERE
+         words= word_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

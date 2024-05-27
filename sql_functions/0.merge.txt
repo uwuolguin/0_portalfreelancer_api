@@ -1,0 +1,1153 @@
+CREATE OR REPLACE FUNCTION delete_blacklistemail_v2(
+	email_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM blacklistemail
+WHERE email = email_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_by_blacklistemail_v2(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(blacklistemail_email character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	blacklistemail.email
+     FROM
+         blacklistemail
+     WHERE
+         email= email_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_blacklistemail(
+
+email_ VARCHAR,
+new_email_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE blacklistemail SET email=new_email_
+	WHERE email= email_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_by_blacklistword_v2(
+
+word_ VARCHAR
+
+)
+
+     RETURNS TABLE(blacklistwords_words character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	blacklistwords.words
+     FROM
+         blacklistwords
+     WHERE
+         words= word_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_blacklistword(
+
+word_ VARCHAR,
+new_word_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE blacklistwords SET words=new_word_
+	WHERE words= word_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION delete_blacklistword_v2(
+	word_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM blacklistwords
+WHERE words = word_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_by_category(
+
+category_ VARCHAR
+
+)
+
+     RETURNS TABLE(categories_category character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	categories.category
+     FROM
+         categories
+     WHERE
+         category= CAST (category_  AS VARCHAR );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_category(
+
+category_ VARCHAR,
+new_category_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE categories SET category=new_category_
+	WHERE category= category_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION change_password_get_by_email_origin(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(changepassword_id bigint)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+       changepassword.id
+     FROM
+         changepassword
+     WHERE
+         email=email_
+	 AND
+	 origin= 'part1'
+	 AND
+	 EXTRACT(DAY FROM created_at)= EXTRACT(DAY FROM now())
+	 AND
+	 EXTRACT(MONTH FROM created_at)= EXTRACT(MONTH FROM now())
+	 AND
+	 EXTRACT(YEAR FROM created_at)= EXTRACT(YEAR FROM now())
+	
+	;
+
+ END; $$
+
+LANGUAGE 'plpgsql';
+
+select * from  change_password_get_by_email_origin('acos2014600836@gmail.com');CREATE OR REPLACE FUNCTION change_password_get_by_email_origin_p2(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(changepassword_id bigint)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+       changepassword.id
+     FROM
+         changepassword
+     WHERE
+         email=email_
+	 AND
+	 origin= 'part2'
+	 AND
+	 EXTRACT(DAY FROM created_at)= EXTRACT(DAY FROM now())
+	 AND
+	 EXTRACT(MONTH FROM created_at)= EXTRACT(MONTH FROM now())
+	 AND
+	 EXTRACT(YEAR FROM created_at)= EXTRACT(YEAR FROM now())
+	
+	;
+
+ END; $$
+
+LANGUAGE 'plpgsql';
+
+select * from  change_password_get_by_email_origin_p2('acos2014600836@gmail.com');CREATE OR REPLACE FUNCTION change_password_get_by_email_origin_v22(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(changepassword_id bigint, changepassword_password character varying)
+
+ AS $$
+ BEGIN
+   
+     RETURN QUERY SELECT
+
+       changepassword.id,
+       changepassword.password
+     FROM
+         changepassword
+     WHERE
+         email=email_
+	 AND
+	 origin= 'part1'
+	 AND
+	 EXTRACT(DAY FROM created_at)= EXTRACT(DAY FROM now())
+	 AND
+	 EXTRACT(MONTH FROM created_at)= EXTRACT(MONTH FROM now())
+	 AND
+	 EXTRACT(YEAR FROM created_at)= EXTRACT(YEAR FROM now())
+	
+	;
+
+ END; $$
+
+LANGUAGE 'plpgsql';
+
+select * from  change_password_get_by_email_origin('acos2014600836@gmail.com');CREATE OR REPLACE FUNCTION complaint_attemp_1_day(
+
+	email_ character varying
+
+)
+
+     RETURNS TABLE(records_two_seconds character varying)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+	select email as records_two_seconds
+
+	from
+
+	complaints
+
+	where 
+
+	created_at + interval '1 day' >=NOW() :: TIMESTAMP WITH TIME ZONE
+
+	AND email=email_;
+
+ 	END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION contacts_get_by_id_firm(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(contacts_talent_id bigint, contacts_firm_id bigint, contacts_created_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+       contacts.talent_id,
+       contacts.firm_id,
+       contacts.created_at
+     FROM
+         contacts
+     WHERE
+         firm_id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION contacts_get_by_id_talent(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(contacts_talent_id bigint, contacts_firm_id bigint, contacts_created_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+       contacts.talent_id,
+       contacts.firm_id,
+       contacts.created_at
+     FROM
+         contacts
+     WHERE
+         talent_id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION contacts_get_by_id_talent_firm(
+
+id_talent_ VARCHAR,
+id_firm_ VARCHAR
+
+)
+
+     RETURNS TABLE(contacts_talent_id bigint, contacts_firm_id bigint, contacts_created_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+       contacts.talent_id,
+       contacts.firm_id,
+       contacts.created_at
+     FROM
+         contacts
+     WHERE
+         talent_id= CAST (id_talent_  AS INT )
+	 AND
+         firm_id= CAST (id_firm_  AS INT )
+	;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION number_of_email_received_by_talent_today(
+
+	id_ bigint
+
+)
+
+     RETURNS TABLE(number_of_email_received_by_talent  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(a.talent_id) as number_of_email_received_by_talent
+
+from
+
+(select  talent_id,created_at   from contacts
+
+) 
+
+as a
+where 
+
+EXTRACT(DAY FROM a.created_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM a.created_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM a.created_at)= EXTRACT(YEAR FROM now())
+
+AND a.talent_id=id_
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION number_of_email_sent_by_firm_today(
+
+	id_ bigint
+
+)
+
+     RETURNS TABLE(number_of_email_sent_by_firm  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(a.firm_id) as number_of_email_sent_by_firm
+
+from
+
+(select  firm_id,created_at   from contacts
+
+) 
+
+as a
+where 
+
+EXTRACT(DAY FROM a.created_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM a.created_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM a.created_at)= EXTRACT(YEAR FROM now())
+
+AND a.firm_id=id_
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION number_of_complaint_today(
+
+)
+
+     RETURNS TABLE(number_of_user_today  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(id) as number_of_user_today from complaints
+
+
+where 
+
+EXTRACT(DAY FROM created_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM created_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM created_at)= EXTRACT(YEAR FROM now())
+
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION number_of_email_today(
+
+)
+
+     RETURNS TABLE(number_of_email_today  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(a.firm_id) as number_of_email_today
+
+from
+
+(select firm_id,created_at   from contacts) 
+
+as a
+where 
+
+EXTRACT(DAY FROM a.created_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM a.created_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM a.created_at)= EXTRACT(YEAR FROM now())
+
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION number_of_user_today(
+
+)
+
+     RETURNS TABLE(number_of_user_today  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(a.email) as number_of_user_today 
+
+from
+
+(select email,last_updated_at from talent
+
+union all
+
+select email,last_updated_at from firm) 
+
+as a
+where 
+
+EXTRACT(DAY FROM a.last_updated_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM a.last_updated_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM a.last_updated_at)= EXTRACT(YEAR FROM now())
+
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION delete_category(
+	category_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM categories
+WHERE category = category_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION delete_firm_by_id(
+	id_ bigint)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM firm
+WHERE id = id_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION delete_skill(
+	skill_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM skills
+WHERE skill = skill_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION delete_talent_by_id(
+	id_ bigint)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM talent
+WHERE id = id_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION firm_get_by_id(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(
+		firm_email character varying,
+		firm_full_name character varying,
+		firm_contact_email character varying,
+		firm_contact_phone character varying, 
+		firm_email_template_to_send character varying,
+		firm_linkedin character varying,
+		firm_instagram character varying,
+		firm_created_at timestamp with time zone,
+		firm_last_updated_at timestamp with time zone,
+		firm_last_logged_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+ 	firm.email,
+	firm.full_name,
+	firm.contact_email,
+	firm.contact_phone,
+	firm.email_template_to_send,
+	firm.linkedin ,
+	firm.instagram ,
+	firm.created_at,
+	firm.last_updated_at,
+	firm.last_logged_at
+
+     FROM
+         firm
+     WHERE
+         id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION firm_get_by_id_just_password(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(
+		firm_email character varying,
+		firm_password character varying)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+ 	firm.email,
+	firm.password
+     FROM
+         firm
+     WHERE
+         id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION firm_get_id_by_email(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(firm_id bigint)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        id
+	
+    FROM
+        firm
+    WHERE
+        email= email_ ;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_firm_by_id (
+
+ID_ INT,
+password_  VARCHAR,
+full_name_ VARCHAR,
+contact_email_ VARCHAR,
+contact_phone_ VARCHAR,
+email_template_to_send_ VARCHAR,
+linkedin_ VARCHAR,
+instagram_ VARCHAR
+
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE firm SET 
+	password=password_,
+	full_name=full_name_ ,
+	contact_email=contact_email_,
+	contact_phone =contact_phone_,
+	email_template_to_send=email_template_to_send_,
+	linkedin=linkedin_,
+	instagram=instagram_,
+	last_updated_at=NOW()::timestamp,
+	last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION firm_update_by_id_just_logged_at(
+
+ID_ INT
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE firm SET last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_firm_by_id_only_password (
+
+ID_ INT,
+password_  VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE firm SET 
+	password=password_
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_blacklistemail(
+	email_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO blacklistemail (email) VALUES
+             (email_);
+
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_blacklistwords(
+	words_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO blacklistwords (words) VALUES
+             (words_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_category(category_ character varying)RETURNS VOID AS $$ BEGIN INSERT INTO categories (category) VALUES(category_);
+
+END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_change_password_part_1(
+	email_ character varying,
+	password_ character varying,
+	origin_ character varying
+
+	)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO changepassword (email,password,origin) 
+
+      VALUES
+      (email_,password_,origin_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_change_password_part_2(
+	email_ character varying,
+	origin_ character varying
+
+	)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO changepassword (email,origin) 
+
+      VALUES
+      (email_,origin_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_complaints(
+	email_ character varying,
+	email_sent_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO complaints (email,email_sent) VALUES
+             (email_,email_sent_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_contacts(
+
+	id_talent_ bigint,
+	id_firm_ bigint
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO contacts (talent_id,firm_id) 
+
+      VALUES
+      (id_talent_,id_firm_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_firm(
+	email_ character varying,
+	password_ character varying,
+	full_name_ character varying,
+	contact_email_ character varying,
+	contact_phone_ character varying,
+	email_template_to_send_ character varying,
+	linkedin_ character varying,
+	instagram_ character varying
+	)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO firm (email,password,full_name,contact_email,contact_phone,email_template_to_send,linkedin,instagram) 
+
+      VALUES (email_,
+	password_,
+	full_name_,
+	contact_email_,
+	CAST(contact_phone_ AS VARCHAR),
+	email_template_to_send_,
+	linkedin_ ,
+	instagram_
+	);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_loginattempt(
+	email_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO public."loginAttempt" (email) VALUES
+             (email_);
+
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_skill(
+	skill_ character varying
+	)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO skills (skill) 
+
+      VALUES(
+	skill_
+	);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION insert_talent(
+	email_ character varying,
+	password_ character varying,
+	full_name_ character varying,
+	profession_ character varying,
+	rate_ bigint,
+	description_ character varying,
+	github_ character varying,
+	linkedin_ character varying,
+	instagram_ character varying,
+	facebook_ character varying,
+	skills_ character varying,
+	categories_ character varying)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO talent (email,password,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories) 
+
+      VALUES
+      (email_,password_,full_name_,profession_,rate_,description_,github_,linkedin_,instagram_,facebook_,skills_,categories_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION log_in_attemp_2_seconds(
+
+	email_ character varying
+
+)
+
+     RETURNS TABLE(records_two_seconds character varying)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+	select email as records_two_seconds
+
+	from
+
+	public."loginAttempt"
+
+	where 
+
+	created_at + interval '2 seconds' >=NOW() :: TIMESTAMP WITH TIME ZONE
+
+	AND email=email_;
+
+ 	END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION remove_firm_by_being_in_talent(
+	email_ character varying)
+
+
+    RETURNS TABLE(firm_email character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        email
+    FROM
+        talent
+    WHERE
+        email= email_ ; 
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION remove_talent_by_being_in_firm(
+	email_ character varying)
+
+
+    RETURNS TABLE(firm_email character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        email
+    FROM
+        firm
+    WHERE
+        email= email_ ; 
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION remove_user_by_black_list_email(
+	email_ character varying)
+
+
+    RETURNS TABLE(blacklistemail_email character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        email
+    FROM
+        blacklistemail
+    WHERE
+    position(LOWER(REPLACE(email,' ','')) in LOWER(REPLACE(email_,' ','')))>0  ;
+
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION remove_user_by_black_list_word(
+	full_name character varying,
+	profession character varying,
+	description character varying)
+    RETURNS TABLE(blacklistwords_words character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        words
+    FROM
+        blacklistwords
+    WHERE
+   position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(full_name,' ','')))>0 OR position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(description,' ','')))>0  OR position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(profession,' ','')))>0;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION remove_user_by_black_list_word_v2(
+	full_name character varying,
+	description character varying)
+    RETURNS TABLE(blacklistwords_words character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        words
+    FROM
+        blacklistwords
+    WHERE
+
+   position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(full_name,' ','')))>0 OR position(LOWER(REPLACE(words,' ','')) in LOWER(REPLACE(description,' ','')))>0 ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_by_skill(
+
+skill_ VARCHAR
+
+)
+
+     RETURNS TABLE(skills_skill character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	skills.skill
+     FROM
+         skills
+     WHERE
+         skill= CAST (skill_  AS VARCHAR );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_skill(
+
+skill_ VARCHAR,
+new_skill_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE skills SET skill=new_skill_
+	WHERE skill= skill_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_by_id(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(talent_email character varying, talent_full_name character varying, talent_profession character varying, talent_rate bigint, talent_description character varying, talent_github character varying, talent_linkedin character varying, talent_skills character varying, talent_categories character varying, talent_facebook character varying, talent_instagram character varying, talent_created_at timestamp with time zone, talent_last_updated_at timestamp with time zone, talent_last_logged_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+       talent.email,
+       talent.full_name,
+       talent.profession,
+       talent.rate,
+       talent.description,
+       talent.github,
+       talent.linkedin,
+       talent.skills,
+       talent.categories,
+       talent.facebook,
+       talent.instagram,
+       talent.created_at,
+       talent.last_updated_at,
+       talent.last_logged_at
+     FROM
+         talent
+     WHERE
+         id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_by_id_just_password(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(talent_email character varying, talent_password character varying)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+       talent.email,
+       talent.password
+     FROM
+         talent
+     WHERE
+         id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION get_id_by_email(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(talent_id bigint)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        id
+	
+    FROM
+        talent
+    WHERE
+        email= email_ ;
+
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION talent_update_by_id_just_logged_at(
+
+ID_ INT
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE talent SET last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_talent_by_id_only_password (
+
+ID_ INT,
+password_  VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE talent SET 
+	password=password_
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION UPDATE_by_id (
+
+ID_ INT,
+password_ VARCHAR,
+full_name_ VARCHAR,
+profession_ VARCHAR,
+rate_ INT,
+description_ VARCHAR,
+github_ varchar,
+linkedin_ VARCHAR,
+instagram_ VARCHAR,
+facebook_ VARCHAR ,
+skills_ VARCHAR,
+categories_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE talent SET password=password_,
+	full_name=full_name_ ,
+	profession=profession_,
+	rate=rate_ ,
+	description=description_,
+	github=github_,
+	linkedin=linkedin_,
+	instagram=instagram_,
+	facebook=facebook_,
+	skills=skills_ ,
+	categories=categories_,
+	last_updated_at=NOW()::timestamp,
+	last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';CREATE OR REPLACE FUNCTION update_picture_directory_by_id(
+	picture_directory_ character varying,
+	id_ bigint)
+     RETURNS void
+ AS $$
+ BEGIN
+     
+
+    UPDATE talent
+       SET picture_directory      = picture_directory_
+
+     WHERE id = id_;
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

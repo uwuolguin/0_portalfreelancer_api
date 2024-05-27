@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION delete_skill(
+	skill_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM skills
+WHERE skill = skill_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

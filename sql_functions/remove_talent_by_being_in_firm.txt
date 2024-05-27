@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION remove_talent_by_being_in_firm(
+	email_ character varying)
+
+
+    RETURNS TABLE(firm_email character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        email
+    FROM
+        firm
+    WHERE
+        email= email_ ; 
+
+ END; $$
+
+LANGUAGE 'plpgsql';

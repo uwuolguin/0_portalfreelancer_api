@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION delete_talent_by_id(
+	id_ bigint)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM talent
+WHERE id = id_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION delete_blacklistemail_v2(
+	email_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM blacklistemail
+WHERE email = email_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION talent_update_by_id_just_logged_at(
+
+ID_ INT
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE talent SET last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

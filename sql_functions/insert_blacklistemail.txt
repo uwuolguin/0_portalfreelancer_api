@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION insert_blacklistemail(
+	email_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO blacklistemail (email) VALUES
+             (email_);
+
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

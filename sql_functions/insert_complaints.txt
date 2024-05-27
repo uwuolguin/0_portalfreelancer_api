@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION insert_complaints(
+	email_ character varying,
+	email_sent_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO complaints (email,email_sent) VALUES
+             (email_,email_sent_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

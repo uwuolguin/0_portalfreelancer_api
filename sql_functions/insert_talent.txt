@@ -1,0 +1,27 @@
+CREATE OR REPLACE FUNCTION insert_talent(
+	email_ character varying,
+	password_ character varying,
+	full_name_ character varying,
+	profession_ character varying,
+	rate_ bigint,
+	description_ character varying,
+	github_ character varying,
+	linkedin_ character varying,
+	instagram_ character varying,
+	facebook_ character varying,
+	skills_ character varying,
+	categories_ character varying)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO talent (email,password,full_name,profession,rate,description,github,linkedin,instagram,facebook,skills,categories) 
+
+      VALUES
+      (email_,password_,full_name_,profession_,rate_,description_,github_,linkedin_,instagram_,facebook_,skills_,categories_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

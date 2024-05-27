@@ -1,0 +1,36 @@
+CREATE OR REPLACE FUNCTION UPDATE_by_id (
+
+ID_ INT,
+password_ VARCHAR,
+full_name_ VARCHAR,
+profession_ VARCHAR,
+rate_ INT,
+description_ VARCHAR,
+github_ varchar,
+linkedin_ VARCHAR,
+instagram_ VARCHAR,
+facebook_ VARCHAR ,
+skills_ VARCHAR,
+categories_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE talent SET password=password_,
+	full_name=full_name_ ,
+	profession=profession_,
+	rate=rate_ ,
+	description=description_,
+	github=github_,
+	linkedin=linkedin_,
+	instagram=instagram_,
+	facebook=facebook_,
+	skills=skills_ ,
+	categories=categories_,
+	last_updated_at=NOW()::timestamp,
+	last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

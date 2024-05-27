@@ -1,0 +1,28 @@
+CREATE OR REPLACE FUNCTION log_in_attemp_2_seconds(
+
+	email_ character varying
+
+)
+
+     RETURNS TABLE(records_two_seconds character varying)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+	select email as records_two_seconds
+
+	from
+
+	public."loginAttempt"
+
+	where 
+
+	created_at + interval '2 seconds' >=NOW() :: TIMESTAMP WITH TIME ZONE
+
+	AND email=email_;
+
+ 	END; $$
+
+LANGUAGE 'plpgsql';

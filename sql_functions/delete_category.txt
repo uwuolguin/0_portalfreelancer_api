@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION delete_category(
+	category_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM categories
+WHERE category = category_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

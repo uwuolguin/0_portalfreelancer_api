@@ -1,0 +1,42 @@
+CREATE OR REPLACE FUNCTION firm_get_by_id(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(
+		firm_email character varying,
+		firm_full_name character varying,
+		firm_contact_email character varying,
+		firm_contact_phone character varying, 
+		firm_email_template_to_send character varying,
+		firm_linkedin character varying,
+		firm_instagram character varying,
+		firm_created_at timestamp with time zone,
+		firm_last_updated_at timestamp with time zone,
+		firm_last_logged_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+ 	firm.email,
+	firm.full_name,
+	firm.contact_email,
+	firm.contact_phone,
+	firm.email_template_to_send,
+	firm.linkedin ,
+	firm.instagram ,
+	firm.created_at,
+	firm.last_updated_at,
+	firm.last_logged_at
+
+     FROM
+         firm
+     WHERE
+         id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';

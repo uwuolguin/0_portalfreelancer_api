@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION insert_blacklistwords(
+	words_ character varying)
+
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+      INSERT INTO blacklistwords (words) VALUES
+             (words_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

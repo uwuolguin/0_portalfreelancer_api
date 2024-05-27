@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION get_by_skill(
+
+skill_ VARCHAR
+
+)
+
+     RETURNS TABLE(skills_skill character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	skills.skill
+     FROM
+         skills
+     WHERE
+         skill= CAST (skill_  AS VARCHAR );
+
+ END; $$
+
+LANGUAGE 'plpgsql';

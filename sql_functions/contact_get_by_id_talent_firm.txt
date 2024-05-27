@@ -1,0 +1,28 @@
+CREATE OR REPLACE FUNCTION contacts_get_by_id_talent_firm(
+
+id_talent_ VARCHAR,
+id_firm_ VARCHAR
+
+)
+
+     RETURNS TABLE(contacts_talent_id bigint, contacts_firm_id bigint, contacts_created_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+
+       contacts.talent_id,
+       contacts.firm_id,
+       contacts.created_at
+     FROM
+         contacts
+     WHERE
+         talent_id= CAST (id_talent_  AS INT )
+	 AND
+         firm_id= CAST (id_firm_  AS INT )
+	;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

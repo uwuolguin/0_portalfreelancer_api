@@ -1,0 +1,34 @@
+CREATE OR REPLACE FUNCTION get_by_id(
+
+id_ VARCHAR
+
+)
+
+     RETURNS TABLE(talent_email character varying, talent_full_name character varying, talent_profession character varying, talent_rate bigint, talent_description character varying, talent_github character varying, talent_linkedin character varying, talent_skills character varying, talent_categories character varying, talent_facebook character varying, talent_instagram character varying, talent_created_at timestamp with time zone, talent_last_updated_at timestamp with time zone, talent_last_logged_at timestamp with time zone)
+
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+       talent.email,
+       talent.full_name,
+       talent.profession,
+       talent.rate,
+       talent.description,
+       talent.github,
+       talent.linkedin,
+       talent.skills,
+       talent.categories,
+       talent.facebook,
+       talent.instagram,
+       talent.created_at,
+       talent.last_updated_at,
+       talent.last_logged_at
+     FROM
+         talent
+     WHERE
+         id= CAST (id_  AS INT );
+
+ END; $$
+
+LANGUAGE 'plpgsql';

@@ -1,0 +1,17 @@
+CREATE OR REPLACE FUNCTION update_picture_directory_by_id(
+	picture_directory_ character varying,
+	id_ bigint)
+     RETURNS void
+ AS $$
+ BEGIN
+     
+
+    UPDATE talent
+       SET picture_directory      = picture_directory_
+
+     WHERE id = id_;
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

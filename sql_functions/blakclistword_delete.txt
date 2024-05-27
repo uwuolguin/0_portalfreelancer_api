@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION delete_blacklistword_v2(
+	word_ VARCHAR)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM blacklistwords
+WHERE words = word_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION firm_get_id_by_email(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(firm_id bigint)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        id
+	
+    FROM
+        firm
+    WHERE
+        email= email_ ;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

@@ -1,0 +1,35 @@
+CREATE OR REPLACE FUNCTION number_of_user_today(
+
+)
+
+     RETURNS TABLE(number_of_user_today  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(a.email) as number_of_user_today 
+
+from
+
+(select email,last_updated_at from talent
+
+union all
+
+select email,last_updated_at from firm) 
+
+as a
+where 
+
+EXTRACT(DAY FROM a.last_updated_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM a.last_updated_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM a.last_updated_at)= EXTRACT(YEAR FROM now())
+
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

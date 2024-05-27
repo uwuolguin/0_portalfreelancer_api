@@ -1,0 +1,28 @@
+CREATE OR REPLACE FUNCTION complaint_attemp_1_day(
+
+	email_ character varying
+
+)
+
+     RETURNS TABLE(records_two_seconds character varying)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+	select email as records_two_seconds
+
+	from
+
+	complaints
+
+	where 
+
+	created_at + interval '1 day' >=NOW() :: TIMESTAMP WITH TIME ZONE
+
+	AND email=email_;
+
+ 	END; $$
+
+LANGUAGE 'plpgsql';

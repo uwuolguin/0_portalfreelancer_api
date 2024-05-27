@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION update_category(
+
+category_ VARCHAR,
+new_category_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE categories SET category=new_category_
+	WHERE category= category_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

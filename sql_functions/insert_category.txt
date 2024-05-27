@@ -1,0 +1,5 @@
+CREATE OR REPLACE FUNCTION insert_category(category_ character varying)RETURNS VOID AS $$ BEGIN INSERT INTO categories (category) VALUES(category_);
+
+END; $$
+
+LANGUAGE 'plpgsql';

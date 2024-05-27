@@ -1,0 +1,30 @@
+CREATE OR REPLACE FUNCTION update_firm_by_id (
+
+ID_ INT,
+password_  VARCHAR,
+full_name_ VARCHAR,
+contact_email_ VARCHAR,
+contact_phone_ VARCHAR,
+email_template_to_send_ VARCHAR,
+linkedin_ VARCHAR,
+instagram_ VARCHAR
+
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE firm SET 
+	password=password_,
+	full_name=full_name_ ,
+	contact_email=contact_email_,
+	contact_phone =contact_phone_,
+	email_template_to_send=email_template_to_send_,
+	linkedin=linkedin_,
+	instagram=instagram_,
+	last_updated_at=NOW()::timestamp,
+	last_logged_at=NOW()::timestamp
+	WHERE id= id_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

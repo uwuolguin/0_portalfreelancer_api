@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION update_blacklistemail(
+
+email_ VARCHAR,
+new_email_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE blacklistemail SET email=new_email_
+	WHERE email= email_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

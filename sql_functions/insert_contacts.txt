@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION insert_contacts(
+
+	id_talent_ bigint,
+	id_firm_ bigint
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO contacts (talent_id,firm_id) 
+
+      VALUES
+      (id_talent_,id_firm_);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

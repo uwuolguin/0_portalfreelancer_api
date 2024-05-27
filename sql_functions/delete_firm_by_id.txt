@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION delete_firm_by_id(
+	id_ bigint)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+DELETE FROM firm
+WHERE id = id_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

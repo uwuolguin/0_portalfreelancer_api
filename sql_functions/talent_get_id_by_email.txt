@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION get_id_by_email(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(talent_id bigint)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        id
+	
+    FROM
+        talent
+    WHERE
+        email= email_ ;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

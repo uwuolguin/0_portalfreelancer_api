@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION insert_skill(
+	skill_ character varying
+	)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO skills (skill) 
+
+      VALUES(
+	skill_
+	);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

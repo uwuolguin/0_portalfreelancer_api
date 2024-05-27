@@ -1,0 +1,27 @@
+CREATE OR REPLACE FUNCTION number_of_complaint_today(
+
+)
+
+     RETURNS TABLE(number_of_user_today  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(id) as number_of_user_today from complaints
+
+
+where 
+
+EXTRACT(DAY FROM created_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM created_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM created_at)= EXTRACT(YEAR FROM now())
+
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

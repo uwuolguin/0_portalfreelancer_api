@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION get_by_blacklistemail_v2(
+
+email_ VARCHAR
+
+)
+
+     RETURNS TABLE(blacklistemail_email character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	blacklistemail.email
+     FROM
+         blacklistemail
+     WHERE
+         email= email_;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

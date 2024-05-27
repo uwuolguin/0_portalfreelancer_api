@@ -1,0 +1,36 @@
+CREATE OR REPLACE FUNCTION number_of_email_received_by_talent_today(
+
+	id_ bigint
+
+)
+
+     RETURNS TABLE(number_of_email_received_by_talent  BIGINT)
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY 
+
+select count(a.talent_id) as number_of_email_received_by_talent
+
+from
+
+(select  talent_id,created_at   from contacts
+
+) 
+
+as a
+where 
+
+EXTRACT(DAY FROM a.created_at)= EXTRACT(DAY FROM now())
+AND
+EXTRACT(MONTH FROM a.created_at)= EXTRACT(MONTH FROM now())
+AND
+EXTRACT(YEAR FROM a.created_at)= EXTRACT(YEAR FROM now())
+
+AND a.talent_id=id_
+;
+
+ END; $$
+
+LANGUAGE 'plpgsql';

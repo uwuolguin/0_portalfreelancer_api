@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION update_blacklistword(
+
+word_ VARCHAR,
+new_word_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE blacklistwords SET words=new_word_
+	WHERE words= word_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

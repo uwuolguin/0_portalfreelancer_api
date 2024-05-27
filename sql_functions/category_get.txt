@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION get_by_category(
+
+category_ VARCHAR
+
+)
+
+     RETURNS TABLE(categories_category character varying )
+ AS $$
+ BEGIN
+     
+     RETURN QUERY SELECT
+	categories.category
+     FROM
+         categories
+     WHERE
+         category= CAST (category_  AS VARCHAR );
+
+ END; $$
+
+LANGUAGE 'plpgsql';

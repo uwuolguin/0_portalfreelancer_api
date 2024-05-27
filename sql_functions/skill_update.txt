@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION update_skill(
+
+skill_ VARCHAR,
+new_skill_ VARCHAR
+)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+	UPDATE skills SET skill=new_skill_
+	WHERE skill= skill_ ;
+ END; $$
+
+LANGUAGE 'plpgsql';

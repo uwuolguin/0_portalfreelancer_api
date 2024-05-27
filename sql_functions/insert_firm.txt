@@ -1,0 +1,31 @@
+CREATE OR REPLACE FUNCTION insert_firm(
+	email_ character varying,
+	password_ character varying,
+	full_name_ character varying,
+	contact_email_ character varying,
+	contact_phone_ character varying,
+	email_template_to_send_ character varying,
+	linkedin_ character varying,
+	instagram_ character varying
+	)
+     RETURNS VOID
+ AS $$
+ BEGIN
+     
+
+      INSERT INTO firm (email,password,full_name,contact_email,contact_phone,email_template_to_send,linkedin,instagram) 
+
+      VALUES (email_,
+	password_,
+	full_name_,
+	contact_email_,
+	CAST(contact_phone_ AS VARCHAR),
+	email_template_to_send_,
+	linkedin_ ,
+	instagram_
+	);
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';

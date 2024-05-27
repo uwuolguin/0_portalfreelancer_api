@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION remove_user_by_black_list_email(
+	email_ character varying)
+
+
+    RETURNS TABLE(blacklistemail_email character varying) 
+
+ AS $$
+ BEGIN
+     
+    RETURN QUERY SELECT
+        email
+    FROM
+        blacklistemail
+    WHERE
+    position(LOWER(REPLACE(email,' ','')) in LOWER(REPLACE(email_,' ','')))>0  ;
+
+
+
+ END; $$
+
+LANGUAGE 'plpgsql';
