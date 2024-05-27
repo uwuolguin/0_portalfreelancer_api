@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     database_password: str
     database_name: str
     database_username: str
+    postgres_password: str
+    postgres_db: str
     secret_key: str
     algorithm: str
     access_token_expire_minutes: int
