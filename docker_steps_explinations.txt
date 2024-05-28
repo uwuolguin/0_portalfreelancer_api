@@ -1,0 +1,56 @@
+		
+		LAUNCH DOCKER DESKTOP!!!!!!!!!!!!
+
+
+0) if the images are created the use just the step 1
+
+1) docker-compose up -d  (With this you start the container with the images it has)
+
+2) docker ps -a  (look at the containers that are running)
+
+3) docker logs [name of container, example:2_dev_enviroment_backend_fastapi-fastapi-1 ]
+
+4) docker-compose down (if you want to shut down the container)
+
+5) use this to see the API docs: http://127.0.0.1:8000/docs
+
+6) access fastapi container console (From VS Code) with: docker exec -it 2_dev_enviroment_backend_fastapi-fastapi-1 bash
+
+7) run the command: alembic upgrade head
+
+8) access postgres container console (From VS Code) with: docker exec -it 2_dev_enviroment_backend_fastapi-postgres-1 bash
+
+9) 
+	-run the command: su -l postgres 
+	-run the command: psql -U postgres,
+	-run the command: \connect porfree;
+
+10) copy and paste all functions in 0.merge.txt
+
+11) copy and paste the following:
+
+INSERT INTO categories (category) VALUES ('AI Services');
+INSERT INTO categories (category) VALUES ('Design and Creative');
+INSERT INTO categories (category) VALUES ('Development and IT');
+INSERT INTO categories (category) VALUES ('Engineering and Architecture');
+INSERT INTO categories (category) VALUES ('Finance and Accounting');
+INSERT INTO categories (category) VALUES ('Other');
+INSERT INTO categories (category) VALUES ('Sales and Marketing');
+INSERT INTO skills (skill) VALUES ('Bootstrap');
+INSERT INTO skills (skill) VALUES ('Javascript');
+INSERT INTO skills (skill) VALUES ('Laravel');
+INSERT INTO skills (skill) VALUES ('Other');
+INSERT INTO skills (skill) VALUES ('PHP');
+INSERT INTO skills (skill) VALUES ('Python');
+INSERT INTO skills (skill) VALUES ('Wordpress');
+INSERT INTO blacklistemail (email) VALUES ('nigger@gmail.com');
+INSERT INTO blacklistwords (words) VALUES ('megustaelpeneconquesillo');
+
+
+12) using the docs (http://127.0.0.1:8000/docs) , create a firm user for the email in the "CLOUD_PLATFORM_USER_FOR_EMAIL_SENDING" variable and 
+a talent user for the email in the "CLOUD_PLATFORM_USER_FOR_EMAIL_PASSWORD_CHANGES" variable.
+
+13) using the docs (http://127.0.0.1:8000/docs) , use the firm user to contact the talent user and create a complaint.
+
+14) docker exec -it 2_dev_enviroment_backend_fastapi-fastapi-1 bash y pytest
+
