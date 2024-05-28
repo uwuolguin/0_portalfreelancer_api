@@ -58,7 +58,13 @@ def test_post_test_delete_webhook_tableau():
     client.cookies={"login": login_cookie}
 
     response = client.post(
-        url="https://apiportalfreelancer.lat/tableau/tableau_create_webhook/?webhookname=delete_test30&webhookUrl=https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/&event=ViewDeleted",
+        #development
+
+        # url="/tableau/tableau_create_webhook/?webhookname=delete_test30&webhookUrl=http://127.0.0.1:8000/tableau/tableau_webhook_fail_refresh_destination/&event=ViewDeleted",
+
+        #production
+
+        url="/tableau/tableau_create_webhook/?webhookname=delete_test30&webhookUrl=https://apiportalfreelancer.lat/tableau/tableau_webhook_fail_refresh_destination/&event=ViewDeleted",
         
         headers= {"Accept": "application/json",
 
@@ -69,7 +75,7 @@ def test_post_test_delete_webhook_tableau():
 
 
     response_test = client.get(
-        url="https://apiportalfreelancer.lat/tableau/tableau_test_webhook/?webhookId="+id_,
+        url="/tableau/tableau_test_webhook/?webhookId="+id_,
         
         headers= {"Accept": "application/json",
 
@@ -77,7 +83,7 @@ def test_post_test_delete_webhook_tableau():
 
     )
 
-    url_delete="https://apiportalfreelancer.lat/tableau/tableau_delete_webhook/?webhookId="+id_
+    url_delete="/tableau/tableau_delete_webhook/?webhookId="+id_
 
     response_delete = client.delete(
         url=url_delete,
