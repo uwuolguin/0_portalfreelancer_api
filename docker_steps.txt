@@ -2,7 +2,7 @@
 		LAUNCH DOCKER DESKTOP!!!!!!!!!!!!
 
 
-0) if the images are created the use just the step 1
+0) if the images are created the use just the step 1 and step 14
 
 1) docker-compose up -d  (With this you start the container with the images it has)
 
