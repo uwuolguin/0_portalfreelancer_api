@@ -33,7 +33,7 @@ def test_get_talent_signupfirm_html():
 
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/talent/signUpTalent/",
+        url="/talent/signUpTalent/",
         
         headers= {"Accept": "application/json",
                  },
@@ -49,7 +49,7 @@ def test_get_talent_deluptalent_html():
         client.cookies={"login": login_cookie}
 
         response = client.get(
-        url="https://apiportalfreelancer.lat/talent/delUpTalent/",
+        url="/talent/delUpTalent/",
             
             headers= {"Accept": "application/json",
                     },
@@ -67,7 +67,7 @@ def test_get_all_talent():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/talent/talent_get_all",
+        url="/talent/talent_get_all",
         
         headers= {"Accept": "application/json",
                  },
@@ -96,7 +96,7 @@ def test_get_talent_id():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/talent/talent_get_id/id/"+str(id_talent),
+        url="/talent/talent_get_id/id/"+str(id_talent),
         
         headers= {"Accept": "application/json",
                  },
@@ -112,7 +112,7 @@ def test_get_talent_email():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/talent/email_validated_2/"+settings.cloud_platform_user_for_email_password_changes,
+        url="/talent/email_validated_2/"+settings.cloud_platform_user_for_email_password_changes,
         
         headers= {"Accept": "application/json",
                  },
@@ -187,7 +187,7 @@ def test_post_update_delete_talent():
 
     ######DELETE
     response_delete = client.delete(
-        url="https://apiportalfreelancer.lat/talent/talent_delete/id/",
+        url="/talent/talent_delete/id/",
         
         headers= {"Accept": "*/*",
                  },

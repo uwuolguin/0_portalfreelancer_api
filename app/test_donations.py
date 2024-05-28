@@ -17,7 +17,7 @@ def test_get_donations_html():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/donations/donations_html/",
+        url="/donations/donations_html/",
         
         headers= {"Accept": "application/json",
                  },

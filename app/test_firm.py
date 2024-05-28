@@ -34,7 +34,7 @@ def test_get_firm_signupfirm_html():
 
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/firm/signUpFirm/",
+        url="/firm/signUpFirm/",
         
         headers= {"Accept": "application/json",
                  },
@@ -50,7 +50,7 @@ def test_get_firm_delupfirm_html():
         client.cookies={"login": login_cookie}
 
         response = client.get(
-        url="https://apiportalfreelancer.lat/firm/delUpFirm/",
+        url="/firm/delUpFirm/",
             
             headers= {"Accept": "application/json",
                     },
@@ -68,7 +68,7 @@ def test_get_all_firm():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/firm/firm_get_all",
+        url="/firm/firm_get_all",
         
         headers= {"Accept": "application/json",
                  },
@@ -98,7 +98,7 @@ def test_get_firm_id():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/firm/firm_get_id/id/"+str(id_firm),
+        url="/firm/firm_get_id/id/"+str(id_firm),
         
         headers= {"Accept": "application/json",
                  },
@@ -114,7 +114,7 @@ def test_get_firm_email():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/firm/firm_email_validated_2/"+settings.cloud_platform_user_for_email_sending,
+        url="/firm/firm_email_validated_2/"+settings.cloud_platform_user_for_email_sending,
         
         headers= {"Accept": "application/json",
                  },
@@ -127,7 +127,7 @@ def test_post_update_delete_firm():
     ###POST
     
     response_post = client.post(
-        "https://apiportalfreelancer.lat/firm/firm_post/",
+        "/firm/firm_post/",
         
         headers= {"Accept": "application/json",
                   "Content-Type": "application/x-www-form-urlencoded"
@@ -155,7 +155,7 @@ def test_post_update_delete_firm():
 
     client.cookies={"login": login_cookie}
 
-    url_input="https://apiportalfreelancer.lat/firm/firm_put/"
+    url_input="/firm/firm_put/"
 
     response_put = client.put(
          
@@ -180,7 +180,7 @@ def test_post_update_delete_firm():
 
     ######DELETE
     response_delete = client.delete(
-        url="https://apiportalfreelancer.lat/firm/firm_delete/id/",
+        url="/firm/firm_delete/id/",
         
         headers= {"Accept": "*/*",
                  },
@@ -193,7 +193,7 @@ def test_delete_firm_by_admin():
     ###POST
     
     response_post = client.post(
-        "https://apiportalfreelancer.lat/firm/firm_post/",
+        "/firm/firm_post/",
         
         headers= {"Accept": "application/json",
                   "Content-Type": "application/x-www-form-urlencoded"
@@ -231,7 +231,7 @@ def test_delete_firm_by_admin():
     client.cookies={"login": login_cookie}
 
     response_delete = client.delete(
-        url="https://apiportalfreelancer.lat/firm/firm_delete_by_admin/id/"+str(id_firm),
+        url="/firm/firm_delete_by_admin/id/"+str(id_firm),
         
         headers= {"Accept": "*/*",
                  },

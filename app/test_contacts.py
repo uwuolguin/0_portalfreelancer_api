@@ -37,7 +37,7 @@ def test_get_contacts_html():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/contacts/contacts_normal/",
+        url="/contacts/contacts_normal/",
         
         headers= {"Accept": "application/json",
                  },
@@ -54,7 +54,7 @@ def test_get_all_contacts():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/contacts/contacts_get_all",
+        url="/contacts/contacts_get_all",
         
         headers= {"Accept": "application/json",
                  },
@@ -69,7 +69,7 @@ def test_get_contacts_firm_id():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/contacts/contact_get_id/id_firm/17",
+        url="/contacts/contact_get_id/id_firm/17",
         
         headers= {"Accept": "application/json",
                  },
@@ -85,7 +85,7 @@ def test_get_contacts_talent_id():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/contacts/contact_get_id/id_talent/39",
+        url="/contacts/contact_get_id/id_talent/39",
         
         headers= {"Accept": "application/json",
                  },
@@ -100,7 +100,7 @@ def test_get_contacts_talent_firm_id():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/contacts/contact_get_id/id_talent_firm/39/17",
+        url="/contacts/contact_get_id/id_talent_firm/39/17",
         
         headers= {"Accept": "application/json",
                  },
@@ -141,7 +141,7 @@ def test_post_complaints():
         client.cookies={"login": login_cookie}
 
         response = client.post(
-            url="https://apiportalfreelancer.lat/contacts/contacts/post/"+str(id_talent),
+            url="/contacts/contacts/post/"+str(id_talent),
             
             headers= {"Accept": "application/json",
                     },

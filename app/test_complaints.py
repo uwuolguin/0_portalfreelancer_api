@@ -39,7 +39,7 @@ def test_get_complaints_html():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/complaints/complaints_html/",
+        url="/complaints/complaints_html/",
         
         headers= {"Accept": "application/json",
                  },
@@ -56,7 +56,7 @@ def test_get_all_complaints():
     client.cookies={"login": login_cookie}
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/complaints/complaints_get_all",
+        url="/complaints/complaints_get_all",
         
         headers= {"Accept": "application/json",
                  },
@@ -87,7 +87,7 @@ def test_post_complaints():
     client.cookies={"login": login_cookie}
 
     response = client.post(
-        url="https://apiportalfreelancer.lat/complaints/complaint_post/",
+        url="/complaints/complaint_post/",
         
         headers= {"Accept": "application/json",
                   "Content-Type": "application/x-www-form-urlencoded"

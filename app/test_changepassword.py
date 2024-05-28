@@ -34,7 +34,7 @@ def test_get_changepassword_p1_html():
 
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/changepassword/changePasswordP1/",
+        url="/changepassword/changePasswordP1/",
         
         headers= {"Accept": "application/json",
                  },
@@ -46,7 +46,7 @@ def test_get_changepassword_p2_html():
 
 
     response = client.get(
-        url="https://apiportalfreelancer.lat/changepassword/changePasswordP2/",
+        url="/changepassword/changePasswordP2/",
         
         headers= {"Accept": "application/json",
                  },
