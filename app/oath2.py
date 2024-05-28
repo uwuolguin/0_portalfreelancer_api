@@ -1,5 +1,6 @@
 from fastapi import  status, HTTPException
-from jose import JWTError, jwt
+import jwt
+from jwt.exceptions import InvalidTokenError
 from datetime import datetime, timedelta
 from .config import settings
 from . import schemas
@@ -20,7 +21,7 @@ def decode_access_token(token:str):
 
     try:
         payload=jwt.decode(token,settings.secret_key,settings.algorithm)
-    except JWTError:
+    except InvalidTokenError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
     
     if payload.get("role")== 'talent':
