@@ -6,16 +6,14 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./:/usr/src/app:ro
+      - ./:/usr/src/app
 
     env_file:
       - ./.env
   
   postgres:
 
-    image: postgres
-    restart: always
-    
+    image: postgres    
     volumes:
      - type: tmpfs
        target: /dev/shm
