@@ -25,7 +25,7 @@
 	-run the command: psql -U postgres,
 	-run the command: \connect porfree;
 
-10) copy and paste all functions in 0.merge.txt
+10) copy and paste all functions in 0.merge.txt in the sql_functions file.
 
 11) copy and paste the following:
 
