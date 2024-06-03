@@ -11,3 +11,11 @@
 	-cd /mnt/c/Users/acos2/Desktop/Portal_Freelancer_1.0.0/2_dev_enviroment_backend_fastapi
 	-./bash_for_running_dev_env_and_pytest.sh
 
+3) Update the production enviroment:
+	
+	-open cmd
+	-use ssh caos@.......
+	-cd app/src
+	-./bash_for_updating_prod_env.sh
+	-sudo systemctl restart api.service
+
