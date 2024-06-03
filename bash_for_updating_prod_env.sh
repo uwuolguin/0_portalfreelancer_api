@@ -1,1 +1,1 @@
-cd app/src;
+cd /home/caos/app/src;
