@@ -1,0 +1,13 @@
+1) Deploy developer enviroment:
+	
+	-open WSL
+	-cd /mnt/c/Users/acos2/Desktop/Portal_Freelancer_1.0.0/2_dev_enviroment_backend_fastapi
+	-./bash_for_running_dev_env.sh
+	-go to http://127.0.0.1:8000/docs
+
+2) Deploy developer enviroment and run tests:
+	
+	-open WSL
+	-cd /mnt/c/Users/acos2/Desktop/Portal_Freelancer_1.0.0/2_dev_enviroment_backend_fastapi
+	-./bash_for_running_dev_env_and_pytest.sh
+

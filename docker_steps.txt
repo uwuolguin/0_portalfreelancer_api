@@ -52,5 +52,5 @@ a talent user for the email in the "CLOUD_PLATFORM_USER_FOR_EMAIL_PASSWORD_CHANG
 
 13) using the docs (http://127.0.0.1:8000/docs) , use the firm user to contact the talent user and create a complaint.
 
-14) docker exec -it 2_dev_enviroment_backend_fastapi-fastapi-1 bash and pytest
+14) docker exec -it 2_dev_enviroment_backend_fastapi-fastapi-1 bash -c pytest
 

@@ -1,0 +1,1 @@
+cd /mnt/c/'Program Files'/Docker/Docker;./DockerDesktop.exe;sleep 8;cd /mnt/c/Users/acos2/Desktop/Portal_Freelancer_1.0.0/2_dev_enviroment_backend_fastapi;docker-compose up -d;sleep 2;
