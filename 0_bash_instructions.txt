@@ -16,6 +16,6 @@
 	-open cmd
 	-use ssh caos@.......
 	-cd app/src
-	-./bash_for_updating_prod_env.sh
+	-./bash_for_updating_prod_env.sh (chmod +x bash_for_updating_prod_env.sh)
 	-sudo systemctl restart api.service
 
