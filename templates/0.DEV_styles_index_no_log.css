@@ -174,13 +174,13 @@ textarea {
 
 .div_nav_7 {
 
-    height:0.05rem;
+    height:30px;
     background-color: rgb(246, 248, 246);
     display: inline-block;
     align-items: baseline;
     width: 100%;
-    padding-top: 3vh;
-    padding-bottom: 7vh;
+    padding-top: 30px;
+    padding-bottom: 60px;
     min-width: 600px;
 }
 
