@@ -6,7 +6,10 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import pandas
+import os
 from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook,tableauListWebhook,tableauDeleteWebhook,tableauTestWebhook
+
 
 templates= Jinja2Templates(directory="./templates")
 
@@ -208,3 +211,45 @@ def tableau_list_webhooks(request: Request,login: str = Cookie(None)):
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
+
+
+@router.post('/tableau_cars_from_excel/',status_code=status.HTTP_201_CREATED)
+def tableau_create_cars_from_excel(login: str = Cookie(None)):
+
+    conn_tableau=getConnection()
+    cursor=conn_tableau.cursor()
+
+    if login==None:
+        conn_tableau.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "You need to be logged in to use this feature")
+    
+    credentials=oath2.decode_access_token(login)
+
+    if dict(credentials).get("role") != "superadmin":
+        conn_tableau.close()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
+    
+    car_excel_df=pandas.read_excel(io="./the_best-selling_cars_of_2024.xlsx")
+
+    car_excel_df.to_sql(
+
+        name="test", # table name
+        con=engine,  # engine
+        if_exists="append", #  If the table already exists, append
+        index=False # no index
+
+    )
+    # counter=cursor.fetchone()
+    
+    # if counter.get("counter")<3:
+
+    #     send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
+        
+    #     cursor.execute(""" INSERT INTO public.tableau_failed_refreshed (tableau_url) VALUES ('failed_refreshed_webhook'); """)
+
+    #     conn_tableau.commit()
+
+    
+    # conn_tableau.close()
+    # return status.HTTP_201_CREATED
