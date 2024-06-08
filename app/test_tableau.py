@@ -97,4 +97,17 @@ def test_post_test_delete_webhook_tableau():
     assert response_test.status_code == 200
     assert response_delete.status_code == 204
 
+def test_create_cars_table_from_xlsx():
+
+    login_cookie=create_cookie_token_access_for_testing(email=settings.superadmin_email)
+
+    client.cookies={"login": login_cookie}
+
+    response = client.get(
+
+        "/tableau/tableau_cars_from_excel/",
+        
+    )
+    assert response.status_code == 200
+
 
