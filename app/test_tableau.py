@@ -103,11 +103,11 @@ def test_create_cars_table_from_xlsx():
 
     client.cookies={"login": login_cookie}
 
-    response = client.get(
+    response = client.post(
 
         "/tableau/tableau_cars_from_excel/",
         
     )
-    assert response.status_code == 200
+    assert response.status_code == 201
 
 
