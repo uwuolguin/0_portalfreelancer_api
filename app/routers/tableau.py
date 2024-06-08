@@ -7,7 +7,7 @@ from fastapi.templating import Jinja2Templates
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import pandas
-import os
+from sqlalchemy import create_engine,URL
 from ..utils import tableauAuthentification,tableauAllDatasources,send_email_to_admin,tableauCreateWebhook,tableauListWebhook,tableauDeleteWebhook,tableauTestWebhook
 
 
@@ -230,13 +230,25 @@ def tableau_create_cars_from_excel(login: str = Cookie(None)):
         conn_tableau.close()
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
+    ##############################################
+    url_object = URL.create(
+    "postgresql+psycopg2",
+    username=settings.database_username,
+    password=settings.database_password, 
+    host=settings.database_hostname,
+    database=settings.database_name,
+    )
+
+    engine = create_engine(url_object)
+    #####################################################
+
     car_excel_df=pandas.read_excel(io="./the_best-selling_cars_of_2024.xlsx")
 
     car_excel_df.to_sql(
 
-        name="test", # table name
+        name="cars_from_excel", # table name
         con=engine,  # engine
-        if_exists="append", #  If the table already exists, append
+        if_exists="replace", #  If the table already exists, append
         index=False # no index
 
     )
