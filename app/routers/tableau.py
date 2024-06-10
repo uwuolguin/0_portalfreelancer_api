@@ -269,8 +269,6 @@ def tableau_extension_html(request: Request,login: str = Cookie(None)):
                     login_role_value="firm"
                 else:
                     login_role_value="talent"
-
-
             except:
                 login_role_value="None"
                 pass
