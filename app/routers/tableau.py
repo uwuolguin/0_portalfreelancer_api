@@ -212,7 +212,7 @@ def tableau_list_webhooks(request: Request,login: str = Cookie(None)):
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= "BAD CREDENTIALS")
     
-
+################# TABLEAU EXTENSION API ##########################################
 
 @router.post('/tableau_cars_from_excel/',status_code=status.HTTP_201_CREATED)
 def tableau_create_cars_from_excel(login: str = Cookie(None)):
@@ -252,16 +252,36 @@ def tableau_create_cars_from_excel(login: str = Cookie(None)):
         index=False # no index
 
     )
-    # counter=cursor.fetchone()
-    
-    # if counter.get("counter")<3:
 
-    #     send_email_to_admin('refresh of extraction failed'+' datasourceName='+resource_name)
-        
-    #     cursor.execute(""" INSERT INTO public.tableau_failed_refreshed (tableau_url) VALUES ('failed_refreshed_webhook'); """)
 
-    #     conn_tableau.commit()
+@router.get('/tableau_extension_api_html',response_class=HTMLResponse)
+def tableau_extension_html(request: Request,login: str = Cookie(None)):
 
-    
-    # conn_tableau.close()
-    # return status.HTTP_201_CREATED
+    while True:
+
+        try:
+            try:
+                credentials=oath2.decode_access_token(login)
+
+                if dict(credentials).get("role") == "superadmin":
+                    login_role_value="superadmin"
+                elif dict(credentials).get("role") == "firm":
+                    login_role_value="firm"
+                else:
+                    login_role_value="talent"
+
+
+            except:
+                login_role_value="None"
+                pass
+
+            if login_role_value=="superadmin":
+            
+                return templates.TemplateResponse(request=request,name="16_tableau_extension_demo.html")
+            
+            else:
+
+                return templates.TemplateResponse(request=request,name="4_log_in.html")
+        except:
+            time.sleep(1)
+            pass
