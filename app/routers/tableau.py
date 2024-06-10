@@ -279,7 +279,7 @@ def tableau_extension_html(request: Request,login: str = Cookie(None)):
             
             else:
 
-                return templates.TemplateResponse(request=request,name="4_log_in.html")
+                return templates.TemplateResponse(request=request,name="4_log_in_extension_api.html")
         except:
             time.sleep(1)
             pass
