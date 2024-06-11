@@ -62,7 +62,7 @@ async function postLogIn() {
 
 
 
-  post_succesful_visible_2(token=token,response=response)
+  post_succesful_visible_2(token,response)
 
   btn.classList.remove("submission_button_login--loading");
 
