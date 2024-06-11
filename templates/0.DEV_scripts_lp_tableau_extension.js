@@ -17,7 +17,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Succesful Login"
-    document.location.href = "https://apiportalfreelancer.lat/tableau/tableau_extension_api_html/?response="+text;
+    // document.location.href = "https://apiportalfreelancer.lat/tableau/tableau_extension_api_html/?response="+text;
 
   } else {
     
