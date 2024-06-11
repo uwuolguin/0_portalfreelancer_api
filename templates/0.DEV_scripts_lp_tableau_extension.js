@@ -47,10 +47,9 @@ async function postLogIn() {
   body.append("email", email)
   body.append("", "\\")
   body.append("password", password)
-  body.append("", "\\")
-  body.append("only_cookie", "si")
 
-  const response = await fetch("https://apiportalfreelancer.lat/auth/login_talent_firm", {
+
+  const response = await fetch("https://apiportalfreelancer.lat/auth/login_talent_firm?only_cookie=si", {
     body,
     headers: {
     Accept: "application/json"
