@@ -1,9 +1,9 @@
 
-async function post_succesful_visible_2(response){
+function post_succesful_visible_2(response){
 
 
   const status = ((response.status).toString()).substring(0, 1);
-  let text= await response.body()
+  let text= ""
   if (status ==="2") {
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("red_text")
