@@ -255,13 +255,13 @@ def tableau_create_cars_from_excel(login: str = Cookie(None)):
 
 
 @router.get('/tableau_extension_api_html',response_class=HTMLResponse)
-def tableau_extension_html(request: Request,login: str = Cookie(None)):
+def tableau_extension_html(request: Request,response: str):
 
     while True:
 
         try:
             try:
-                credentials=oath2.decode_access_token(login)
+                credentials=oath2.decode_access_token(response)
 
                 if dict(credentials).get("role") == "superadmin":
                     login_role_value="superadmin"
