@@ -40,7 +40,8 @@ def getConnection():
 @router.post("/login_talent_firm",status_code=status.HTTP_201_CREATED)
 def login_function(
     email: Annotated[EmailStr,Form(),BeforeValidator(schemas.check_long_str_80)],
-    password:Annotated[str,BeforeValidator(schemas.check_long_str_80),Form()]
+    password:Annotated[str,BeforeValidator(schemas.check_long_str_80),Form()],
+    only_cookie:str="no"
 
     ) -> Any:
     
@@ -100,15 +101,22 @@ def login_function(
         token_data={'firm_id':firm.get("firm_id"),'firm_email':email,'role':role}
         token=oath2.create_access_token(token_data)
         content = {"message": "cookie set"}
-        response = JSONResponse(content=content)
-        response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
 
-        update_firm=""" SELECT * FROM firm_update_by_id_just_logged_at('%s');"""
-        cursor.execute(update_firm % (str(firm.get("firm_id"))) )
-        conn_auth.commit()
+        if only_cookie!="no":
+            response=token
+            conn_auth.close()
+            return response
 
-        conn_auth.close()
-        return response
+        else:    
+            response = JSONResponse(content=content)
+            response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+
+            update_firm=""" SELECT * FROM firm_update_by_id_just_logged_at('%s');"""
+            cursor.execute(update_firm % (str(firm.get("firm_id"))) )
+            conn_auth.commit()
+
+            conn_auth.close()
+            return response
     
     if not(talent==None):
         role= "talent"
@@ -124,27 +132,40 @@ def login_function(
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail= f"BAD CREDENTIALS")
         token_data={'talent_id':talent.get("talent_id"),'talent_email':email,'role':role}
         token=oath2.create_access_token(token_data)
+        
         content = {"message": "cookie set"}
-        response = JSONResponse(content=content)
-        response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+        if only_cookie!="no":
+            response=token
+            conn_auth.close()
+            return response
 
-        update_talent=""" SELECT * FROM talent_update_by_id_just_logged_at('%s');"""
-        cursor.execute(update_talent % (str(talent.get("talent_id"))) )
-        conn_auth.commit()
+        else:    
+            response = JSONResponse(content=content)
+            response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
 
-        conn_auth.close()
-        return response
-    
+            update_talent=""" SELECT * FROM talent_update_by_id_just_logged_at('%s');"""
+            cursor.execute(update_talent % (str(talent.get("talent_id"))) )
+            conn_auth.commit()
+
+            conn_auth.close()
+            return response
+        
     if not(superadmin==None):
         role= "superadmin"
         token_data={'superadmin_id':1,'superadmin_email':email,'role':role}
         token=oath2.create_access_token(token_data)
         content = {"message": "cookie set"}
-        response = JSONResponse(content=content)
-        response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+        if only_cookie!="no":
+            response=token
+            conn_auth.close()
+            return response
 
-        conn_auth.close()
-        return response
+        else:    
+            response = JSONResponse(content=content)
+            response.set_cookie(key="login", value=token,max_age=settings.token_seconds,httponly=True)
+
+            conn_auth.close()
+            return response
     
     conn_auth.close()
     
