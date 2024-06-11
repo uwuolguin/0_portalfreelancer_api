@@ -1,9 +1,9 @@
 
-function post_succesful_visible_2(text,response){
+async function post_succesful_visible_2(response){
 
 
   const status = ((response.status).toString()).substring(0, 1);
-
+  let text= await response.body()
   if (status ==="2") {
     document.getElementById("succesful_post").classList.remove("hidden_div")
     document.getElementById("succesful_post").classList.remove("red_text")
@@ -56,7 +56,7 @@ async function postLogIn() {
     },
     method: "POST"
   })
-  .then((response) => post_succesful_visible_2(text=response.text(),response=response))
+  .then((response) => post_succesful_visible_2(response))
   .catch((error) => post_failed_visible(error));
 
 
