@@ -59,9 +59,9 @@ async function postLogIn() {
   })
 
 
-  const text = await response.text();
+  const body1 = await response.body();
 
-  console.log(text)
+  console.log(body1)
 
   btn.classList.remove("submission_button_login--loading");
 
