@@ -59,7 +59,7 @@ async function postLogIn() {
     },
     method: "POST"
   })
-  .then((response) => post_succesful_visible_2(response.body()))
+  .then((response) => post_succesful_visible_2(response.json()))
   .catch((error) => post_failed_visible(error));
 
 
