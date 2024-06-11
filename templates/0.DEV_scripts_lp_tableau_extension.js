@@ -59,7 +59,7 @@ async function postLogIn() {
   })
 
 
-  const body1 = await response.body();
+  const body1 = await response.json();
 
   console.log(body1)
 
