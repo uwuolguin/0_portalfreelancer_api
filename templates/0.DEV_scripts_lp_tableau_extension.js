@@ -1,6 +1,14 @@
 
 function post_succesful_visible_2(response){
 
+  console.log(response.status)
+  console.log(response.body)
+  console.log(response.text)
+
+  setTimeout(() => {
+    document.getElementById("succesful_post").classList.add("hidden_div");
+    document.getElementById("failed_post").classList.add("hidden_div");
+  }, "50000");
 
   const status = ((response.status).toString()).substring(0, 1);
   let text= ""
