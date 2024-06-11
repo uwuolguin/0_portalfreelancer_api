@@ -255,7 +255,7 @@ def tableau_create_cars_from_excel(login: str = Cookie(None)):
 
 
 @router.get('/tableau_extension_api_html',response_class=HTMLResponse)
-def tableau_extension_html(request: Request,response: str):
+def tableau_extension_html(request: Request,response: str="default"):
 
     while True:
 
