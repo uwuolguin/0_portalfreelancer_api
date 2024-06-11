@@ -2,7 +2,9 @@
 function post_succesful_visible_2(response){
 
 
-  const status = ((response.status).toString()).substring(0, 1);
+  console.log(response.body.toString())
+
+  const status = ((response.status).toString()).substring(0, 1);response.toString
 
   if (status ==="2") {
     document.getElementById("succesful_post").classList.remove("hidden_div")
