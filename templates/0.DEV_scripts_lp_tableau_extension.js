@@ -2,7 +2,7 @@
 function post_succesful_visible_2(response){
 
 
-  console.log(response.json)
+  console.log(response.json())
 
   const status = ((response.status).toString()).substring(0, 1);response.toString
 
