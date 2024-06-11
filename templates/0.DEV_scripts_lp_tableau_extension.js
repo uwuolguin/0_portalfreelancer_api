@@ -1,27 +1,24 @@
 
 function post_succesful_visible_2(response){
 
-  console.log(response)
 
+  const status = ((response.status).toString()).substring(0, 1);
 
+  if (status ==="2") {
+    document.getElementById("succesful_post").classList.remove("hidden_div")
+    document.getElementById("succesful_post").classList.remove("red_text")
+    document.getElementById("succesful_post").classList.add("green_text")
+    document.getElementById("succesful_post").innerHTML="Succesful Login"
+    // document.location.href = "https://apiportalfreelancer.lat/tableau/tableau_extension_api_html";
 
-  // const status = ((response.status).toString()).substring(0, 1);
-  // let text= ""
-  // if (status ==="2") {
-  //   document.getElementById("succesful_post").classList.remove("hidden_div")
-  //   document.getElementById("succesful_post").classList.remove("red_text")
-  //   document.getElementById("succesful_post").classList.add("green_text")
-  //   document.getElementById("succesful_post").innerHTML="Succesful Login"
-  //   // document.location.href = "https://apiportalfreelancer.lat/tableau/tableau_extension_api_html/?response="+text;
-
-  // } else {
+  } else {
     
-  //   document.getElementById("succesful_post").classList.remove("hidden_div")
-  //   document.getElementById("succesful_post").classList.remove("green_text")
-  //   document.getElementById("succesful_post").classList.add("red_text")
-  //   document.getElementById("succesful_post").innerHTML="Failed Login"
+    document.getElementById("succesful_post").classList.remove("hidden_div")
+    document.getElementById("succesful_post").classList.remove("green_text")
+    document.getElementById("succesful_post").classList.add("red_text")
+    document.getElementById("succesful_post").innerHTML="Failed Login"
 
-  // }
+  }
 
 }
 
@@ -51,7 +48,6 @@ async function postLogIn() {
   body.append("", "\\")
   body.append("only_cookie", "si")
 
-
   await fetch("https://apiportalfreelancer.lat/auth/login_talent_firm", {
     body,
     headers: {
@@ -59,7 +55,7 @@ async function postLogIn() {
     },
     method: "POST"
   })
-  .then((response) => post_succesful_visible_2(response.json()))
+  .then((response) => post_succesful_visible_2(response))
   .catch((error) => post_failed_visible(error));
 
 
