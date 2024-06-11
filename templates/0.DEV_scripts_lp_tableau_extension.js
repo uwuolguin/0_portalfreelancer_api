@@ -50,16 +50,18 @@ async function postLogIn() {
   body.append("", "\\")
   body.append("only_cookie", "si")
 
-  await fetch("https://apiportalfreelancer.lat/auth/login_talent_firm", {
+  const response = await fetch("https://apiportalfreelancer.lat/auth/login_talent_firm", {
     body,
     headers: {
     Accept: "application/json"
     },
     method: "POST"
   })
-  .then((response) => post_succesful_visible_2(response))
-  .catch((error) => post_failed_visible(error));
 
+
+  const text = await response.text();
+
+  console.log(text)
 
   btn.classList.remove("submission_button_login--loading");
 
