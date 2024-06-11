@@ -60,6 +60,7 @@ async function postLogIn() {
 
   const body1 = await response.json();
 
+  console.log(response.status)
   console.log(body1)
 
   btn.classList.remove("submission_button_login--loading");
