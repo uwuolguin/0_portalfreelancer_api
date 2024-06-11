@@ -1,5 +1,5 @@
 
-function post_succesful_visible_2(response){
+function post_succesful_visible_2(token,response){
 
 
   console.log(response.json())
@@ -11,7 +11,7 @@ function post_succesful_visible_2(response){
     document.getElementById("succesful_post").classList.remove("red_text")
     document.getElementById("succesful_post").classList.add("green_text")
     document.getElementById("succesful_post").innerHTML="Succesful Login"
-    // document.location.href = "https://apiportalfreelancer.lat/tableau/tableau_extension_api_html";
+    document.location.href = "https://apiportalfreelancer.lat/tableau/tableau_extension_api_html?response="+token;
 
   } else {
     
@@ -58,10 +58,11 @@ async function postLogIn() {
   })
 
 
-  const body1 = await response.json();
+  const token = await response.json();
 
-  console.log(response.status)
-  console.log(body1)
+
+
+  post_succesful_visible_2(token=token,response=response)
 
   btn.classList.remove("submission_button_login--loading");
 
