@@ -6,7 +6,7 @@ function clog(a) {
     console.log(a); 
   }
   
-// Tableau Configuration  
+// Tableau Configuration Inside Anonymous Function  
 ( 
  function () {
 
