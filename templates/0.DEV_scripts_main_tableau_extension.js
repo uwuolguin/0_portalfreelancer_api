@@ -1,10 +1,11 @@
 'use strict';
 
-// Wrap everything in an anonymous function to avoid polluting the global namespace
+// Function to use in Tableau Configuration
 function clog(a) {
   // Function returns the product of a and b
     console.log(a); 
   }
+  
 // Tableau Configuration  
 (
 
