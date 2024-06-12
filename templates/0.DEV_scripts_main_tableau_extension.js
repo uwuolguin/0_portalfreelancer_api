@@ -2,6 +2,8 @@
 
 // Function to use in Tableau Configuration or in General
 
+//Tableau Configuration and After
+
 //
   async function tableauConfig() {
 
@@ -20,11 +22,8 @@
       await tableauConfig()
       //Here define what you wnna do after  Tableau Configuration
       console.log("After Test")
-
-
         
   }
-  
 
 // Tableau Configuration Function
  
@@ -34,7 +33,8 @@ function tableauInitialize() {
           
         tableau.extensions.initializeAsync().then(function () {
 
-         afterTableauConfig();  
+         afterTableauConfig(); 
+          
         }
         , function (err) {
             // Something went wrong in initialization.
