@@ -1,7 +1,13 @@
 'use strict';
 
 // Wrap everything in an anonymous function to avoid polluting the global namespace
+function clog(a) {
+  // Function returns the product of a and b
+    console.log(a); 
+  }
+// Tableau Configuration  
 (
+
  
  function () {
 
@@ -16,7 +22,7 @@
             return sheet.name === "summary_table";
           });
 
-          console.log(worksheet);
+          clog(worksheet);
 
 
           }
