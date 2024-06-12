@@ -19,6 +19,7 @@
     await dataTableReader.releaseAsync();
 
     console.log(dataTable.data)
+    console.log(dataTable.totalRowCount)
 
   }
 //
