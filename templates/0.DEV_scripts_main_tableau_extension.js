@@ -30,9 +30,7 @@ function tableauConfig() {
           
         tableau.extensions.initializeAsync().then(function () {
 
-         clog();
-
-          
+         clog();  
         }
         , function (err) {
             // Something went wrong in initialization.
@@ -43,3 +41,4 @@ function tableauConfig() {
         });
 };
 
+tableauConfig();
