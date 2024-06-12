@@ -18,7 +18,7 @@
     const dataTable = await dataTableReader.getAllPagesAsync();
     await dataTableReader.releaseAsync();
 
-    console.log(dataTable.columns)
+    console.log(dataTable.data)
 
   }
 //
