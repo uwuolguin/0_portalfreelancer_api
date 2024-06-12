@@ -10,9 +10,9 @@ function clog(a) {
  
 async function tableauConfig() {
 
-    document.addEventListener('DOMContentLoaded', ()=>{
+    document.addEventListener('DOMContentLoaded', async ()=>{
           
-        tableau.extensions.initializeAsync().then(function () {
+        await tableau.extensions.initializeAsync().then(function () {
 
           //Here you define your Tableau related code
           const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
