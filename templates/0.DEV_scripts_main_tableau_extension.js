@@ -1,49 +1,45 @@
 'use strict';
 
 // Function to use in Tableau Configuration or in General
-function clog(a) {
-  // Function returns the product of a and b
-    console.log(a); 
+
+//
+  async function workSheetObjectOfSummaryTable() {
+
+    const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+
+    // Find summary_table worksheet
+    const worksheet = worksheets.find(function (sheet) {
+      return sheet.name === "summary_table";
+    });
+
+    return worksheet;
+  }
+//
+  async function clog() {
+      worksheet= await workSheetObjectOfSummaryTable() 
+      console.log(worksheet.name); 
+        
   }
   
+
 // Tableau Configuration Function
  
-async function tableauConfig() {
+function tableauConfig() {
 
-    document.addEventListener('DOMContentLoaded', async ()=>{
+    document.addEventListener('DOMContentLoaded', ()=>{
           
-        await tableau.extensions.initializeAsync().then(function () {
+        tableau.extensions.initializeAsync().then(function () {
 
-          //Here you define your Tableau related code
-          const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+         clog();
 
-          // Find summary_table worksheet
-          var worksheet = worksheets.find(function (sheet) {
-            return sheet.name === "summary_table";
-          });
-
-          clog(worksheet.name);
           
-          
-          }
-           , function (err) {
+        }
+        , function (err) {
             // Something went wrong in initialization.
             console.log('Error while Initializing: ' + err.toString());
-          });
+        });
           
 
         });
 };
 
-// Function in which you are going to define what to do after Tableau's Configuration
-
-async function afterTableausConfiguration(){
-  await tableauConfig();
-  // now wait for tableauConfig to finish...
-  clog("After Tableau's Configuration Test");
-
-};
-
-//Execute Functions
-
-afterTableausConfiguration();
