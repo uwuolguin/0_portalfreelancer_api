@@ -36,7 +36,7 @@ async function tableauConfig() {
 };
 
 // Function in which you are going to define what to do after Tableau's Configuration
-console.log("after_tableau_inizialitation");
+
 async function afterTableausConfiguration(){
   await tableauConfig();
   // now wait for tableauConfig to finish...
