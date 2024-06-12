@@ -3,7 +3,7 @@
 // Function to use in Tableau Configuration or in General
 
 //
-  async function workSheetObjectOfSummaryTable() {
+  async function tableauConfig() {
 
     const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
@@ -12,25 +12,29 @@
       return sheet.name === "summary_table";
     });
 
-    return worksheet;
+    console.log(worksheet.name); 
+
   }
 //
-  async function clog() {
-      const worksheet= await workSheetObjectOfSummaryTable() 
-      console.log(worksheet.name); 
+  async function afterTableauConfig() {
+      await tableauConfig()
+      //Here define what you wnna do after  Tableau Configuration
+      console.log("After Test")
+
+
         
   }
   
 
 // Tableau Configuration Function
  
-function tableauConfig() {
+function tableauInitialize() {
 
     document.addEventListener('DOMContentLoaded', ()=>{
           
         tableau.extensions.initializeAsync().then(function () {
 
-         clog();  
+         afterTableauConfig();  
         }
         , function (err) {
             // Something went wrong in initialization.
