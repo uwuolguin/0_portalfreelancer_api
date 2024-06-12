@@ -22,7 +22,7 @@ function clog(a) {
             return sheet.name === "summary_table";
           });
 
-          clog(worksheet);
+          clog(worksheet.name);
 
 
           }
