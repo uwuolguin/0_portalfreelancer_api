@@ -4,10 +4,10 @@
 (
  
  function () {
-
+    var worksheet;
     document.addEventListener('DOMContentLoaded', ()=>{
         tableau.extensions.initializeAsync().then(function () {
-          var worksheet;
+
           const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
           // Find summary_table worksheet
