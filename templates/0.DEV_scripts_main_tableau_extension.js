@@ -33,7 +33,7 @@
                 });
               });
       
-              console.log(dashboardDataSources);
+              console.log(dashboardDataSources.toString());
       
               // This just modifies the UI by removing the loading banner and showing the dataSources table.
 
