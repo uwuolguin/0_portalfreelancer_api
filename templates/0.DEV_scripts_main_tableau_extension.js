@@ -1,6 +1,6 @@
 'use strict';
 
-// Function to use in Tableau Configuration or in General
+// Functions to use in Tableau Configuration or in General
 
 //Tableau Configuration and After
 
@@ -14,13 +14,17 @@
       return sheet.name === "summary_table";
     });
 
-    console.log(worksheet.name); 
+    const dataTableReader = await worksheet.getSummaryDataReaderAsync();
+    const dataTable = await dataTableReader.getAllPagesAsync();
+    await dataTableReader.releaseAsync();
+
+    console.log(dataTable)
 
   }
 //
   async function afterTableauConfig() {
       await tableauConfig()
-      //Here define what you wnna do after  Tableau Configuration
+      //Here define what you wanna do after  Tableau Configuration
       console.log("After Test")
         
   }
