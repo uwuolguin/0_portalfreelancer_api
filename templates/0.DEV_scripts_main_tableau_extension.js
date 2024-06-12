@@ -10,7 +10,7 @@
           const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
           // Find summary_table worksheet
-          var worksheet = worksheets.find(function (sheet) {
+          const worksheet = worksheets.find(function (sheet) {
             return sheet.name === "summary_table";
           });
           }
