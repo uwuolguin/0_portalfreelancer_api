@@ -13,7 +13,8 @@
           var worksheet = worksheets.find(function (sheet) {
             return sheet.name === "summary_table";
           });
-          console.log(worksheet)
+          console.log(worksheet);
+          console.log(worksheet.name);
           }
            , function (err) {
             // Something went wrong in initialization.
