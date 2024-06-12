@@ -16,7 +16,7 @@
   }
 //
   async function clog() {
-      worksheet= await workSheetObjectOfSummaryTable() 
+      const worksheet= await workSheetObjectOfSummaryTable() 
       console.log(worksheet.name); 
         
   }
