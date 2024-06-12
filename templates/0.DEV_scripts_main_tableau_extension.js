@@ -1,19 +1,20 @@
 'use strict';
 
-// Function to use in Tableau Configuration
+// Function to use in Tableau Configuration or in General
 function clog(a) {
   // Function returns the product of a and b
     console.log(a); 
   }
   
-// Tableau Configuration Inside Anonymous Function  
-( 
- function () {
+// Tableau Configuration Function
+ 
+async function tableauConfig() {
 
     document.addEventListener('DOMContentLoaded', ()=>{
           
         tableau.extensions.initializeAsync().then(function () {
 
+          //Here you define your Tableau related code
           const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
           // Find summary_table worksheet
@@ -22,7 +23,7 @@ function clog(a) {
           });
 
           clog(worksheet.name);
-
+          
 
           }
            , function (err) {
@@ -32,8 +33,17 @@ function clog(a) {
           
 
         });
-}
+};
 
-)();
-
+// Function in which you are going to define what to do after Tableau's Configuration
 console.log("after_tableau_inizialitation");
+async function afterTableausConfiguration(){
+  await tableauConfig();
+  // now wait for tableauConfig to finish...
+  clog("After Tableau's Configuration Test");
+
+};
+
+//Execute Functions
+
+afterTableausConfiguration();
