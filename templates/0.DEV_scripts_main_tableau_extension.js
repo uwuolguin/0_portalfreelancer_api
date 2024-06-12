@@ -7,9 +7,7 @@ function clog(a) {
   }
   
 // Tableau Configuration  
-(
-
- 
+( 
  function () {
 
     document.addEventListener('DOMContentLoaded', ()=>{
@@ -34,8 +32,8 @@ function clog(a) {
           
 
         });
-
-
 }
 
 )();
+
+console.log("after_tableau_inizialitation");
