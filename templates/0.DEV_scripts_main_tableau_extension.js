@@ -6,7 +6,13 @@
  function () {
 
     document.addEventListener('DOMContentLoaded', ()=>{
+          
         tableau.extensions.initializeAsync().then(function () {
+
+
+
+          console.log(worksheet);
+
 
           }
            , function (err) {
@@ -14,16 +20,16 @@
             console.log('Error while Initializing: ' + err.toString());
           });
           
-          const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
-
-          // Find summary_table worksheet
-          var worksheet = worksheets.find(function (sheet) {
-            return sheet.name === "summary_table";
-          });
-
-          console.log(worksheet);
 
         });
+
+        const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+
+        // Find summary_table worksheet
+        var worksheet = worksheets.find(function (sheet) {
+          return sheet.name === "summary_table";
+        });
+
 }
 
 )();
