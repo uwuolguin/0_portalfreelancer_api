@@ -45,4 +45,4 @@ function tableauInitialize() {
         });
 };
 
-tableauConfig();
+tableauInitialize();
