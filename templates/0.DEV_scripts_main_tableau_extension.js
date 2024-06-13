@@ -1,11 +1,6 @@
 'use strict';
 
 // Functions to use in Tableau Configuration or in General
-function hola(){
-
-console.log("hola")
-
-}
 
 //Tableau Configuration and After
 
@@ -61,16 +56,8 @@ function tableauInitialize() {
          afterTableauConfig(); 
 
         /////////////////////////////////////////////////////////////////////////////////
-
-         const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
-
-         // Find summary_table worksheet
-         const worksheet = worksheets.find(function (sheet) {
-           return sheet.name === "summary_table";
-         });
-        
-         
-         let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, hola);
+                   
+         let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, tableauConfig);
 
         ////////////////////////////////////////////////////////////////////////////////////
         }
