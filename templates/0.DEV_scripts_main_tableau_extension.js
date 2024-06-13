@@ -63,8 +63,9 @@ function tableauInitialize() {
          const worksheet = worksheets.find(function (sheet) {
            return sheet.name === "summary_table";
          });
-
-         let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("uwu"));
+        
+         hola=console.log("uwu")
+         let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, hola);
 
         ////////////////////////////////////////////////////////////////////////////////////
         }
