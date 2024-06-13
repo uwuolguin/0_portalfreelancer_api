@@ -38,7 +38,7 @@ async function getBestSellingCar(worksheet) {
 
     getBestSellingCar(worksheet);
 
-    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChangedEvent, getBestSellingCar(worksheet));
+    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChanged, getBestSellingCar(worksheet));
 
 
   }
