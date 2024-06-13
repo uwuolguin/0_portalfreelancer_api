@@ -35,19 +35,13 @@
     console.log(maxURL)
     console.log(maxValue)
 
-    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("jaja"));
-
-    return unregisterHandlerFunction
-
-
-
   }
 //
   async function afterTableauConfig() {
+
       event1= await tableauConfig()
       //Here define what you wanna do after  Tableau Configuration
       console.log("After Test")
-      console.log(event1)
         
   }
 
@@ -60,7 +54,19 @@ function tableauInitialize() {
         tableau.extensions.initializeAsync().then(function () {
 
          afterTableauConfig(); 
-          
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+         const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+
+         // Find summary_table worksheet
+         const worksheet = worksheets.find(function (sheet) {
+           return sheet.name === "summary_table";
+         });
+
+         let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("uwu"));
+
+        ////////////////////////////////////////////////////////////////////////////////////
         }
         , function (err) {
             // Something went wrong in initialization.
