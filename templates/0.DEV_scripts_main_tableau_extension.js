@@ -7,33 +7,41 @@
 //
   async function tableauConfig() {
 
-    const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+    try {
+      const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
-    // Find summary_table worksheet
-    const worksheet = worksheets.find(function (sheet) {
-      return sheet.name === "summary_table";
-    });
-
-
-    const dataTableReader = await worksheet.getSummaryDataReaderAsync();
-    const dataTable = await dataTableReader.getAllPagesAsync();
-    await dataTableReader.releaseAsync();
-  
-    let maxValue=0
-    let maxURL=""
-
-    for (let i = 2; i < dataTable.totalRowCount; i += 3) {
+      // Find summary_table worksheet
+      const worksheet = worksheets.find(function (sheet) {
+        return sheet.name === "summary_table";
+      });
   
   
-      if (maxValue < dataTable.data[i][4]['_value']) {
-        maxValue = dataTable.data[i][4]['_value'];
-        maxURL=dataTable.data[i][1]['_value']
+      const dataTableReader = await worksheet.getSummaryDataReaderAsync();
+      const dataTable = await dataTableReader.getAllPagesAsync();
+      await dataTableReader.releaseAsync();
+    
+      let maxValue=0
+      let maxURL=""
+  
+      for (let i = 2; i < dataTable.totalRowCount; i += 3) {
+    
+    
+        if (maxValue < dataTable.data[i][4]['_value']) {
+          maxValue = dataTable.data[i][4]['_value'];
+          maxURL=dataTable.data[i][1]['_value']
+        }
       }
-    }
-    document.getElementById("imageid").src=maxURL;
+      document.getElementById("imageid").src=maxURL;
+    
+      console.log(maxURL)
+      console.log(maxValue)
   
-    console.log(maxURL)
-    console.log(maxValue)
+    } catch (error) {
+      console.error(error);
+
+      document.getElementById("imageid").src="";
+    }
+    
 
   }
 //
@@ -62,7 +70,7 @@ function tableauInitialize() {
         const worksheet = worksheets.find(function (sheet) {
           return sheet.name === "summary_table";
         });
-        
+
          let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, tableauConfig);
 
         ////////////////////////////////////////////////////////////////////////////////////
