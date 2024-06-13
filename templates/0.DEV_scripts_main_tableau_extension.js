@@ -1,6 +1,11 @@
 'use strict';
 
 // Functions to use in Tableau Configuration or in General
+function hola(){
+
+console.log("hola")
+
+}
 
 //Tableau Configuration and After
 
@@ -64,7 +69,7 @@ function tableauInitialize() {
            return sheet.name === "summary_table";
          });
         
-         hola=console.log("uwu")
+         
          let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, hola);
 
         ////////////////////////////////////////////////////////////////////////////////////
