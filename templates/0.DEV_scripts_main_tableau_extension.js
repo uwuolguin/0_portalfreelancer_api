@@ -18,6 +18,11 @@
     const dataTable = await dataTableReader.getAllPagesAsync();
     await dataTableReader.releaseAsync();
 
+    for (let i = 0; i < dataTable.totalRowCount; i += 3) {
+      console.log(dataTable.data[i])
+      console.log(dataTable.totalRowCount
+    }
+
     console.log(dataTable.data)
     console.log(dataTable.totalRowCount)
 
