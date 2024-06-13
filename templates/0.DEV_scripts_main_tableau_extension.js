@@ -18,8 +18,11 @@
     const dataTable = await dataTableReader.getAllPagesAsync();
     await dataTableReader.releaseAsync();
 
+    let maxValue=0
+    let maxURL=""
     for (let i = 2; i < dataTable.totalRowCount; i += 3) {
-      console.log(dataTable.data[i])
+      console.log(dataTable.data[i][1]['_value'])
+      console.log(dataTable.data[i][4]['_value'])
 
     }
 
