@@ -1,7 +1,7 @@
 'use strict';
 
 // Functions to use in Tableau Configuration or in General
-async function getBestSellingCar() {
+async function getBestSellingCar(worksheet) {
 
   const dataTableReader = await worksheet.getSummaryDataReaderAsync();
   const dataTable = await dataTableReader.getAllPagesAsync();
@@ -36,9 +36,9 @@ async function getBestSellingCar() {
     });
 
 
-    getBestSellingCar();
+    getBestSellingCar(worksheet);
 
-    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChangedEvent, getBestSellingCar);
+    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChangedEvent, getBestSellingCar(worksheet));
 
 
   }
