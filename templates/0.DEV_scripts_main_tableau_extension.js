@@ -37,7 +37,7 @@
 
     ;
 
-    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChanged, console.log("changeSummaryData"));
+    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("changeSummaryData"));
 
 
   }
