@@ -39,7 +39,7 @@
 //
   async function afterTableauConfig() {
 
-      event1= await tableauConfig()
+      await tableauConfig()
       //Here define what you wanna do after  Tableau Configuration
       console.log("After Test")
         
