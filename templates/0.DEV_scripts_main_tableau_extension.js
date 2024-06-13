@@ -36,16 +36,15 @@
     console.log(maxValue)
 
     let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("jaja"));
-    ;
 
-
+    return unregisterHandlerFunction
 
 
 
   }
 //
   async function afterTableauConfig() {
-      await tableauConfig()
+      event= await tableauConfig()
       //Here define what you wanna do after  Tableau Configuration
       console.log("After Test")
         
