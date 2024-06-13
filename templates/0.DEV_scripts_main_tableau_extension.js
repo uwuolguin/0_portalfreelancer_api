@@ -1,28 +1,7 @@
 'use strict';
 
 // Functions to use in Tableau Configuration or in General
-async function getBestSellingCar(worksheet) {
 
-  const dataTableReader = await worksheet.getSummaryDataReaderAsync();
-  const dataTable = await dataTableReader.getAllPagesAsync();
-  await dataTableReader.releaseAsync();
-
-  let maxValue=0
-  let maxURL=""
-  for (let i = 2; i < dataTable.totalRowCount; i += 3) {
-
-
-    if (maxValue < dataTable.data[i][4]['_value']) {
-      maxValue = dataTable.data[i][4]['_value'];
-      maxURL=dataTable.data[i][1]['_value']
-    }
-  }
-  document.getElementById("imageid").src=maxURL;
-
-  console.log(maxURL)
-  console.log(maxValue)
-
-}
 //Tableau Configuration and After
 
 //
@@ -36,9 +15,29 @@ async function getBestSellingCar(worksheet) {
     });
 
 
-    getBestSellingCar(worksheet);
+    const dataTableReader = await worksheet.getSummaryDataReaderAsync();
+    const dataTable = await dataTableReader.getAllPagesAsync();
+    await dataTableReader.releaseAsync();
+  
+    let maxValue=0
+    let maxURL=""
 
-    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChanged, getBestSellingCar(worksheet));
+    for (let i = 2; i < dataTable.totalRowCount; i += 3) {
+  
+  
+      if (maxValue < dataTable.data[i][4]['_value']) {
+        maxValue = dataTable.data[i][4]['_value'];
+        maxURL=dataTable.data[i][1]['_value']
+      }
+    }
+    document.getElementById("imageid").src=maxURL;
+  
+    console.log(maxURL)
+    console.log(maxValue)
+
+    ;
+
+    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChanged, console.log("changeSummaryData"));
 
 
   }
