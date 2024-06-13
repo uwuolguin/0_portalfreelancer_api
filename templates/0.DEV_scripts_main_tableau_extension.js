@@ -35,6 +35,7 @@
     console.log(maxURL)
     console.log(maxValue)
 
+    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("jaja"));
     ;
 
 
@@ -57,15 +58,6 @@ function tableauInitialize() {
     document.addEventListener('DOMContentLoaded', ()=>{
           
         tableau.extensions.initializeAsync().then(function () {
-
-          const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
-
-          // Find summary_table worksheet
-          const worksheet = worksheets.find(function (sheet) {
-            return sheet.name === "summary_table";
-          });
-
-          let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.FilterChanged, console.log("changeFilterData"));
 
          afterTableauConfig(); 
           
