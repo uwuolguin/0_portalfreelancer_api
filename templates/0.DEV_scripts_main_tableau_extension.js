@@ -21,13 +21,16 @@
     let maxValue=0
     let maxURL=""
     for (let i = 2; i < dataTable.totalRowCount; i += 3) {
-      console.log(dataTable.data[i][1]['_value'])
-      console.log(dataTable.data[i][4]['_value'])
 
+
+      if (maxValue < dataTable.data[i][4]['_value']) {
+        maxValue = dataTable.data[i][4]['_value'];
+        maxURL=dataTable.data[i][1]['_value']
+      }
     }
 
-    console.log(dataTable.data)
-    console.log(dataTable.totalRowCount)
+    console.log(maxURL)
+    console.log(maxValue)
 
   }
 //
