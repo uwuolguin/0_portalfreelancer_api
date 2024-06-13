@@ -1,7 +1,24 @@
 'use strict';
 
 // Functions to use in Tableau Configuration or in General
+function getBestSellingCar(dataTable) {
 
+  let maxValue=0
+  let maxURL=""
+  for (let i = 2; i < dataTable.totalRowCount; i += 3) {
+
+
+    if (maxValue < dataTable.data[i][4]['_value']) {
+      maxValue = dataTable.data[i][4]['_value'];
+      maxURL=dataTable.data[i][1]['_value']
+    }
+  }
+  document.getElementById("imageid").src=maxURL;
+
+  console.log(maxURL)
+  console.log(maxValue)
+
+}
 //Tableau Configuration and After
 
 //
@@ -18,20 +35,8 @@
     const dataTable = await dataTableReader.getAllPagesAsync();
     await dataTableReader.releaseAsync();
 
-    let maxValue=0
-    let maxURL=""
-    for (let i = 2; i < dataTable.totalRowCount; i += 3) {
+    getBestSellingCar(dataTable);
 
-
-      if (maxValue < dataTable.data[i][4]['_value']) {
-        maxValue = dataTable.data[i][4]['_value'];
-        maxURL=dataTable.data[i][1]['_value']
-      }
-    }
-    document.getElementById("imageid").src=maxURL;
-
-    console.log(maxURL)
-    console.log(maxValue)
 
   }
 //
