@@ -39,7 +39,7 @@
     } catch (error) {
       console.error(error);
 
-      document.getElementById("imageid").src="";
+      document.getElementById("imageid").src="https://apiportalfreelancer.lat/static/giphy.gif";
     }
     
 
