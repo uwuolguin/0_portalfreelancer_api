@@ -28,6 +28,7 @@
         maxURL=dataTable.data[i][1]['_value']
       }
     }
+    document.getElementById("imageid").src=maxURL;
 
     console.log(maxURL)
     console.log(maxValue)
