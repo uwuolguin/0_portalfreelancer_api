@@ -1,7 +1,11 @@
 'use strict';
 
 // Functions to use in Tableau Configuration or in General
-function getBestSellingCar(dataTable) {
+async function getBestSellingCar() {
+
+  const dataTableReader = await worksheet.getSummaryDataReaderAsync();
+  const dataTable = await dataTableReader.getAllPagesAsync();
+  await dataTableReader.releaseAsync();
 
   let maxValue=0
   let maxURL=""
@@ -31,11 +35,10 @@ function getBestSellingCar(dataTable) {
       return sheet.name === "summary_table";
     });
 
-    const dataTableReader = await worksheet.getSummaryDataReaderAsync();
-    const dataTable = await dataTableReader.getAllPagesAsync();
-    await dataTableReader.releaseAsync();
 
-    getBestSellingCar(dataTable);
+    getBestSellingCar();
+
+    let unregisterHandlerFunction = worksheet.addEventListener(tableau.TableauEventType.SummaryDataChangedEvent, getBestSellingCar);
 
 
   }
