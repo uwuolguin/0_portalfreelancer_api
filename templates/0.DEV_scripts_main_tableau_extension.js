@@ -63,7 +63,7 @@ function tableauInitialize() {
 
          afterTableauConfig(); 
 
-        /////////////////////////////////////////////////////////////////////////////////
+        ////////////////////// Event listeners and Handelers Logic //////////////////////////////////////////////////
         const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
         // Find summary_table worksheet

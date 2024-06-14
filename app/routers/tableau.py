@@ -248,7 +248,7 @@ def tableau_create_cars_from_excel(login: str = Cookie(None)):
 
         name="cars_from_excel", # table name
         con=engine,  # engine
-        if_exists="replace", #  If the table already exists, append
+        if_exists="replace", #  If the table already exists, deletes
         index=False # no index
 
     )
