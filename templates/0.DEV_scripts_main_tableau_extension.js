@@ -32,7 +32,8 @@
         }
       }
       document.getElementById("imageid").src=maxURL;
-    
+      
+      console.log(dataTable)
       console.log(maxURL)
       console.log(maxValue)
   
@@ -63,7 +64,7 @@ function tableauInitialize() {
 
          afterTableauConfig(); 
 
-        ////////////////////// Event listeners and Handelers Logic //////////////////////////////////////////////////
+        ////////////////////// Event Listeners and Handelers Logic //////////////////////////////////////////////////
         const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
 
         // Find summary_table worksheet
