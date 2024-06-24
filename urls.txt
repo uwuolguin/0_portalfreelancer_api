@@ -1,0 +1,15 @@
+Learn FastAPI: https://fastapi.tiangolo.com/learn/
+Tableau Extension API MAIN FILE: https://github.com/tableau/extensions-api/tree/main/lib
+Free Tableau Instance: https://www.tableau.com/developer
+Tableau Extension API Docs: https://tableau.github.io/extensions-api/docs/
+Tableau Extension Manifest File: https://tableau.github.io/extensions-api/docs/dashext/trex_manifest
+
+
+gitHub Endpoint: https://github.com/uwuolguin/0_portalfreelancer_api/blob/main/app/routers/tableau.py
+PortalFreelancer Endpoint: https://apiportalfreelancer.lat/tableau/tableau_extension_api_html
+
+gitHub HTML:https://github.com/uwuolguin/0_portalfreelancer_api/blob/main/templates/16_tableau_extension_demo.html
+gitHub .js:https://github.com/uwuolguin/0_portalfreelancer_api/blob/main/templates/0.DEV_scripts_main_tableau_extension.js
+gitHub .trex:https://github.com/uwuolguin/0_portalfreelancer_api/blob/main/templates/16_tableau_extension_demo.trex
+
+
