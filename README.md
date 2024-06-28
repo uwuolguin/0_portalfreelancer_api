@@ -1,3 +1,3 @@
 App URL: https://apiportalfreelancer.lat/
 
-App Main Feature picture: https://apiportalfreelancer.lat/static/Portal_Freelancer_Find_Talent.png
+Presentation Video: https://www.youtube.com/watch?v=uHXwy3r5Wx8&t=32s
